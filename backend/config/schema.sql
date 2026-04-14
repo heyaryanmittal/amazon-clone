@@ -3,8 +3,6 @@
 -- Run this file to set up the database
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS amazon_clone CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE amazon_clone;
 
 -- ============================================
 -- USERS TABLE

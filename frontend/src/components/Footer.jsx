@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, Shield, Truck} from 'lucide-react';
+import { Globe, Shield, Truck } from 'lucide-react';
 
 const Footer = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -61,7 +61,7 @@ const Footer = () => {
       <div className="bg-[#131921] py-8 px-4 flex flex-col items-center text-center">
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 mb-8 border-t border-b border-[#3a4553] w-full py-6">
           <Link to="/" className="flex items-center justify-center">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-7 pt-1 filter invert" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-7 pt-1 filter invert hue-rotate-180" />
           </Link>
           <div className="flex items-center justify-center gap-2">
             <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
@@ -69,7 +69,7 @@ const Footer = () => {
               <span>English</span>
             </div>
             <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
-               <span>₹ INR - Indian Rupee</span>
+              <span>₹ INR - Indian Rupee</span>
             </div>
             <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
               <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" className="h-3 w-4 mt-0.5 object-cover" />
@@ -102,7 +102,7 @@ const Footer = () => {
           <a href="#" className="text-[#ccc] hover:underline">Privacy Notice</a>
           <a href="#" className="text-[#ccc] hover:underline">Interest-Based Ads</a>
         </div>
-        
+
         <p className="text-[11px] text-[#ccc] mt-2">
           © 1996-2024, Amazon.com, Inc. or its affiliates | Amazon Clone by Aryan Mittal
         </p>
