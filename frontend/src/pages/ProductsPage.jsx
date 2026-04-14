@@ -111,11 +111,11 @@ const ProductsPage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="max-w-[1500px] mx-auto px-4">
       {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <Link to="/">Home</Link>
-        <span className="breadcrumb-separator">›</span>
+      <div className="py-3 text-[12px] text-[#565959] flex items-center gap-1.5">
+        <Link to="/" className="text-[#565959] no-underline hover:text-[#C45500] hover:underline">Home</Link>
+        <span className="mx-1">›</span>
         {search ? (
           <span>Search results for "{search}"</span>
         ) : selectedCategory ? (
@@ -127,28 +127,27 @@ const ProductsPage = () => {
         )}
       </div>
 
-      <div className="products-page">
+      <div className="flex flex-col md:flex-row items-start py-4 gap-4 pb-12">
         {/* Sidebar */}
-        <aside className="sidebar" id="products-sidebar">
-          <div className="sidebar-card">
-            <div className="sidebar-title">Department</div>
-            <div className="filter-section">
+        <aside className="w-full md:w-[240px] shrink-0 md:border-r border-[#ececec] pr-4" id="products-sidebar">
+          <div className="mb-4">
+            <div className="font-bold text-[14px] mb-2">Department</div>
+            <div>
               <div
-                className={`filter-item ${!selectedCategory ? 'font-bold' : ''}`}
+                className="text-[13px] text-[#111] mb-1.5 flex items-center gap-1 cursor-pointer hover:text-[#C45500]"
                 onClick={() => handleCategoryChange('')}
-                style={{ fontWeight: !selectedCategory ? 700 : 400, cursor: 'pointer' }}
+                style={{ fontWeight: !selectedCategory ? 700 : 400 }}
               >
                 All Categories ({pagination.total || 0})
               </div>
               {categories.map(cat => (
                 <div
                   key={cat.id}
-                  className="filter-item"
+                  className="text-[13px] text-[#111] mb-1.5 flex items-center gap-1 cursor-pointer hover:text-[#C45500]"
                   onClick={() => handleCategoryChange(cat.slug)}
                   style={{
                     fontWeight: selectedCategory === cat.slug ? 700 : 400,
                     color: selectedCategory === cat.slug ? '#C45500' : undefined,
-                    cursor: 'pointer',
                   }}
                 >
                   {cat.icon} {cat.name} ({cat.product_count || 0})
@@ -157,11 +156,11 @@ const ProductsPage = () => {
             </div>
           </div>
 
-          <div className="sidebar-card">
-            <div className="sidebar-title">Avg. Customer Review</div>
-            <div className="filter-section">
+          <div className="mb-4">
+            <div className="font-bold text-[14px] mb-2">Avg. Customer Review</div>
+            <div>
               {[4, 3, 2].map(stars => (
-                <div key={stars} className="filter-item">
+                <div key={stars} className="text-[13px] text-[#111] mb-1.5 flex items-center gap-1 cursor-pointer hover:text-[#C45500]">
                   <span style={{ color: '#FF9900' }}>{'★'.repeat(stars)}{'☆'.repeat(5 - stars)}</span>
                   <span style={{ marginLeft: 4 }}>& Up</span>
                 </div>
@@ -169,11 +168,11 @@ const ProductsPage = () => {
             </div>
           </div>
 
-          <div className="sidebar-card">
-            <div className="sidebar-title">Price</div>
-            <div className="filter-section">
+          <div className="mb-4">
+            <div className="font-bold text-[14px] mb-2">Price</div>
+            <div>
               <div
-                className="filter-item"
+                className="text-[13px] text-[#111] mb-1.5 flex items-center gap-1 cursor-pointer hover:text-[#C45500]"
                 onClick={() => handlePriceRange(null)}
                 style={{ cursor: 'pointer', fontWeight: priceRange.max === 999999 && priceRange.min === 0 ? 700 : 400 }}
               >
@@ -182,7 +181,7 @@ const ProductsPage = () => {
               {PRICE_RANGES.map((range, i) => (
                 <div
                   key={i}
-                  className="filter-item"
+                  className="text-[13px] text-[#111] mb-1.5 flex items-center gap-1 cursor-pointer hover:text-[#C45500]"
                   style={{ cursor: 'pointer', fontWeight: priceRange.min === range.min && priceRange.max === range.max ? 700 : 400 }}
                   onClick={() => handlePriceRange(range)}
                 >
@@ -192,9 +191,9 @@ const ProductsPage = () => {
             </div>
           </div>
 
-          <div className="sidebar-card">
-            <div className="sidebar-title">Amazon Prime</div>
-            <div className="filter-item">
+          <div className="mb-4">
+            <div className="font-bold text-[14px] mb-2">Amazon Prime</div>
+            <div className="text-[13px] text-[#111] mb-1.5 flex items-center gap-1 cursor-pointer hover:text-[#C45500]">
               <input type="checkbox" id="prime-filter" />
               <label htmlFor="prime-filter" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
                 <span style={{ color: '#00A8E0', fontWeight: 700, fontStyle: 'italic' }}>prime</span>
@@ -205,10 +204,10 @@ const ProductsPage = () => {
         </aside>
 
         {/* Products Area */}
-        <div className="products-area">
+        <div className="flex-1 min-w-0 w-full">
           {/* Toolbar */}
-          <div className="products-toolbar">
-            <div className="products-count">
+          <div className="flex items-center justify-between mb-2 pb-2 border-b border-[#ececec]">
+            <div className="text-[14px] text-[#565959]">
               {search && (
                 <span>Results for <strong>"{search}"</strong>: </span>
               )}
@@ -220,7 +219,7 @@ const ProductsPage = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ fontSize: 14, color: '#565959' }}>Sort by:</span>
               <select
-                className="sort-select"
+                className="bg-[#F0F2F2] border border-[#D5D9D9] rounded-[8px] px-[10px] py-[4px] text-[13px] shadow-[0_2px_5px_rgba(15,17,17,0.15)] outline-none hover:bg-[#E3E6E6] cursor-pointer"
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
                 id="sort-select"
@@ -256,21 +255,21 @@ const ProductsPage = () => {
 
           {/* Products Grid */}
           {loading ? (
-            <div className="section">
-              <div className="loading-spinner"><div className="spinner"></div></div>
+            <div className="bg-white mb-2 p-6 rounded-[3px]">
+              <div className="flex justify-center py-12"><div className="w-8 h-8 border-[3px] border-[#f3f3f3] border-t-[#FF9900] rounded-full animate-spin"></div></div>
             </div>
           ) : products.length === 0 ? (
-            <div className="section">
-              <div className="empty-state">
-                <span className="empty-state-icon">🔍</span>
+            <div className="bg-white mb-2 p-6 rounded-[3px]">
+              <div className="flex flex-col items-center justify-center p-12 text-center text-[#565959] bg-white rounded-lg border border-[#eee]">
+                <span className="text-5xl mb-4 opacity-50">🔍</span>
                 <h2>No products found</h2>
                 <p>Try adjusting your search or filter to find what you're looking for.</p>
-                <Link to="/products" className="btn-primary">Browse All Products</Link>
+                <Link to="/products" className="bg-[#FF9900] text-[#333] border border-[#c45500] rounded-full py-1.5 px-3.5 font-semibold text-[13px] inline-flex items-center gap-2 cursor-pointer transition-all duration-150 no-underline hover:bg-[#e68a00] mt-4">Browse All Products</Link>
               </div>
             </div>
           ) : (
             <>
-              <div className="products-grid" id="products-grid">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4" id="products-grid">
                 {products.map(product => (
                   <ProductCard key={product.id} product={product} showBuyNow />
                 ))}
@@ -278,9 +277,9 @@ const ProductsPage = () => {
 
               {/* Pagination */}
               {pagination.totalPages > 1 && (
-                <div className="pagination">
+                <div className="flex justify-center gap-2 mt-8 py-4 border-t border-[#ececec]">
                   <button
-                    className="page-btn"
+                    className="px-3 py-1.5 bg-white border border-[#D5D9D9] rounded-[3px] text-[13px] cursor-pointer shadow-[0_1px_2px_rgba(15,17,17,0.15)] transition-all hover:bg-[#F7FAFA] disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handlePageChange(page - 1)}
                     disabled={page === 1}
                   >
@@ -291,7 +290,7 @@ const ProductsPage = () => {
                     return (
                       <button
                         key={pageNum}
-                        className={`page-btn ${page === pageNum ? 'active' : ''}`}
+                        className={`px-3 py-1.5 bg-white border border-[#D5D9D9] rounded-[3px] text-[13px] cursor-pointer shadow-[0_1px_2px_rgba(15,17,17,0.15)] transition-all hover:bg-[#F7FAFA] ${page === pageNum ? 'bg-[#F0F2F2] border-black text-black font-bold' : ''}`}
                         onClick={() => handlePageChange(pageNum)}
                       >
                         {pageNum}
@@ -299,7 +298,7 @@ const ProductsPage = () => {
                     );
                   })}
                   <button
-                    className="page-btn"
+                    className="px-3 py-1.5 bg-white border border-[#D5D9D9] rounded-[3px] text-[13px] cursor-pointer shadow-[0_1px_2px_rgba(15,17,17,0.15)] transition-all hover:bg-[#F7FAFA] disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handlePageChange(page + 1)}
                     disabled={page === pagination.totalPages}
                   >

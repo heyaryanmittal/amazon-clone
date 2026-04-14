@@ -38,15 +38,15 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-header">
+    <div className="flex flex-col items-center min-h-[calc(100vh-140px)] py-4">
+      <div className="mb-4 pb-2 z-[2]">
         <Link to="/" style={{ fontSize: 32, fontWeight: 800, color: '#131921', textDecoration: 'none' }}>
           amazon<span style={{ color: '#FF9900' }}>.in</span>
         </Link>
       </div>
 
-      <div className="auth-card" id="register-form">
-        <h1>Create account</h1>
+      <div className="w-[350px] p-[26px] bg-white border border-[#DDD] rounded-[3px] mb-6 flex flex-col z-[2]" id="register-form">
+        <h1 className="text-[28px] font-normal mb-4">Create account</h1>
 
         <form onSubmit={handleSubmit}>
           {[
@@ -56,11 +56,11 @@ const RegisterPage = () => {
             { key: 'password', label: 'Password', type: 'password', placeholder: 'At least 6 characters', id: 'reg-password' },
             { key: 'confirmPassword', label: 'Re-enter password', type: 'password', placeholder: 'Re-enter password', id: 'reg-confirm-password' },
           ].map(field => (
-            <div key={field.key} className="form-group" style={{ marginBottom: 12 }}>
-              <label className="form-label">{field.label}</label>
+            <div key={field.key} className="mb-[12px]">
+              <label className="block text-[13px] font-bold mb-1 pl-0.5">{field.label}</label>
               <input
                 type={field.type}
-                className="form-input"
+                className="w-full h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)]"
                 value={form[field.key]}
                 onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))}
                 placeholder={field.placeholder}
@@ -72,7 +72,7 @@ const RegisterPage = () => {
 
           <button
             type="submit"
-            className="auth-submit"
+            className="w-full bg-[#f0c14b] text-[#111] border border-[#a88734] border-t-[#c89411] border-b-[#846a29] rounded-[3px] py-1 px-3 text-[13px] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] mt-2 mb-2 hover:bg-[#f4d078] cursor-pointer"
             disabled={loading}
             id="register-submit-btn"
           >
@@ -80,13 +80,13 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p className="auth-agree">
-          By creating an account, you agree to Amazon's <a href="#">Conditions of Use</a> and{' '}
-          <a href="#">Privacy Notice</a>.
+        <p className="text-[12px] leading-[1.5] mt-[18px] text-[#111]">
+          By creating an account, you agree to Amazon's <a href="#" className="text-[#0066c0] hover:text-[#c45500] hover:underline">Conditions of Use</a> and{' '}
+          <a href="#" className="text-[#0066c0] hover:text-[#c45500] hover:underline">Privacy Notice</a>.
         </p>
 
-        <div className="auth-switch">
-          Already have an account? <Link to="/login">Sign in</Link>
+        <div className="mt-[22px] pt-[14px] border-t border-[#e7e7e7] text-[#767676] text-[13px] text-center">
+          Already have an account? <Link to="/login" className="text-[#0066c0] hover:text-[#c45500] hover:underline">Sign in</Link>
         </div>
       </div>
     </div>

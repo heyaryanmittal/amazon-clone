@@ -94,7 +94,7 @@ const CheckoutPage = () => {
   const total = subtotal + tax + shipping;
 
   return (
-    <div className="container">
+    <div className="max-w-[1500px] mx-auto px-4">
       {/* Header */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 8,
@@ -109,65 +109,65 @@ const CheckoutPage = () => {
         </div>
       </div>
 
-      <div className="checkout-page" id="checkout-page">
+      <div className="flex flex-col lg:flex-row gap-6 max-w-[1280px] mx-auto items-start pb-20" id="checkout-page">
         {/* Left Column */}
-        <div className="checkout-main">
+        <div className="flex-1 min-w-0 flex flex-col gap-4 w-full">
           {/* Step 1: Shipping Address */}
-          <div className="checkout-section" id="shipping-address-form">
-            <div className="checkout-section-title">
-              <span style={{ background: '#131921', color: 'white', borderRadius: 50, width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, marginRight: 8 }}>1</span>
+          <div className="border-b border-[#CCC] pb-6" id="shipping-address-form">
+            <div className="text-[22px] font-bold text-[#C45500] mb-4 flex items-center">
+              <span className="bg-[#131921] text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-[13px] mr-2">1</span>
               Enter a new shipping address
             </div>
 
-            <div className="form-grid">
-              <div className="form-group">
-                <label className="form-label">Full Name *</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-3 pl-0 md:pl-8">
+              <div className="flex flex-col gap-1">
+                <label className="text-[13px] font-bold text-[#111]">Full Name *</label>
                 <input
                   type="text"
                   name="shipping_name"
-                  className={`form-input ${errors.shipping_name ? 'error' : ''}`}
+                  className={`h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] ${errors.shipping_name ? 'border-[#CC0C39] shadow-[0_0_0_2px_rgba(204,12,57,0.2)]' : ''}`}
                   value={form.shipping_name}
                   onChange={handleChange}
                   placeholder="First and last name"
                   id="input-full-name"
                 />
-                {errors.shipping_name && <span className="form-error">{errors.shipping_name}</span>}
+                {errors.shipping_name && <span className="text-[#CC0C39] text-[12px] font-bold mt-1">{errors.shipping_name}</span>}
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Phone Number *</label>
+              <div className="flex flex-col gap-1">
+                <label className="text-[13px] font-bold text-[#111]">Phone Number *</label>
                 <input
                   type="tel"
                   name="shipping_phone"
-                  className={`form-input ${errors.shipping_phone ? 'error' : ''}`}
+                  className={`h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] ${errors.shipping_phone ? 'border-[#CC0C39] shadow-[0_0_0_2px_rgba(204,12,57,0.2)]' : ''}`}
                   value={form.shipping_phone}
                   onChange={handleChange}
                   placeholder="+91 XXXXX XXXXX"
                   id="input-phone"
                 />
-                {errors.shipping_phone && <span className="form-error">{errors.shipping_phone}</span>}
+                {errors.shipping_phone && <span className="text-[#CC0C39] text-[12px] font-bold mt-1">{errors.shipping_phone}</span>}
               </div>
 
-              <div className="form-group full-width">
-                <label className="form-label">Address Line 1 *</label>
+              <div className="flex flex-col gap-1 col-span-1 md:col-span-2">
+                <label className="text-[13px] font-bold text-[#111]">Address Line 1 *</label>
                 <input
                   type="text"
                   name="shipping_address_line1"
-                  className={`form-input ${errors.shipping_address_line1 ? 'error' : ''}`}
+                  className={`h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] ${errors.shipping_address_line1 ? 'border-[#CC0C39] shadow-[0_0_0_2px_rgba(204,12,57,0.2)]' : ''}`}
                   value={form.shipping_address_line1}
                   onChange={handleChange}
                   placeholder="House/Flat No., Building name, Street"
                   id="input-address1"
                 />
-                {errors.shipping_address_line1 && <span className="form-error">{errors.shipping_address_line1}</span>}
+                {errors.shipping_address_line1 && <span className="text-[#CC0C39] text-[12px] font-bold mt-1">{errors.shipping_address_line1}</span>}
               </div>
 
-              <div className="form-group full-width">
-                <label className="form-label">Address Line 2 (Optional)</label>
+              <div className="flex flex-col gap-1 col-span-1 md:col-span-2">
+                <label className="text-[13px] font-bold text-[#111]">Address Line 2 (Optional)</label>
                 <input
                   type="text"
                   name="shipping_address_line2"
-                  className="form-input"
+                  className="h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)]"
                   value={form.shipping_address_line2}
                   onChange={handleChange}
                   placeholder="Landmark, Area"
@@ -175,40 +175,40 @@ const CheckoutPage = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <label className="form-label">City *</label>
+              <div className="flex flex-col gap-1">
+                <label className="text-[13px] font-bold text-[#111]">City *</label>
                 <input
                   type="text"
                   name="shipping_city"
-                  className={`form-input ${errors.shipping_city ? 'error' : ''}`}
+                  className={`h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] ${errors.shipping_city ? 'border-[#CC0C39] shadow-[0_0_0_2px_rgba(204,12,57,0.2)]' : ''}`}
                   value={form.shipping_city}
                   onChange={handleChange}
                   placeholder="City"
                   id="input-city"
                 />
-                {errors.shipping_city && <span className="form-error">{errors.shipping_city}</span>}
+                {errors.shipping_city && <span className="text-[#CC0C39] text-[12px] font-bold mt-1">{errors.shipping_city}</span>}
               </div>
 
-              <div className="form-group">
-                <label className="form-label">PIN Code *</label>
+              <div className="flex flex-col gap-1">
+                <label className="text-[13px] font-bold text-[#111]">PIN Code *</label>
                 <input
                   type="text"
                   name="shipping_pincode"
-                  className={`form-input ${errors.shipping_pincode ? 'error' : ''}`}
+                  className={`h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] ${errors.shipping_pincode ? 'border-[#CC0C39] shadow-[0_0_0_2px_rgba(204,12,57,0.2)]' : ''}`}
                   value={form.shipping_pincode}
                   onChange={handleChange}
                   placeholder="6-digit PIN"
                   maxLength={6}
                   id="input-pincode"
                 />
-                {errors.shipping_pincode && <span className="form-error">{errors.shipping_pincode}</span>}
+                {errors.shipping_pincode && <span className="text-[#CC0C39] text-[12px] font-bold mt-1">{errors.shipping_pincode}</span>}
               </div>
 
-              <div className="form-group">
-                <label className="form-label">State *</label>
+              <div className="flex flex-col gap-1">
+                <label className="text-[13px] font-bold text-[#111]">State *</label>
                 <select
                   name="shipping_state"
-                  className={`form-select ${errors.shipping_state ? 'error' : ''}`}
+                  className={`h-[31px] px-[7px] py-[3px] text-[13px] bg-[#F0F2F2] border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] ${errors.shipping_state ? 'border-[#CC0C39] shadow-[0_0_0_2px_rgba(204,12,57,0.2)]' : ''}`}
                   value={form.shipping_state}
                   onChange={handleChange}
                   id="input-state"
@@ -218,25 +218,25 @@ const CheckoutPage = () => {
                     <option key={s} value={s}>{s}</option>
                   ))}
                 </select>
-                {errors.shipping_state && <span className="form-error">{errors.shipping_state}</span>}
+                {errors.shipping_state && <span className="text-[#CC0C39] text-[12px] font-bold mt-1">{errors.shipping_state}</span>}
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Country</label>
+              <div className="flex flex-col gap-1">
+                <label className="text-[13px] font-bold text-[#111]">Country</label>
                 <input
                   type="text"
-                  className="form-input"
+                  className="h-[31px] px-[7px] py-[3px] text-[13px] border border-[#a6a6a6] rounded-[3px]"
                   value="India"
                   disabled
                   style={{ background: '#f5f5f5' }}
                 />
               </div>
 
-              <div className="form-group full-width">
-                <label className="form-label">Delivery Instructions (Optional)</label>
+              <div className="flex flex-col gap-1 col-span-1 md:col-span-2">
+                <label className="text-[13px] font-bold text-[#111]">Delivery Instructions (Optional)</label>
                 <textarea
                   name="notes"
-                  className="form-input"
+                  className="px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)]"
                   value={form.notes}
                   onChange={handleChange}
                   placeholder="Any special instructions for delivery..."
@@ -249,16 +249,16 @@ const CheckoutPage = () => {
           </div>
 
           {/* Step 2: Payment */}
-          <div className="checkout-section" id="payment-section">
-            <div className="checkout-section-title">
-              <span style={{ background: '#131921', color: 'white', borderRadius: 50, width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, marginRight: 8 }}>2</span>
+          <div className="border-b border-[#CCC] pb-6" id="payment-section">
+            <div className="text-[22px] font-bold text-[#C45500] mb-4 flex items-center">
+              <span className="bg-[#131921] text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-[13px] mr-2">2</span>
               Choose a payment method
             </div>
 
             {PAYMENT_METHODS.map(method => (
               <div
                 key={method.value}
-                className={`payment-option ${paymentMethod === method.value ? 'selected' : ''}`}
+                className={`flex items-center gap-3 p-3 border rounded mb-2 cursor-pointer transition-all hover:border-[#e77600] ${paymentMethod === method.value ? 'border-[#e77600] bg-[#fdfaf6] shadow-[0_0_0_2px_rgba(228,121,17,0.2)]' : 'border-[#ececec] bg-[#f7f7f7]'}`}
                 onClick={() => setPaymentMethod(method.value)}
                 id={`payment-${method.value}`}
               >
@@ -270,44 +270,44 @@ const CheckoutPage = () => {
                   onChange={() => setPaymentMethod(method.value)}
                 />
                 <span style={{ fontSize: 20 }}>{method.icon}</span>
-                <div className="payment-option-info">
-                  <strong>{method.label}</strong>
-                  <small>{method.desc}</small>
+                <div className="flex flex-col">
+                  <strong className="text-[#0F1111] text-[14px] leading-[1]">{method.label}</strong>
+                  <small className="text-[#565959] text-[12px] mt-0.5">{method.desc}</small>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Step 3: Review Items */}
-          <div className="checkout-section" id="order-review">
-            <div className="checkout-section-title">
-              <span style={{ background: '#131921', color: 'white', borderRadius: 50, width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, marginRight: 8 }}>3</span>
+          <div className="border-b border-[#CCC] pb-6" id="order-review">
+            <div className="text-[22px] font-bold text-[#C45500] mb-4 flex items-center">
+              <span className="bg-[#131921] text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-[13px] mr-2">3</span>
               Review items and delivery
             </div>
 
             {items.map(item => (
-              <div key={item.cart_id} className="order-review-item">
+              <div key={item.cart_id} className="flex items-start gap-4 p-4 border border-[#ececec] rounded mb-3">
                 <img
                   src={item.image || 'https://via.placeholder.com/70x70/f7f7f7/aaaaaa?text=Product'}
                   alt={item.name}
-                  className="order-review-img"
+                  className="w-[70px] h-[70px] object-contain flex-shrink-0"
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/70x70/f7f7f7/aaaaaa?text=Product'; }}
                 />
                 <div style={{ flex: 1 }}>
-                  <div className="order-review-name">{item.name}</div>
-                  <div className="order-review-qty">Qty: {item.quantity}</div>
+                  <div className="text-[#007185] font-bold text-[14px] leading-[1.3] mb-1">{item.name}</div>
+                  <div className="text-[#565959] text-[13px]">Qty: {item.quantity}</div>
                   {item.is_prime && (
                     <div style={{ fontSize: 11, color: '#00A8E0', fontWeight: 700, fontStyle: 'italic', marginTop: 2 }}>prime</div>
                   )}
                 </div>
-                <div className="order-review-price">
+                <div className="font-bold text-[14px] text-[#B12704] flex-shrink-0 whitespace-nowrap">
                   ₹{(item.price * item.quantity).toLocaleString('en-IN')}
                 </div>
               </div>
             ))}
 
             <button
-              className="place-order-btn"
+              className="w-full bg-[#f0c14b] text-[#111] border border-[#a88734] border-t-[#c89411] border-b-[#846a29] rounded-[3px] py-1 px-3 text-[13px] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] mt-4 mb-2 hover:bg-[#f4d078] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handlePlaceOrder}
               disabled={loading || items.length === 0}
               id="place-order-btn"
@@ -331,9 +331,9 @@ const CheckoutPage = () => {
         </div>
 
         {/* Right: Summary */}
-        <div className="checkout-summary-box" id="checkout-summary">
+        <div className="w-full lg:w-[320px] p-[18px] bg-white border border-[#DDD] rounded shrink-0" id="checkout-summary">
           <button
-            className="place-order-btn"
+            className="w-full bg-[#f0c14b] text-[#111] border border-[#a88734] border-t-[#c89411] border-b-[#846a29] rounded-[3px] py-2 px-3 text-[13px] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] mb-2 hover:bg-[#f4d078] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={handlePlaceOrder}
             disabled={loading || items.length === 0}
             id="place-order-btn-top"
@@ -352,25 +352,25 @@ const CheckoutPage = () => {
               Order Summary
             </div>
 
-            <div className="summary-row">
+            <div className="flex justify-between text-[14px] mb-2 text-[#0F1111]">
               <span>Items ({summary.totalItems}):</span>
               <span>₹{subtotal.toLocaleString('en-IN')}</span>
             </div>
-            <div className="summary-row">
+            <div className="flex justify-between text-[14px] mb-2 text-[#0F1111]">
               <span>Shipping & handling:</span>
               <span style={{ color: shipping === 0 ? '#007600' : undefined }}>
                 {shipping === 0 ? 'FREE' : `₹${shipping}`}
               </span>
             </div>
-            <div className="summary-row">
+            <div className="flex justify-between text-[14px] mb-2 text-[#0F1111]">
               <span>Before tax:</span>
               <span>₹{subtotal.toLocaleString('en-IN')}</span>
             </div>
-            <div className="summary-row">
+            <div className="flex justify-between text-[14px] mb-2 text-[#0F1111]">
               <span>Estimated GST (18%):</span>
               <span>₹{tax.toLocaleString('en-IN')}</span>
             </div>
-            <div className="summary-row total">
+            <div className="flex justify-between text-[14px] mb-2 text-[#0F1111] font-bold mt-3 pt-3 border-t border-[#DDD] sm:text-[18px]">
               <span>Order total:</span>
               <span style={{ color: '#CC0C39' }}>₹{total.toLocaleString('en-IN')}</span>
             </div>

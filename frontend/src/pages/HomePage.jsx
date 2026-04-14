@@ -1,63 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Truck, RotateCcw, Shield, Headphones } from 'lucide-react';
-import { getFeaturedProducts, getCategories } from '../services/api';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getFeaturedProducts } from '../services/api';
 import ProductCard from '../components/ProductCard';
 
-const HERO_SLIDES = [
+const HERO_IMAGES = [
+  'https://images-eu.ssl-images-amazon.com/images/G/31/Events/V20/GW/Models/hero_pc_5_2x._CB583694086_.jpg',
+  'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wireless/devjyoti/GW/Uber/Nov/D103625178_DesktopTallHero_3000x1200_V3._CB558389732_.jpg',
+  'https://images-eu.ssl-images-amazon.com/images/G/31/img24/Sports/April/April_1/GW/Unrec/Hero/Sports__outdoor_PC_Hero_3000x1200._CB560505191_.jpg',
+  'https://images-eu.ssl-images-amazon.com/images/G/31/img21/MA2024/GW/August/Unrec/Mens-Polos-PC._CB565611100_.jpg'
+];
+
+const QUAD_CARDS = [
   {
-    bg: 'linear-gradient(135deg, #131921 0%, #1a2a3c 100%)',
-    tag: '🔥 Deal of the Day',
-    title: 'MacBook Air M3',
-    subtitle: 'Up to ₹15,000 off. Limited time offer.',
-    btn: 'Shop Now',
-    link: '/products?category=electronics',
-    accent: '#FF9900',
-    emoji: '💻'
+    title: 'Revamp your home in style',
+    link: 'Explore all',
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_furnishings_2._SY116_CB584596691_.jpg', label: 'Cushion covers, bedsheets & more' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_decor_1._SY116_CB584596691_.jpg', label: 'Figurines, vases & more' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_storage_1._SY116_CB584596691_.jpg', label: 'Home storage' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_lighting_2._SY116_CB584596691_.jpg', label: 'Lighting solutions' }
+    ]
   },
   {
-    bg: 'linear-gradient(135deg, #0f3460 0%, #16213e 100%)',
-    tag: '⚡ Lightning Deal',
-    title: 'Samsung Galaxy S24 Ultra',
-    subtitle: 'Save ₹25,000. While stocks last!',
-    btn: 'Grab Now',
-    link: '/products?category=electronics',
-    accent: '#00A8E0',
-    emoji: '📱'
+    title: 'Appliances for your home | Up to 55% off',
+    link: 'See more',
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg', label: 'Air conditioners' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg', label: 'Refrigerators' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg', label: 'Microwaves' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg', label: 'Washing machines' }
+    ]
   },
   {
-    bg: 'linear-gradient(135deg, #1e3a2f 0%, #0d2416 100%)',
-    tag: '📚 Bestsellers',
-    title: 'Top Books of 2024',
-    subtitle: 'Up to 60% off on bestselling titles',
-    btn: 'Browse Books',
-    link: '/products?category=books',
-    accent: '#4CAF50',
-    emoji: '📖'
+    title: 'Up to 60% off | Styles for women',
+    link: 'See all offers',
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/Mac/PC_QC_sun_186x116._SY116_CB636110853_.jpg', label: "Women's Clothing" },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/Mac/PC_QC_boho_186x116._SY116_CB636110853_.jpg', label: 'Footwear & Handbags' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/Mac/PC_QC_pata_186x116._SY116_CB636110853_.jpg', label: 'Watches' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/Mac/PC_QC_tent_186x116._SY116_CB636110853_.jpg', label: 'Fashion jewellery' }
+    ]
   },
   {
-    bg: 'linear-gradient(135deg, #3d1a6e 0%, #1a0a3d 100%)',
-    tag: '🎮 Gaming Week',
-    title: 'Toys & Games Sale',
-    subtitle: 'Free delivery on orders above ₹499',
-    btn: 'Shop Games',
-    link: '/products?category=toys-games',
-    accent: '#9c27b0',
-    emoji: '🎯'
+    title: 'Starting ₹149 | Headphones',
+    link: 'See all offers',
+    isSingle: true,
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/june/CE/GW/QC/PC/PC_QuadCard_boAt._SY116_CB553870684_.jpg' 
   }
 ];
 
-const CATEGORIES = [
-  { name: 'Electronics', slug: 'electronics', icon: '📱' },
-  { name: 'Books', slug: 'books', icon: '📚' },
-  { name: 'Fashion', slug: 'fashion', icon: '👗' },
-  { name: 'Home & Kitchen', slug: 'home-kitchen', icon: '🏠' },
-  { name: 'Sports & Fitness', slug: 'sports-fitness', icon: '⚽' },
-  { name: 'Toys & Games', slug: 'toys-games', icon: '🎮' },
-  { name: 'Beauty & Health', slug: 'beauty-health', icon: '💄' },
-  { name: 'Automotive', slug: 'automotive', icon: '🚗' },
-  { name: 'Grocery', slug: 'grocery', icon: '🛒' },
-  { name: 'Office Products', slug: 'office-products', icon: '💼' },
+const SINGLE_CARDS = [
+  {
+    title: 'Up to 75% off | Electronics & accessories',
+    link: 'See all offers',
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/june/CE/GW/QC/PC/PC_QuadCard_boAt_0.5x._SY116_CB553870684_.jpg', // Placeholder
+    fallbackImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/june/CE/GW/QC/PC/PC_QuadCard_boAt._SY116_CB553870684_.jpg'
+  },
+  {
+    title: 'Automotive essentials | Up to 60% off',
+    link: 'See more',
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Glasscare1X._SY116_CB410830553_.jpg', // Placeholder
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Glasscare1X._SY116_CB410830553_.jpg', label: 'Cleaning accessories' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Rim_tyrecare1x._SY116_CB410830552_.jpg', label: 'Tyre & rim care' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Vega_helmet_186x116._SY116_CB405090404_.jpg', label: 'Helmets' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Vaccum1x._SY116_CB410830552_.jpg', label: 'Vacuum cleaner' }
+    ]
+  },
+  {
+    title: 'Starting ₹199 | Amazon Brands & more',
+    link: 'Shop now',
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_1_186x116._SY116_CB580665970_.jpg', label: 'Starting ₹299 | Home essentials' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_2_186x116._SY116_CB580665970_.jpg', label: 'Up to 60% off | Daily essentials' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_3_186x116._SY116_CB580665970_.jpg', label: 'Up to 50% off | Electronics' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_4_186x116._SY116_CB580665970_.jpg', label: 'Starting ₹199 | Undergarments' }
+    ]
+  },
+  {
+    title: 'Deals on related items',
+    link: 'See all deals',
+    isSingle: true,
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Electronics/Clearance/Clearance_store_Desktop_CC_1x._SY304_CB628315133_.jpg'
+  }
 ];
 
 const HomePage = () => {
@@ -66,279 +92,162 @@ const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    document.title = 'Amazon.in: Online Shopping India | Amazon Clone';
-    const loadData = async () => {
-      try {
-        const { data } = await getFeaturedProducts();
-        setFeatured(data.products || []);
-      } catch (err) {
-        console.error('Failed to load featured products');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
+    document.title = 'Amazon.in: Online Shopping India - Buy mobiles, laptops, cameras, books, watches, apparel, shoes and e-Gift Cards.';
+    getFeaturedProducts().then(({ data }) => {
+      setFeatured(data.products || []);
+    }).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   // Auto-advance carousel
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % HERO_SLIDES.length);
+      setCurrentSlide(prev => (prev + 1) % HERO_IMAGES.length);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
 
-  const slide = HERO_SLIDES[currentSlide];
+  const slideImg = HERO_IMAGES[currentSlide];
 
   return (
-    <div>
-      {/* Hero Banner */}
-      <section
-        className="hero-section"
-        style={{ background: slide.bg, transition: 'background 0.6s ease' }}
-        id="hero-banner"
-      >
-        <div
-          style={{
-            maxWidth: 1400,
-            margin: '0 auto',
-            padding: '60px 24px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 32,
-            minHeight: 360,
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <div style={{
-              display: 'inline-block',
-              background: slide.accent,
-              color: slide.accent === '#FF9900' ? '#333' : 'white',
-              padding: '4px 14px',
-              borderRadius: 20,
-              fontSize: 13,
-              fontWeight: 700,
-              marginBottom: 16,
-            }}>
-              {slide.tag}
-            </div>
-            <h1 style={{
-              fontSize: 48,
-              fontWeight: 800,
-              color: 'white',
-              marginBottom: 16,
-              lineHeight: 1.1,
-            }}>
-              {slide.title}
-            </h1>
-            <p style={{ fontSize: 20, color: '#ccc', marginBottom: 32 }}>
-              {slide.subtitle}
-            </p>
-            <Link
-              to={slide.link}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: slide.accent === '#FF9900' ? '#FF9900' : slide.accent,
-                color: slide.accent === '#FF9900' ? '#333' : 'white',
-                padding: '12px 28px',
-                borderRadius: 8,
-                fontWeight: 700,
-                fontSize: 16,
-                textDecoration: 'none',
-                transition: 'transform 0.2s ease',
-              }}
-              onMouseOver={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              {slide.btn} <ArrowRight size={18} />
-            </Link>
-          </div>
-          <div style={{
-            fontSize: 180,
-            lineHeight: 1,
-            opacity: 0.9,
-            animation: 'float 3s ease-in-out infinite',
-            display: 'flex',
-            alignItems: 'center',
-          }}>
-            {slide.emoji}
-          </div>
-        </div>
-
-        {/* Slide Controls */}
-        <div style={{
-          position: 'absolute',
-          bottom: 16,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: 8,
-          alignItems: 'center',
-        }}>
-          {HERO_SLIDES.map((_, i) => (
-            <button
+    <div className="bg-[#e3e6e6]">
+      {/* Hero Banner Area */}
+      <div className="relative mx-auto w-full max-w-[1500px]">
+        {/* Carousel Image */}
+        <div className="relative h-[230px] md:h-[400px] lg:h-[600px] w-full overflow-hidden">
+          {HERO_IMAGES.map((img, i) => (
+            <img 
               key={i}
-              onClick={() => setCurrentSlide(i)}
-              style={{
-                width: i === currentSlide ? 24 : 8,
-                height: 8,
-                borderRadius: 4,
-                background: i === currentSlide ? '#FF9900' : 'rgba(255,255,255,0.4)',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
+              src={img} 
+              alt="Hero Banner" 
+              className={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-500 ease-in-out ${i === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
             />
           ))}
+          {/* Gradient Overlay to blend into the main background */}
+          <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#e3e6e6] to-transparent z-20 pointer-events-none"></div>
         </div>
 
+        {/* Carousel Controls */}
         <button
-          onClick={() => setCurrentSlide(prev => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
-          style={{
-            position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)',
-            background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: 50,
-            width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'white', cursor: 'pointer', backdropFilter: 'blur(4px)',
-          }}
+          onClick={() => setCurrentSlide(prev => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+          className="absolute z-30 left-4 top-[10%] md:top-[20%] text-[#333] cursor-pointer hover:border-[#008296] border-[2px] border-transparent p-2 focus:border-[#008296] focus:outline-none"
+          style={{ height: '35vh', width: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={48} className="drop-shadow-lg text-[#555]" />
         </button>
         <button
-          onClick={() => setCurrentSlide(prev => (prev + 1) % HERO_SLIDES.length)}
-          style={{
-            position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)',
-            background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: 50,
-            width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'white', cursor: 'pointer', backdropFilter: 'blur(4px)',
-          }}
+          onClick={() => setCurrentSlide(prev => (prev + 1) % HERO_IMAGES.length)}
+          className="absolute z-30 right-4 top-[10%] md:top-[20%] text-[#333] cursor-pointer hover:border-[#008296] border-[2px] border-transparent p-2 focus:border-[#008296] focus:outline-none"
+          style={{ height: '35vh', width: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <ChevronRight size={20} />
+          <ChevronRight size={48} className="drop-shadow-lg text-[#555]" />
         </button>
-      </section>
+      </div>
 
-      {/* Value Propositions */}
-      <div style={{
-        background: '#FF9900',
-        padding: '12px 0',
-      }}>
-        <div className="container" style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 48,
-          flexWrap: 'wrap',
-        }}>
-          {[
-            { icon: <Truck size={18} />, text: 'FREE Delivery on orders ₹499+' },
-            { icon: <RotateCcw size={18} />, text: '15-Day Easy Returns' },
-            { icon: <Shield size={18} />, text: 'Secure Payments' },
-            { icon: <Headphones size={18} />, text: '24x7 Customer Support' },
-          ].map((item, i) => (
-            <div key={i} style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              color: '#333', fontWeight: 600, fontSize: 13,
-            }}>
-              {item.icon} {item.text}
+      {/* Main Content Area - Overlapping the Hero image */}
+      <div className="relative z-30 max-w-[1500px] mx-auto px-4 mt-[-100px] md:mt-[-200px] lg:mt-[-350px]">
+        {/* Row 1 - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5">
+          {QUAD_CARDS.map((card, idx) => (
+            <div key={idx} className="bg-white p-5 flex flex-col min-h-[420px] max-h-[420px]">
+              <h2 className="text-[21px] font-bold text-[#0f1111] mb-2.5 leading-[1.2]">{card.title}</h2>
+              
+              {card.isSingle ? (
+                <div className="flex-1 overflow-hidden mb-4 rounded-sm">
+                  <Link to="/products"><img src={card.img} alt={card.title} className="w-full h-full object-cover bg-[#f3f4f6]" /></Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-6 flex-1 mb-4">
+                  {card.items.map((item, i) => (
+                    <div key={i} className="flex flex-col cursor-pointer">
+                      <Link to="/products"><img src={item.img} alt={item.label} className="w-full aspect-square object-cover mb-1 bg-[#f3f4f6] rounded-sm" /></Link>
+                      <Link to="/products" className="text-[12px] text-[#0f1111] no-underline line-clamp-2 hover:underline">{item.label}</Link>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              <Link to="/products" className="text-[13px] text-[#007185] no-underline hover:text-[#c45500] hover:underline mt-auto">
+                {card.link}
+              </Link>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Categories Grid */}
-      <div className="container" style={{ paddingTop: 16 }}>
-        <div className="section" id="categories-section">
-          <div className="section-header">
-            <h2 className="section-title">Shop by Category</h2>
-          </div>
-          <div className="category-banner-grid">
-            {CATEGORIES.map(cat => (
-              <Link
-                key={cat.slug}
-                to={`/products?category=${cat.slug}`}
-                className="category-card"
-                id={`category-${cat.slug}`}
-              >
-                <span className="category-icon">{cat.icon}</span>
-                <span className="category-name">{cat.name}</span>
+        {/* Row 2 - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5">
+          {SINGLE_CARDS.map((card, idx) => (
+            <div key={idx} className="bg-white p-5 flex flex-col min-h-[420px] max-h-[420px] relative">
+              <h2 className="text-[21px] font-bold text-[#0f1111] mb-2.5 leading-[1.2]">{card.title}</h2>
+              
+              {card.items ? (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-6 flex-1 mb-4">
+                  {card.items.map((item, i) => (
+                    <div key={i} className="flex flex-col cursor-pointer">
+                      <Link to="/products"><img src={item.img} alt={item.label} className="w-full aspect-square object-cover mb-1 bg-[#f3f4f6] rounded-sm" /></Link>
+                      <Link to="/products" className="text-[12px] text-[#0f1111] no-underline line-clamp-2 hover:underline">{item.label}</Link>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex-1 overflow-hidden mb-4 rounded-sm">
+                  <Link to="/products"><img src={card.img || card.fallbackImg} alt={card.title} className="w-full h-full object-cover bg-[#f3f4f6]" /></Link>
+                </div>
+              )}
+              
+              <Link to="/products" className="text-[13px] text-[#007185] no-underline hover:text-[#c45500] hover:underline mt-auto">
+                {card.link}
               </Link>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
-        {/* Featured Products */}
-        {loading ? (
-          <div className="section">
-            <div className="loading-spinner"><div className="spinner"></div></div>
-          </div>
-        ) : featured.length > 0 ? (
-          <div className="section" id="featured-products">
-            <div className="section-header">
-              <h2 className="section-title">⚡ Today's Deals</h2>
-              <Link to="/products?featured=true" className="see-more-link">
-                See all deals <ArrowRight size={14} style={{ display: 'inline' }} />
-              </Link>
-            </div>
-            <div className="products-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
-              {featured.slice(0, 10).map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="section">
-            <div className="section-header">
-              <h2 className="section-title">⚡ Today's Deals</h2>
-            </div>
-            <div style={{ textAlign: 'center', padding: 48, color: '#767676' }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🛍️</div>
-              <p>Connect to the backend to see featured products!</p>
-              <p style={{ fontSize: 13, marginTop: 8 }}>Make sure MySQL is running and the database is seeded.</p>
-            </div>
-          </div>
-        )}
-
-        {/* Deal Banners */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 16 }}>
-          {[
-            { bg: '#1a2a3c', emoji: '🎧', title: 'Electronics', sub: 'Up to 70% off', link: '/products?category=electronics', color: '#00A8E0' },
-            { bg: '#1e3a2f', emoji: '📚', title: 'Books & Education', sub: 'Start from ₹199', link: '/products?category=books', color: '#4CAF50' },
-            { bg: '#3c1f1f', emoji: '👟', title: 'Fashion & Lifestyle', sub: 'Top brands on sale', link: '/products?category=fashion', color: '#FF5722' },
-            { bg: '#1f1f3c', emoji: '🏠', title: 'Home Essentials', sub: 'Premium at best prices', link: '/products?category=home-kitchen', color: '#9c27b0' },
-          ].map((banner, i) => (
-            <Link
-              key={i}
-              to={banner.link}
-              style={{
-                display: 'block',
-                background: banner.bg,
-                borderRadius: 8,
-                padding: '24px 20px',
-                textDecoration: 'none',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              }}
-              onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)'; }}
-              onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-            >
-              <div style={{ fontSize: 40, marginBottom: 12 }}>{banner.emoji}</div>
-              <div style={{ color: 'white', fontWeight: 700, fontSize: 18, marginBottom: 4 }}>{banner.title}</div>
-              <div style={{ color: banner.color, fontSize: 14, fontWeight: 600 }}>{banner.sub}</div>
-              <div style={{ color: '#aaa', fontSize: 12, marginTop: 12, display: 'flex', alignItems: 'center', gap: 4 }}>
-                Shop now <ArrowRight size={12} />
-              </div>
+        {/* Horizontal Scroller - Today's Deals */}
+        <div className="bg-white p-5 mb-5">
+          <div className="flex items-end gap-4 mb-4">
+            <h2 className="text-[21px] font-bold text-[#0f1111]">Today's Deals</h2>
+            <Link to="/products?featured=true" className="text-[#007185] text-[14px] hover:text-[#c45500] hover:underline font-medium mb-1">
+              See all deals
             </Link>
-          ))}
+          </div>
+          
+          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4">
+            {loading ? (
+              [...Array(6)].map((_, i) => (
+                <div key={i} className="min-w-[200px] h-[250px] bg-[#f0f2f2] rounded-sm animate-pulse"></div>
+              ))
+            ) : featured.length > 0 ? (
+              featured.map(product => (
+                <div key={product.id} className="min-w-[200px] max-w-[200px] flex flex-col cursor-pointer group">
+                  <div className="h-[200px] bg-[#f7f7f7] mb-2 p-2 flex items-center justify-center rounded-sm overflow-hidden">
+                    <img 
+                      src={product.primary_image || 'https://via.placeholder.com/200x200?text=Product'} 
+                      alt={product.name} 
+                      className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform"
+                      onError={(e) => { e.target.src = 'https://via.placeholder.com/200x200?text=Product'; }}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="bg-[#CC0C39] text-white text-[12px] font-bold px-2 py-1 rounded-[3px]">
+                      Up to {(product.original_price && product.price) ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 20}% off
+                    </span>
+                    <span className="text-[#CC0C39] text-[12px] font-bold">Deal of the Day</span>
+                  </div>
+                  <div className="text-[14px] text-[#0f1111] line-clamp-1">{product.name}</div>
+                </div>
+              ))
+            ) : (
+              <div className="w-full text-center py-8 text-[#565959]">No deals available right now.</div>
+            )}
+          </div>
         </div>
 
+        {/* Categories Bar Bottom */}
+        <div className="bg-white p-5 mb-5 border border-[#dddddd] rounded-sm text-center">
+          <div className="text-[13px] text-[#0f1111] font-medium mb-1">See personalized recommendations</div>
+          <button className="bg-[#FFD814] text-[#0f1111] font-bold px-16 py-1.5 rounded-[3px] border border-[#FCD200] shadow-[0_2px_5px_rgba(213,217,217,0.5)] cursor-pointer hover:bg-[#F7CA00] inline-block mb-1">Sign in</button>
+          <div className="text-[11px] text-[#0f1111]">New customer? <Link to="/register" className="text-[#007185] hover:text-[#c45500] hover:underline">Start here.</Link></div>
+        </div>
       </div>
-
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-      `}</style>
     </div>
   );
 };

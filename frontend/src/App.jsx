@@ -23,9 +23,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <div className="page-wrapper">
+          <div className="min-h-screen flex flex-col">
             <Navbar />
-            <main className="main-content">
+            <main className="flex-1">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/products" element={<ProductsPage />} />
