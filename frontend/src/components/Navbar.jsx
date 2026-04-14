@@ -38,12 +38,12 @@ const Navbar = () => {
         <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-3 py-[6px] w-full min-h-[60px]">
           {/* Logo & Delivery Area */}
           <div className="flex items-center w-full sm:w-auto justify-between mb-2 sm:mb-0">
-            <Link to="/" className="flex items-center px-2 py-2 border border-transparent rounded-[2px] no-underline focus:border-white transition-colors duration-150 hover:outline hover:outline-1 hover:outline-white mr-1 mt-1">
+            <Link to="/" className="flex items-center px-2 py-2 border border-transparent rounded-[2px] no-underline focus:border-white transition-colors duration-150 hover:border-white mr-1 mt-1">
               <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[30px] filter invert" style={{ transform: 'translateY(-2px)' }} />
               <span className="text-[14px] text-white ml-0.5 mt-[-14px]">.in</span>
             </Link>
 
-            <div className="flex flex-col px-2 py-1.5 border border-transparent rounded-[2px] cursor-pointer hover:outline hover:outline-1 hover:outline-white hidden md:flex min-w-max mr-1 ml-1 h-[50px] justify-center">
+            <div className="flex flex-col px-2 py-1.5 border border-transparent rounded-[2px] cursor-pointer hover:border-white hidden md:flex min-w-max mr-1 ml-1 h-[50px] justify-center">
               <span className="text-[12px] text-[#cccccc] font-normal leading-3 pl-[18px]">Delivering to Gharroli 110091</span>
               <span className="text-[14px] font-bold text-white flex items-center leading-4 mt-[3px]">
                 <MapPin size={16} className="mr-0.5" strokeWidth={2.5} />
@@ -97,20 +97,59 @@ const Navbar = () => {
           <div className="hidden sm:flex items-center gap-0.5 shrink-0 ml-1">
             {/* Language */}
             <div 
-              className="relative flex items-end gap-1 px-2 py-2.5 border border-transparent rounded-[2px] cursor-pointer hover:outline hover:outline-1 hover:outline-white font-bold text-[14px] leading-4 h-[50px] mr-1"
+              className="relative flex items-end gap-1 px-2 py-2.5 border border-transparent rounded-[2px] cursor-pointer hover:border-white font-bold text-[14px] leading-4 h-[50px] mr-1"
               onMouseEnter={() => setIsLangMenuOpen(true)}
               onMouseLeave={() => setIsLangMenuOpen(false)}
+              onClick={() => navigate('/language-settings')}
             >
               <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" className="h-[14px] w-5 object-cover mb-[2px]" />
               <span className="ml-[2px] mb-[1px]">EN</span>
               <div className="flex items-end text-[#a7acb2] mb-[3px] ml-0.5">
                  <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
               </div>
+
+              {/* Language Hover Menu */}
+              {isLangMenuOpen && (
+                <div className="absolute top-[48px] left-[-40px] w-[240px] bg-white text-[#111] border border-[#ccc] rounded-[3px] shadow-lg z-50 cursor-default px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                  {/* Arrow Notch */}
+                  <div className="absolute top-[-6px] left-[65px] w-3 h-3 bg-white border-t border-l border-[#ccc] transform rotate-45 z-0"></div>
+                  
+                  <div className="relative z-10 w-full flex flex-col pt-1">
+                    <p className="text-[#555] text-[13px] mb-2 mt-0 flex items-center justify-between font-medium">Change Language <Link to="/language-settings" className="text-[#007185] hover:text-[#c45500] hover:underline font-normal ml-auto">Learn more</Link></p>
+                    
+                    <div className="flex items-center gap-2 mt-1 mb-2 hover:bg-[#f3f3f3] py-1 cursor-pointer">
+                       <div className="w-[14px] h-[14px] rounded-full border border-[#db4002] flex items-center justify-center p-[2px]">
+                          <div className="w-full h-full bg-[#db4002] rounded-full"></div>
+                       </div>
+                       <span className="text-[13px] font-normal text-[#111]">English - EN</span>
+                    </div>
+
+                    <hr className="border-t border-[#eee] my-1" />
+                    
+                    {['हिन्दी - HI', 'தமிழ் - TA', 'తెలుగు - TE', 'ಕನ್ನಡ - KN', 'മലയാളം - ML', 'বাংলা - BN', 'मराठी - MR'].map(lang => (
+                      <div key={lang} className="flex items-center gap-2 my-[1px] hover:bg-[#f8f8f8] py-[5px] cursor-pointer group">
+                         <div className="w-[14px] h-[14px] rounded-full border border-[#999] group-hover:border-[#db4002] flex items-center justify-center"></div>
+                         <span className="text-[13px] font-normal text-[#111] group-hover:text-[#db4002] group-hover:underline">{lang}</span>
+                      </div>
+                    ))}
+                    
+                    <hr className="border-t border-[#eee] my-2" />
+                    
+                    <div className="flex flex-col mt-0.5">
+                      <div className="flex items-center gap-2">
+                         <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" className="h-[12px] w-[18px] object-cover" />
+                         <span className="text-[13px] font-normal text-[#111]">You are shopping on Amazon.in</span>
+                      </div>
+                      <Link to="/language-settings" className="text-[13px] text-[#007185] hover:text-[#c45500] hover:underline font-normal text-center mt-3">Change country/region</Link>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Account */}
             <div 
-              className="relative flex flex-col px-2 py-2 border border-transparent rounded-[2px] cursor-pointer hover:outline hover:outline-1 hover:outline-white min-w-max h-[50px] justify-center"
+              className="relative flex flex-col px-2 py-2 border border-transparent rounded-[2px] cursor-pointer hover:border-white min-w-max h-[50px] justify-center"
               onMouseEnter={() => setIsAccountMenuOpen(true)}
               onMouseLeave={() => setIsAccountMenuOpen(false)}
             >
@@ -121,13 +160,13 @@ const Navbar = () => {
             </div>
 
             {/* Orders */}
-            <Link to="/orders" className="flex flex-col px-2 py-2 border border-transparent rounded-[2px] cursor-pointer no-underline text-white hover:outline hover:outline-1 hover:outline-white min-w-max h-[50px] justify-center">
+            <Link to="/orders" className="flex flex-col px-2 py-2 border border-transparent rounded-[2px] cursor-pointer no-underline text-white hover:border-white min-w-max h-[50px] justify-center">
               <span className="text-[12px] text-white font-normal leading-3 mb-[3px]">Returns</span>
               <span className="text-[14px] font-bold leading-3">& Orders</span>
             </Link>
 
             {/* Cart */}
-            <Link to="/cart" className="flex items-center px-2 py-2 border border-transparent rounded-[2px] no-underline text-white hover:outline hover:outline-1 hover:outline-white h-[50px]">
+            <Link to="/cart" className="flex items-center px-2 py-2 border border-transparent rounded-[2px] no-underline text-white hover:border-white h-[50px]">
               <div className="relative flex items-center pt-2">
                 <div className="relative flex flex-col items-center">
                   <span className="absolute -top-3 left-[15px] w-full text-center text-[#F08804] font-bold text-[16px] leading-[14px]">{summary.totalItems || 0}</span>
@@ -146,30 +185,30 @@ const Navbar = () => {
           <div className="flex items-center gap-[1px] overflow-x-auto scrollbar-hide">
             <div 
               onClick={() => setIsSidebarOpen(true)}
-              className="flex items-center gap-1 px-2 py-1.5 text-white font-bold border border-transparent rounded-[2px] cursor-pointer whitespace-nowrap hover:outline hover:outline-1 hover:outline-white mr-1"
+              className="flex items-center gap-1 px-2 py-1.5 text-white font-bold border border-transparent rounded-[2px] cursor-pointer whitespace-nowrap hover:border-white mr-1"
             >
               <Menu size={22} strokeWidth={2.5} style={{ transform: 'translateY(-1px)' }}/> All
             </div>
-            <Link to="/products?category=grocery" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white flex items-center">
+            <Link to="/products?category=grocery" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white flex items-center">
               Fresh <ChevronDown size={11} className="ml-[2px] text-[#a7acb2]" strokeWidth={3} style={{ transform: 'translateY(1px)' }}/>
             </Link>
-            <Link to="/videos" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white flex items-center">
+            <Link to="/videos" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white flex items-center">
               MX Player <ChevronDown size={11} className="ml-[2px] text-[#a7acb2]" strokeWidth={3} style={{ transform: 'translateY(1px)' }}/>
             </Link>
-            <Link to="/seller" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white">Sell</Link>
-            <Link to="/products?sort=bestselling" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white">Bestsellers</Link>
-            <Link to="/products?category=mobiles" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white">Mobiles</Link>
-            <Link to="/products?featured=true" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white">Today's Deals</Link>
-            <Link to="/support" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white">Customer Service</Link>
-            <Link to="/products?sort=newest" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white">New Releases</Link>
-            <Link to="/prime" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white flex items-center">
+            <Link to="/seller" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Sell</Link>
+            <Link to="/products?sort=bestselling" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Bestsellers</Link>
+            <Link to="/products?category=mobiles" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Mobiles</Link>
+            <Link to="/products?featured=true" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Today's Deals</Link>
+            <Link to="/support" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Customer Service</Link>
+            <Link to="/products?sort=newest" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">New Releases</Link>
+            <Link to="/prime" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white flex items-center">
               Prime <ChevronDown size={11} className="ml-[2px] text-[#a7acb2]" strokeWidth={3} style={{ transform: 'translateY(1px)' }}/>
             </Link>
-            <Link to="/products?category=fashion" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white flex items-center">Fashion</Link>
-            <Link to="/products?category=electronics" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white flex items-center">Electronics</Link>
-            <Link to="/amazon-pay" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:outline hover:outline-1 hover:outline-white flex items-center">Amazon Pay</Link>
+            <Link to="/products?category=fashion" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white flex items-center">Fashion</Link>
+            <Link to="/products?category=electronics" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white flex items-center">Electronics</Link>
+            <Link to="/amazon-pay" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white flex items-center">Amazon Pay</Link>
           </div>
-          <div className="hidden xl:flex shrink-0 px-2 cursor-pointer items-center justify-center h-full hover:outline hover:outline-1 hover:outline-white border border-transparent rounded-[2px] mr-2 gap-2">
+          <div className="hidden xl:flex shrink-0 px-2 cursor-pointer items-center justify-center h-full hover:border-white border border-transparent rounded-[2px] mr-2 gap-2">
             <span className="font-extrabold italic text-[#FF9900] text-[18px] tracking-tighter" style={{ fontFamily: 'Georgia, serif' }}>
               SUMMER <span className="text-white">ESCAPE</span> SALE
             </span>

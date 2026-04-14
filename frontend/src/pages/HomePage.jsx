@@ -133,8 +133,8 @@ const HomePage = () => {
         {/* Carousel Controls */}
         <button
           onClick={() => setCurrentSlide(prev => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
-          className="absolute z-30 left-6 top-[15%] md:top-[20%] xl:top-[22%] text-[#111] cursor-pointer bg-transparent border-none p-2 focus:outline-none focus:ring-2 focus:ring-[#008296] rounded-sm transition-transform hover:scale-110 active:scale-95"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          className="absolute z-30 left-6 top-[15%] md:top-[20%] xl:top-[22%] text-[#111] cursor-pointer bg-transparent border-none p-2 outline-none focus:outline-none transition-transform hover:scale-110 active:scale-95"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', WebkitTapHighlightColor: 'transparent' }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="45" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
@@ -142,8 +142,8 @@ const HomePage = () => {
         </button>
         <button
           onClick={() => setCurrentSlide(prev => (prev + 1) % HERO_IMAGES.length)}
-          className="absolute z-30 right-6 top-[15%] md:top-[20%] xl:top-[22%] text-[#111] cursor-pointer bg-transparent border-none p-2 focus:outline-none focus:ring-2 focus:ring-[#008296] rounded-sm transition-transform hover:scale-110 active:scale-95"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          className="absolute z-30 right-6 top-[15%] md:top-[20%] xl:top-[22%] text-[#111] cursor-pointer bg-transparent border-none p-2 outline-none focus:outline-none transition-transform hover:scale-110 active:scale-95"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', WebkitTapHighlightColor: 'transparent' }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="45" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>

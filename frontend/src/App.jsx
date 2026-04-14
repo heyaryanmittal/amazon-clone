@@ -14,6 +14,7 @@ import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import OrderDetailPage from './pages/OrderDetailPage';
 import WishlistPage from './pages/WishlistPage';
+import LanguageSettingsPage from './pages/LanguageSettingsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/orders" element={<OrderHistoryPage />} />
                 <Route path="/orders/:orderId" element={<OrderDetailPage />} />
                 <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/language-settings" element={<LanguageSettingsPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="*" element={<NotFoundPage />} />
