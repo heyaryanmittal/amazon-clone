@@ -5,7 +5,8 @@
     @apply scroll-smooth text-[14px];
   }
   body {
-    @apply font-sans bg-[#f3f4f6] text-[#1f2937] antialiased leading-[1.5];
+    font-family: "Amazon Ember", Arial, sans-serif;
+    @apply bg-[#e3e6e6] text-[#0f1111] antialiased leading-[1.5];
   }
 }
 
@@ -16,6 +17,24 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

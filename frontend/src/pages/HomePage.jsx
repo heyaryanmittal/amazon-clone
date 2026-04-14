@@ -5,48 +5,52 @@ import { getFeaturedProducts } from '../services/api';
 import ProductCard from '../components/ProductCard';
 
 const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1500&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=1500&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1500&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1500&auto=format&fit=crop'
+  'https://images-eu.ssl-images-amazon.com/images/G/31/img24/Beauty/GW/Aug/unrec/under499/Skincare_hero_3000x1200._CB566736237_.jpg',
+  'https://images-eu.ssl-images-amazon.com/images/G/31/Events/V20/GW/Models/hero_pc_5_2x._CB583694086_.jpg',
+  'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wireless/devjyoti/GW/Uber/Nov/D103625178_DesktopTallHero_3000x1200_V3._CB558389732_.jpg',
+  'https://images-eu.ssl-images-amazon.com/images/G/31/img24/Sports/April/April_1/GW/Unrec/Hero/Sports__outdoor_PC_Hero_3000x1200._CB560505191_.jpg'
 ];
 
 const QUAD_CARDS = [
   {
-    title: 'Revamp your home in style',
-    link: 'Explore all',
-    items: [
-      { img: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=300&auto=format&fit=crop', label: 'Cushion covers, bedsheets & more' },
-      { img: 'https://images.unsplash.com/photo-1629016943072-0bf0ee4e29e8?q=80&w=300&auto=format&fit=crop', label: 'Figurines, vases & more' },
-      { img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=300&auto=format&fit=crop', label: 'Home storage' },
-      { img: 'https://images.unsplash.com/photo-1513506003901-1e6a229e9d15?q=80&w=300&auto=format&fit=crop', label: 'Lighting solutions' }
-    ]
-  },
-  {
     title: 'Appliances for your home | Up to 55% off',
     link: 'See more',
     items: [
-      { img: 'https://images.unsplash.com/photo-1626806787426-5910811b6325?q=80&w=300&auto=format&fit=crop', label: 'Air conditioners' },
-      { img: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?q=80&w=300&auto=format&fit=crop', label: 'Refrigerators' },
-      { img: 'https://images.unsplash.com/photo-1585659722983-38ca819efa2c?q=80&w=300&auto=format&fit=crop', label: 'Microwaves' },
-      { img: 'https://images.unsplash.com/photo-1626806819282-2c1dc0ed0f31?q=80&w=300&auto=format&fit=crop', label: 'Washing machines' }
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg', label: 'Air conditioners' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg', label: 'Refrigerators' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg', label: 'Microwaves' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg', label: 'Washing machines' }
     ]
   },
   {
-    title: 'Up to 60% off | Styles for women',
-    link: 'See all offers',
+    title: 'Revamp your home in style',
+    link: 'Explore all',
     items: [
-      { img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=300&auto=format&fit=crop', label: "Women's Clothing" },
-      { img: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=300&auto=format&fit=crop', label: 'Footwear & Handbags' },
-      { img: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=300&auto=format&fit=crop', label: 'Watches' },
-      { img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=300&auto=format&fit=crop', label: 'Fashion jewellery' }
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_furnishings_2._SY116_CB584596691_.jpg', label: 'Cushion covers, bedsheets\\n& more' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_decor_1._SY116_CB584596691_.jpg', label: 'Figurines, vases & more' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_storage_1._SY116_CB584596691_.jpg', label: 'Home storage' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_lighting_2._SY116_CB584596691_.jpg', label: 'Lighting solutions' }
     ]
   },
   {
-    title: 'Starting ₹149 | Headphones',
-    link: 'See all offers',
-    isSingle: true,
-    img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop' 
+    title: 'Bulk order discounts + Up to 18% GST savings',
+    link: 'Register now',
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Laptops_186x116._SY116_CB583852028_.jpg', label: 'Up to 45% off | Laptops' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Kitchen_186x116._SY116_CB583852028_.jpg', label: 'Up to 60% off | Kitchen\\nappliances' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Furniture_186x116._SY116_CB583852028_.jpg', label: 'Min. 50% off | Office...' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Amazon_biz_186x116._SY116_CB583852028_.jpg', label: 'Register using GST' }
+    ]
+  },
+  {
+    title: 'Starting ₹49 | Deals on home essentials',
+    link: 'Explore all',
+    items: [
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_1._SY116_CB561113576_.jpg', label: 'Cleaning supplies' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_3._SY116_CB561113576_.jpg', label: 'Bathroom accessories' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_4._SY116_CB561113576_.jpg', label: 'Home tools' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_2._SY116_CB561113576_.jpg', label: 'Wallpapers' }
+    ]
   }
 ];
 
@@ -54,35 +58,35 @@ const SINGLE_CARDS = [
   {
     title: 'Up to 75% off | Electronics & accessories',
     link: 'See all offers',
-    img: 'https://images.unsplash.com/photo-1550009158-9ffb6e4b8599?q=80&w=400&auto=format&fit=crop',
-    fallbackImg: 'https://images.unsplash.com/photo-1550009158-9ffb6e4b8599?q=80&w=400&auto=format&fit=crop'
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/june/CE/GW/QC/PC/PC_QuadCard_boAt_0.5x._SY116_CB553870684_.jpg', // Placeholder
+    fallbackImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/june/CE/GW/QC/PC/PC_QuadCard_boAt._SY116_CB553870684_.jpg'
   },
   {
     title: 'Automotive essentials | Up to 60% off',
     link: 'See more',
-    img: 'https://images.unsplash.com/photo-1600706432502-77a0e2e32729?q=80&w=400&auto=format&fit=crop',
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Glasscare1X._SY116_CB410830553_.jpg', // Placeholder
     items: [
-      { img: 'https://images.unsplash.com/photo-1600706432502-77a0e2e32729?q=80&w=300&auto=format&fit=crop', label: 'Cleaning accessories' },
-      { img: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=300&auto=format&fit=crop', label: 'Tyre & rim care' },
-      { img: 'https://images.unsplash.com/photo-1558333830-b3b3cbcf912b?q=80&w=300&auto=format&fit=crop', label: 'Helmets' },
-      { img: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?q=80&w=300&auto=format&fit=crop', label: 'Accessories' }
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Glasscare1X._SY116_CB410830553_.jpg', label: 'Cleaning accessories' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Rim_tyrecare1x._SY116_CB410830552_.jpg', label: 'Tyre & rim care' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Vega_helmet_186x116._SY116_CB405090404_.jpg', label: 'Helmets' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img17/Auto/2020/GW/PCQC/Vaccum1x._SY116_CB410830552_.jpg', label: 'Vacuum cleaner' }
     ]
   },
   {
-    title: 'Starting ₹199 | Men\'s Fashion & more',
+    title: 'Starting ₹199 | Amazon Brands & more',
     link: 'Shop now',
     items: [
-      { img: 'https://images.unsplash.com/photo-1516257984-b1b4d707412e?q=80&w=300&auto=format&fit=crop', label: 'Starting ₹299 | Shirts' },
-      { img: 'https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=300&auto=format&fit=crop', label: 'Up to 60% off | Jeans' },
-      { img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=300&auto=format&fit=crop', label: 'Up to 50% off | Sneakers' },
-      { img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=300&auto=format&fit=crop', label: 'Starting ₹199 | Undergarments' }
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_1_186x116._SY116_CB580665970_.jpg', label: 'Starting ₹299 | Home essentials' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_2_186x116._SY116_CB580665970_.jpg', label: 'Up to 60% off | Daily essentials' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_3_186x116._SY116_CB580665970_.jpg', label: 'Up to 50% off | Electronics' },
+      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Symbol/2024/GW_Mar/2nd_week/PC_QC_4_186x116._SY116_CB580665970_.jpg', label: 'Starting ₹199 | Undergarments' }
     ]
   },
   {
     title: 'Deals on related items',
     link: 'See all deals',
     isSingle: true,
-    img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400&auto=format&fit=crop'
+    img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Electronics/Clearance/Clearance_store_Desktop_CC_1x._SY304_CB628315133_.jpg'
   }
 ];
 
@@ -129,17 +133,21 @@ const HomePage = () => {
         {/* Carousel Controls */}
         <button
           onClick={() => setCurrentSlide(prev => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
-          className="absolute z-30 left-4 top-[10%] md:top-[20%] text-[#333] cursor-pointer hover:border-[#008296] border-[2px] border-transparent p-2 focus:border-[#008296] focus:outline-none"
-          style={{ height: '35vh', width: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          className="absolute z-30 left-6 top-[15%] md:top-[20%] xl:top-[22%] text-[#111] cursor-pointer bg-transparent border-none p-2 focus:outline-none focus:ring-2 focus:ring-[#008296] rounded-sm transition-transform hover:scale-110 active:scale-95"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <ChevronLeft size={48} className="drop-shadow-lg text-[#555]" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
         </button>
         <button
           onClick={() => setCurrentSlide(prev => (prev + 1) % HERO_IMAGES.length)}
-          className="absolute z-30 right-4 top-[10%] md:top-[20%] text-[#333] cursor-pointer hover:border-[#008296] border-[2px] border-transparent p-2 focus:border-[#008296] focus:outline-none"
-          style={{ height: '35vh', width: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          className="absolute z-30 right-6 top-[15%] md:top-[20%] xl:top-[22%] text-[#111] cursor-pointer bg-transparent border-none p-2 focus:outline-none focus:ring-2 focus:ring-[#008296] rounded-sm transition-transform hover:scale-110 active:scale-95"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <ChevronRight size={48} className="drop-shadow-lg text-[#555]" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="45" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </button>
       </div>
 

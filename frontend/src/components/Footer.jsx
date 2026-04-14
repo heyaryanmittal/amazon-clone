@@ -59,7 +59,24 @@ const Footer = () => {
 
       {/* Bottom */}
       <div className="bg-[#131921] py-8 px-4 flex flex-col items-center text-center">
-        <Link to="/" className="text-3xl font-extrabold text-white tracking-tighter no-underline mb-6">amazon</Link>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 mb-8 border-t border-b border-[#3a4553] w-full py-6">
+          <Link to="/" className="flex items-center justify-center">
+             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-7 pt-1 filter invert" />
+          </Link>
+          <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
+              <Globe size={16} />
+              <span>English</span>
+            </div>
+            <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
+               <span>₹ INR - Indian Rupee</span>
+            </div>
+            <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
+              <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" className="h-3 w-4 mt-0.5 object-cover" />
+              <span>India</span>
+            </div>
+          </div>
+        </div>
 
         <div className="flex flex-wrap justify-center gap-4 text-[11px] text-[#ccc]">
           <a href="#" className="text-[#ccc] hover:underline">Australia</a>
@@ -80,21 +97,13 @@ const Footer = () => {
           <a href="#" className="text-[#ccc] hover:underline">United States</a>
         </div>
 
-        <div className="flex justify-center gap-6 mt-4">
-          <div className="flex items-center gap-1.5 text-[13px] text-[#ccc]">
-            <Globe size={16} />
-            <span>English</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[13px] text-[#ccc]">
-            <span>₹ - INR - Indian Rupee</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[13px] text-[#ccc]">
-            <Shield size={16} />
-            <span>India</span>
-          </div>
+        <div className="flex flex-wrap justify-center gap-4 text-[11px] text-[#ccc] mt-6">
+          <a href="#" className="text-[#ccc] hover:underline">Conditions of Use & Sale</a>
+          <a href="#" className="text-[#ccc] hover:underline">Privacy Notice</a>
+          <a href="#" className="text-[#ccc] hover:underline">Interest-Based Ads</a>
         </div>
-
-        <p className="text-[11px] text-[#ccc] mt-4">
+        
+        <p className="text-[11px] text-[#ccc] mt-2">
           © 1996-2024, Amazon.com, Inc. or its affiliates | Amazon Clone by Aryan Mittal
         </p>
 
