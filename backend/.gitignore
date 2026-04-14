@@ -1,0 +1,23 @@
+# =============================================
+# BACKEND .gitignore — Node.js / Express
+# =============================================
+
+# Dependencies
+node_modules/
+
+# Environment variables (contains DB passwords & secrets)
+.env
+.env.local
+.env.production
+
+# Uploaded files
+uploads/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
