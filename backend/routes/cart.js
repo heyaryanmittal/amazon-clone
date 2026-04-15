@@ -5,60 +5,64 @@ const { authenticateToken } = require('../middleware/auth');
 
 router.use(authenticateToken);
 
+// Helper to fetch cart state
+const getCartState = async (userId) => {
+  const cartItems = await prisma.cart.findMany({
+    where: {
+      userId,
+      product: { isActive: true }
+    },
+    include: {
+      product: {
+        select: {
+          id: true, name: true, slug: true, price: true,
+          originalPrice: true, stock: true, isPrime: true, brand: true,
+          images: {
+            where: { isPrimary: true },
+            take: 1,
+            select: { imageUrl: true }
+          }
+        }
+      }
+    },
+    orderBy: { addedAt: 'desc' }
+  });
+
+  const items = cartItems.map(c => ({
+    cart_id:        c.id,
+    quantity:       c.quantity,
+    added_at:       c.addedAt,
+    product_id:     c.product.id,
+    name:           c.product.name,
+    slug:           c.product.slug,
+    price:          parseFloat(c.product.price),
+    original_price: c.product.originalPrice ? parseFloat(c.product.originalPrice) : null,
+    stock:          c.product.stock,
+    is_prime:       c.product.isPrime,
+    brand:          c.product.brand,
+    image:          c.product.images[0]?.imageUrl || null
+  }));
+
+  const subtotal   = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+
+  return {
+    items,
+    summary: {
+      subtotal:   parseFloat(subtotal.toFixed(2)),
+      shipping:   subtotal > 499 || subtotal === 0 ? 0 : 40,
+      total:      parseFloat((subtotal + (subtotal > 499 || subtotal === 0 ? 0 : 40)).toFixed(2)),
+      totalItems
+    }
+  };
+};
+
 // GET /api/cart
 router.get('/', async (req, res) => {
   try {
     const userId = req.user.id;
-
-    const cartItems = await prisma.cart.findMany({
-      where: {
-        userId,
-        product: { isActive: true }
-      },
-      include: {
-        product: {
-          select: {
-            id: true, name: true, slug: true, price: true,
-            originalPrice: true, stock: true, isPrime: true, brand: true,
-            images: {
-              where: { isPrimary: true },
-              take: 1,
-              select: { imageUrl: true }
-            }
-          }
-        }
-      },
-      orderBy: { addedAt: 'desc' }
-    });
-
-    // Flatten for frontend
-    const items = cartItems.map(c => ({
-      cart_id:        c.id,
-      quantity:       c.quantity,
-      added_at:       c.addedAt,
-      product_id:     c.product.id,
-      name:           c.product.name,
-      slug:           c.product.slug,
-      price:          parseFloat(c.product.price),
-      original_price: c.product.originalPrice ? parseFloat(c.product.originalPrice) : null,
-      stock:          c.product.stock,
-      is_prime:       c.product.isPrime,
-      brand:          c.product.brand,
-      image:          c.product.images[0]?.imageUrl || null
-    }));
-
-    const subtotal   = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-    const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-
-    res.json({
-      items,
-      summary: {
-        subtotal:   parseFloat(subtotal.toFixed(2)),
-        shipping:   subtotal > 499 ? 0 : 40,
-        total:      parseFloat((subtotal + (subtotal > 499 ? 0 : 40)).toFixed(2)),
-        totalItems
-      }
-    });
+    const cartState = await getCartState(userId);
+    res.json(cartState);
   } catch (error) {
     console.error('Get cart error:', error);
     res.status(500).json({ error: 'Failed to fetch cart' });
@@ -103,7 +107,12 @@ router.post('/', async (req, res) => {
       }
     });
 
-    res.json({ message: 'Product added to cart successfully', product_name: product.name });
+    const cartState = await getCartState(userId);
+    res.json({ 
+      message: 'Product added to cart successfully', 
+      product_name: product.name,
+      ...cartState
+    });
   } catch (error) {
     console.error('Add to cart error:', error);
     res.status(500).json({ error: 'Failed to add to cart' });
@@ -133,7 +142,8 @@ router.put('/:cartId', async (req, res) => {
       data: { quantity }
     });
 
-    res.json({ message: 'Cart updated successfully' });
+    const cartState = await getCartState(userId);
+    res.json(cartState);
   } catch (error) {
     console.error('Update cart error:', error);
     res.status(500).json({ error: 'Failed to update cart' });
@@ -155,7 +165,9 @@ router.delete('/:cartId', async (req, res) => {
     }
 
     await prisma.cart.delete({ where: { id: cartId } });
-    res.json({ message: 'Item removed from cart' });
+    
+    const cartState = await getCartState(userId);
+    res.json(cartState);
   } catch (error) {
     console.error('Delete cart item error:', error);
     res.status(500).json({ error: 'Failed to remove item from cart' });

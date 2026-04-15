@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { summary } = useCart();
+  const { summary = { totalItems: 0, subtotal: 0 } } = useCart();
   const { user, logout } = useAuth();
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [currentPincode, setCurrentPincode] = useState('110001');

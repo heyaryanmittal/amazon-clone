@@ -1,6 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CheckCircle, Package } from 'lucide-react';
 import { getOrder } from '../services/api';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const OrderConfirmationPage = () => {
   const { orderId } = useParams();

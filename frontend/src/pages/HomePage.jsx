@@ -4,17 +4,17 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getFeaturedProducts } from '../services/api';
 
 const HERO_IMAGES = [
-  '/images/landing_1.jpg',
-  '/images/landing_2.png',
-  '/images/landing_3.jpg'
+  '/images/landing/landing_1.jpg',
+  '/images/landing/landing_2.png',
+  '/images/landing/landing_3.jpg'
 ];
 
 const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Appliances for your home | Up to 55% off', link: 'See more',
     items: [
-      { img: '/images/air_conditioner.jpg', label: 'Air conditioners' },
-      { img: '/images/refrigerator.jpg', label: 'Refrigerators' },
+      { img: '/images/landing/air_conditioner.jpg', label: 'Air conditioners' },
+      { img: '/images/landing/refrigerator.jpg', label: 'Refrigerators' },
       { img: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300', label: 'Microwaves' },
       { img: 'https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300', label: 'Washing machines' }
     ]
@@ -40,10 +40,10 @@ const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Starting ₹49 | Deals on home essentials', link: 'Explore all',
     items: [
-      { img: '/images/cleaning supplies.jpg', label: 'Cleaning supplies' },
-      { img: '/images/bathroom accessories.jpg', label: 'Bathroom accessories' },
+      { img: '/images/landing/cleaning supplies.jpg', label: 'Cleaning supplies' },
+      { img: '/images/landing/bathroom accessories.jpg', label: 'Bathroom accessories' },
       { img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=300', label: 'Home tools' },
-      { img: '/images/wallpapers.jpg', label: 'Wallpapers' }
+      { img: '/images/landing/wallpapers.jpg', label: 'Wallpapers' }
     ]
   }
 ];
@@ -142,7 +142,6 @@ const ROW_10_CARDS = [
 
 const HorizontalScroller = ({ title, linkText, items }) => {
   const scrollRef = useRef(null);
-
   const scroll = (direction) => {
     if (scrollRef.current) {
       const scrollAmount = direction === 'left' ? -800 : 800;
@@ -152,29 +151,50 @@ const HorizontalScroller = ({ title, linkText, items }) => {
 
   return (
     <div className="bg-white p-5 pb-7 mb-5 mx-0 md:mx-4 max-w-[1500px] xl:mx-auto relative group shadow-sm">
-      <div className="flex items-center gap-4 mb-3">
-        <h2 className="text-[21px] font-extrabold text-[#0f1111] leading-6">{title}</h2>
-        {linkText && (
-          <Link to="/products" className="text-[#007185] text-[13px] hover:text-[#c45500] hover:underline font-medium pt-1">
-            {linkText}
-          </Link>
-        )}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-4">
+          <h2 className="text-[21px] font-extrabold text-[#0f1111] leading-6">{title}</h2>
+          {linkText && (
+            <Link to="/products" className="text-[#007185] text-[13px] hover:text-[#c45500] hover:underline font-medium pt-1">
+              {linkText}
+            </Link>
+          )}
+        </div>
       </div>
       
       <div className="relative">
-        <button onClick={() => scroll('left')} className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 shadow-[0_1px_3px_rgba(0,0,0,0.3)] h-[100px] w-[45px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-r-[4px] cursor-pointer border border-[#ddd] hover:bg-gray-50 text-black">
+        <button onClick={() => scroll('left')} className="absolute left-[-20px] top-1/2 -translate-y-1/2 z-10 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.3)] h-[100px] w-[45px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-r-[4px] cursor-pointer border border-[#ddd] hover:bg-gray-50 text-black">
           <ChevronLeft size={30} strokeWidth={1} />
         </button>
 
         <div ref={scrollRef} className="flex gap-5 overflow-x-auto scrollbar-hide py-2 scroll-smooth">
-          {items.map((img, i) => (
-            <Link key={i} to="/products" className="min-w-[200px] max-w-[200px] h-[200px] cursor-pointer flex-shrink-0 bg-[#f7f7f7] p-2 hover:opacity-90">
-              <img src={img} alt="Product" className="w-full h-full object-contain" />
+          {items.map((item, i) => (
+            <Link key={i} to="/products" className="min-w-[210px] max-w-[210px] cursor-pointer flex-shrink-0 flex flex-col group/item transition-all">
+              <div className="h-[200px] bg-[#f7f7f7] p-4 flex items-center justify-center mb-2 overflow-hidden">
+                <img src={item.img} alt="Product" className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" />
+              </div>
+              {item.price && (
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">Up to {item.discount || '40%'} off</span>
+                    <span className="text-[#cc0c39] text-[12px] font-bold">Limited time deal</span>
+                  </div>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-[17px] text-[#0f1111] font-medium">₹{item.price}</span>
+                    <span className="text-[12px] text-[#565959]">M.R.P: <span className="line-through">₹{item.ogPrice}</span></span>
+                  </div>
+                </div>
+              )}
+              {item.name ? (
+                <div className="text-[13px] text-[#0f1111] line-clamp-2 mt-1 leading-relaxed group-hover/item:text-[#007185]">{item.name}</div>
+              ) : (
+                <div className="text-[13px] text-[#0f1111] line-clamp-1 mt-1 font-medium">{item.category || 'Product'}</div>
+              )}
             </Link>
           ))}
         </div>
 
-        <button onClick={() => scroll('right')} className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 shadow-[0_1px_3px_rgba(0,0,0,0.3)] h-[100px] w-[45px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-l-[4px] cursor-pointer border border-[#ddd] hover:bg-gray-50 text-black">
+        <button onClick={() => scroll('right')} className="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.3)] h-[100px] w-[45px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-l-[4px] cursor-pointer border border-[#ddd] hover:bg-gray-50 text-black">
           <ChevronRight size={30} strokeWidth={1} />
         </button>
       </div>
@@ -279,34 +299,43 @@ const HomePage = () => {
   }, []);
 
   // DUMMY ARRAYS FOR SCROLLERS
-  const generateImages = (count, keyword) => {
-    const images = {
+  const getScrollerItems = (keyword) => {
+    if (keyword === 'headphones') {
+      return [
+        { img: '/images/headphones/headphone_1.jpg', name: 'Sony WH-1000XM5 Wireless Headphones', price: '24,990', ogPrice: '34,990', discount: '29%' },
+        { img: '/images/headphones/headphone_2.jpg', name: 'Bose QuietComfort 45 Bluetooth Headphones', price: '19,900', ogPrice: '29,900', discount: '33%' },
+        { img: '/images/headphones/headphone_3.jpg', name: 'JBL Tune 760NC Noise Cancelling Headphones', price: '5,499', ogPrice: '7,999', discount: '31%' },
+        { img: '/images/headphones/headphone_4.jpg', name: 'Sennheiser HD 450SE Wireless Headphones', price: '7,490', ogPrice: '14,990', discount: '50%' },
+        { img: '/images/headphones/headphone_5.jpg', name: 'boAt Rockerz 450 Bluetooth On-Ear Headphones', price: '1,299', ogPrice: '3,990', discount: '67%' },
+        { img: '/images/headphones/headphone_6.jpg', name: 'Sony WH-CH720N Noise Cancelling Headphones', price: '9,990', ogPrice: '14,990', discount: '33%' },
+        { img: '/images/headphones/headphone_7.jpg', name: 'Apple AirPods Pro (2nd Gen) with MagSafe', price: '21,900', ogPrice: '24,900', discount: '12%' },
+        { img: '/images/headphones/headphone_8.jpg', name: 'OnePlus Buds Z2 Active Noise Cancellation', price: '4,499', ogPrice: '5,999', discount: '25%' },
+        { img: '/images/headphones/headphone_9.jpg', name: 'Realme Buds Air 5 Pro Dual Driver TWS', price: '4,999', ogPrice: '7,999', discount: '38%' },
+        { img: '/images/headphones/headphone_10.jpg', name: 'Marshall Major IV Wireless Bluetooth Headphones', price: '12,999', ogPrice: '14,999', discount: '13%' }
+      ];
+    }
+    
+    const placeholders = {
       furniture: [
-        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300',
-        'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=300',
-        'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=300',
-        'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=300'
-      ],
-      headphones: [
-        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300',
-        'https://images.unsplash.com/photo-1583394838336-3d46f052e121?w=300',
-        'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300',
-        'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=300'
+        { img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa', price: '22,499', ogPrice: '45,000' },
+        { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400', name: 'Ergonomic Office Chair with Lumbar Support', price: '7,999', ogPrice: '15,000' },
+        { img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Oak Wood Dining Table - 6 Seater', price: '34,999', ogPrice: '60,000' },
+        { img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400', name: 'Queen Size Platform Bed with Storage', price: '18,500', ogPrice: '32,000' }
       ],
       art: [
-        'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=300',
-        'https://images.unsplash.com/photo-1459749411177-042180ec75c0?w=300',
-        'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=300'
+        { img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400', category: 'Handmade Paintings' },
+        { img: 'https://images.unsplash.com/photo-1459749411177-042180ec75c0?w=400', category: 'Sculptures' },
+        { img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400', category: 'Digital Art Prints' }
       ],
       cookware: [
-        'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=300',
-        'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=300',
-        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300'
+        { img: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400', name: 'Non-Stick Ceramic Cookware Set', price: '3,499', ogPrice: '7,000' },
+        { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400', name: 'Hard Anodized Pressure Cooker', price: '2,299', ogPrice: '4,500' },
+        { img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400', name: 'Stainless Steel Knife Block Set', price: '1,199', ogPrice: '2,999' }
       ]
     };
     
-    const pool = images[keyword] || ['https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300'];
-    return Array.from({ length: count }, (_, i) => pool[i % pool.length]);
+    const pool = placeholders[keyword] || [{ img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400', name: 'Sample Product', price: '999', ogPrice: '1,999' }];
+    return Array.from({ length: 12 }, (_, i) => pool[i % pool.length]);
   };
 
   return (
@@ -352,26 +381,26 @@ const HomePage = () => {
         {/* ROW 1: 4 Quad Cards */}
         <CardGridRow cards={ROW_1_CARDS} isFirstRow={true} />
 
-        {/* ROW 2: Scroller -> Up to 60% off | Deals on everyday furniture */}
-        <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={generateImages(12, 'furniture')} />
+        {/* ROW 2: Scroller -> Up to 40% off | Headphones and earbuds */}
+        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={getScrollerItems('headphones')} />
 
-        {/* ROW 3: Scroller -> Up to 40% off | Headphones and earbuds */}
-        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={generateImages(12, 'headphones')} />
+        {/* ROW 3: Scroller -> Up to 60% off | Deals on everyday furniture */}
+        <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={getScrollerItems('furniture')} />
 
         {/* ROW 4: 4 Custom Cards */}
         <CardGridRow cards={ROW_4_CARDS} />
 
         {/* ROW 5: Scroller -> Up to 75% off | Curated products | Small Businesses */}
-        <HorizontalScroller title="Up to 75% off | Curated products | Small Businesses" linkText="Shop now" items={generateImages(12, 'art')} />
+        <HorizontalScroller title="Up to 75% off | Curated products | Small Businesses" linkText="Shop now" items={getScrollerItems('art')} />
 
         {/* ROW 6: Scroller -> Up to 60% off | Cookware... | Amazon Launchpad */}
-        <HorizontalScroller title="Up to 60% off | Cookware, Mugs and Dining | Amazon Launchpad" linkText="See more" items={generateImages(12, 'cookware')} />
+        <HorizontalScroller title="Up to 60% off | Cookware, Mugs and Dining | Amazon Launchpad" linkText="See more" items={getScrollerItems('cookware')} />
 
         {/* ROW 7: 4 Custom Cards */}
         <CardGridRow cards={ROW_7_CARDS} />
 
         {/* ROW 8: Scroller -> Up to 60% off | Bestsellers from women-led brands */}
-        <HorizontalScroller title="Up to 60% off | Bestsellers from women-led brands" linkText="See all offers" items={generateImages(12, 'brands')} />
+        <HorizontalScroller title="Up to 60% off | Bestsellers from women-led brands" linkText="See all offers" items={getScrollerItems('brands')} />
 
         {/* ROW 9: Amazon LIVE */}
         <AmazonLiveSection />
@@ -380,7 +409,7 @@ const HomePage = () => {
         <CardGridRow cards={ROW_10_CARDS} />
 
         {/* ROW 11: Scroller -> Min. 50% off | Upgrade your home... */}
-        <HorizontalScroller title="Min. 50% off | Upgrade your home with products from Small Businesses" linkText="Explore more" items={generateImages(12, 'upgrade')} />
+        <HorizontalScroller title="Min. 50% off | Upgrade your home with products from Small Businesses" linkText="Explore more" items={getScrollerItems('upgrade')} />
 
         {/* Categories Bar Bottom */}
         <div className="bg-white pt-8 pb-5 border border-[#dddddd] rounded-none text-center">
