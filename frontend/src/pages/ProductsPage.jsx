@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
-import { Star, ChevronDown, ChevronUp } from 'lucide-react';
-import { getProducts, getCategories } from '../services/api';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { Star, ChevronDown, Heart } from 'lucide-react';
+import { getProducts, getCategories, addToWishlist, removeFromWishlist, getWishlist } from '../services/api';
+import toast from 'react-hot-toast';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [wishlistIds, setWishlistIds] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const [isCategoryExpanded, setIsCategoryExpanded] = useState(true);
 
+  const navigate = useNavigate();
   const query = searchParams.get('search') || '';
   const category = searchParams.get('category') || '';
 
@@ -17,6 +20,14 @@ const ProductsPage = () => {
     getCategories()
       .then(({ data }) => setCategories(data.categories || []))
       .catch(console.error);
+
+    // Fetch wishlist to show heart statuses
+    const token = localStorage.getItem('amazon_token');
+    if (token) {
+      getWishlist().then(({ data }) => {
+        setWishlistIds(new Set(data.items.map(item => item.id)));
+      }).catch(() => {});
+    }
   }, []);
 
   useEffect(() => {
@@ -26,6 +37,32 @@ const ProductsPage = () => {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [query, category]);
+
+  const toggleWishlist = async (productId) => {
+    const token = localStorage.getItem('amazon_token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      if (wishlistIds.has(productId)) {
+        await removeFromWishlist(productId);
+        setWishlistIds(prev => {
+          const next = new Set(prev);
+          next.delete(productId);
+          return next;
+        });
+        toast.success('Removed from Wish List');
+      } else {
+        await addToWishlist(productId);
+        setWishlistIds(prev => new Set(prev).add(productId));
+        toast.success('Added to Wish List');
+      }
+    } catch (error) {
+      toast.error('Failed to update Wish List');
+    }
+  };
 
   return (
     <div className="bg-white min-h-screen">
@@ -93,6 +130,17 @@ const ProductsPage = () => {
               ))
             ) : products.map(product => (
               <div key={product.id} className="flex flex-col border border-[#ddd] p-3 rounded-sm group hover:border-[#c45500] transition-colors bg-white relative">
+                 {/* Wishlist Heart */}
+                 <button 
+                   onClick={(e) => { e.preventDefault(); toggleWishlist(product.id); }}
+                   className="absolute top-3 right-3 z-10 p-1.5 bg-white/80 rounded-full border border-[#ddd] hover:bg-white hover:shadow-md transition-all shadow-sm"
+                 >
+                   <Heart 
+                     size={18} 
+                     className={wishlistIds.has(product.id) ? "fill-[#e77600] text-[#e77600]" : "text-[#565959]"} 
+                   />
+                 </button>
+
                  <Link to={`/products/${product.id}`} className="block h-[200px] mb-3 overflow-hidden">
                     <img 
                       src={product.image_url} 
