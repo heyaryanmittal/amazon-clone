@@ -13,8 +13,8 @@ const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Appliances for your home | Up to 55% off', link: 'See more',
     items: [
-      { img: 'https://images.unsplash.com/photo-1591405351990-4726e33df58d?w=300', label: 'Air conditioners' },
-      { img: 'https://images.unsplash.com/photo-1571175432270-482a52748b5c?w=300', label: 'Refrigerators' },
+      { img: '/images/air_conditioner.jpg', label: 'Air conditioners' },
+      { img: '/images/refrigerator.jpg', label: 'Refrigerators' },
       { img: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300', label: 'Microwaves' },
       { img: 'https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300', label: 'Washing machines' }
     ]
@@ -40,10 +40,10 @@ const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Starting ₹49 | Deals on home essentials', link: 'Explore all',
     items: [
-      { img: 'https://images.unsplash.com/photo-1584820927498-cafe5c152a73?w=300', label: 'Cleaning supplies' },
-      { img: 'https://images.unsplash.com/photo-1585058284564-96696b026ae2?w=300', label: 'Bathroom accessories' },
+      { img: '/images/cleaning supplies.jpg', label: 'Cleaning supplies' },
+      { img: '/images/bathroom accessories.jpg', label: 'Bathroom accessories' },
       { img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=300', label: 'Home tools' },
-      { img: 'https://images.unsplash.com/photo-1615800098774-c010c0d1e5fb?w=300', label: 'Wallpapers' }
+      { img: '/images/wallpapers.jpg', label: 'Wallpapers' }
     ]
   }
 ];
