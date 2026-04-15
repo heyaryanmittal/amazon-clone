@@ -63,8 +63,8 @@ const ROW_4_CARDS = [
     mainImg: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=60&w=500',
     thumbs: [
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=60&w=400',
-      'https://images.unsplash.com/photo-1615873968403-89e068629275?auto=format&fit=crop&q=60&w=400',
-      'https://images.unsplash.com/photo-1616489953149-60199047f631?auto=format&fit=crop&q=60&w=400',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400&q=80',
       'https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=60&w=400'
     ]
   },
@@ -411,6 +411,12 @@ const HomePage = () => {
   // DUMMY ARRAYS FOR SCROLLERS
   const getScrollerItems = (keyword) => {
     const placeholders = {
+      headphones: [
+        { img: 'https://images.unsplash.com/photo-150574042192b-fa4a70826993?w=400', name: 'Premium Wireless Headphones', price: '2,999', ogPrice: '5,000' },
+        { img: 'https://images.unsplash.com/photo-1590658268037-6f11da9240f9?w=400', name: 'Bluetooth Earbuds with Mic', price: '1,499', ogPrice: '3,000' },
+        { img: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400', name: 'Noise Cancelling Over-Ear Headphones', price: '4,599', ogPrice: '8,000' },
+        { img: 'https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=400', name: 'Sport Earphones Water Resistant', price: '999', ogPrice: '2,000' }
+      ],
       furniture: [
         { img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa', price: '22,499', ogPrice: '45,000' },
         { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400', name: 'Ergonomic Office Chair with Lumbar Support', price: '7,999', ogPrice: '15,000' },
