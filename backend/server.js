@@ -1,12 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const compression = require('compression');
 const path = require('path');
 const prisma = require('./config/db');
 
 const app = express();
 
 // Middleware
+app.use(compression());
 app.use(cors({
   origin: [
     process.env.CLIENT_URL,

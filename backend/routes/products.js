@@ -117,6 +117,7 @@ router.get('/', async (req, res) => {
       prisma.product.count({ where })
     ]);
 
+    res.set('Cache-Control', 'public, max-age=60'); // Cache for 60 seconds
     res.json({
       products: products.map(formatProduct),
       pagination: {
@@ -151,6 +152,7 @@ router.get('/featured', async (req, res) => {
       take: 12
     });
 
+    res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
     res.json({ products: products.map(formatProduct) });
   } catch (error) {
     console.error('Get featured products error:', error);

@@ -556,11 +556,7 @@ const HomePage = () => {
         {/* ROW 9: Amazon LIVE */}
         <AmazonLiveSection />
 
-        {/* ROW 10: 4 Quad Cards */}
-        <CardGridRow cards={ROW_10_CARDS} />
 
-        {/* ROW 11: Scroller -> Min. 50% off | Upgrade your home... */}
-        <HorizontalScroller title="Min. 50% off | Upgrade your home with products from Small Businesses" linkText="Explore more" items={getScrollerItems('upgrade')} />
 
         {/* Categories Bar Bottom */}
         <div className="bg-white pt-8 pb-5 border border-[#dddddd] rounded-none text-center">

@@ -14,14 +14,17 @@ const ProductsPage = () => {
   const category = searchParams.get('category') || '';
 
   useEffect(() => {
+    getCategories()
+      .then(({ data }) => setCategories(data.categories || []))
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
-    Promise.all([
-      getProducts({ search: query, category }),
-      getCategories()
-    ]).then(([{ data: prodData }, { data: catData }]) => {
-      setProducts(prodData.products || []);
-      setCategories(catData.categories || []);
-    }).catch(console.error).finally(() => setLoading(false));
+    getProducts({ search: query, category })
+      .then(({ data }) => setProducts(data.products || []))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [query, category]);
 
   return (
