@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getWishlist, removeFromWishlist } from '../services/api';
 import { useCart } from '../context/CartContext';
 import { Star } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import toast from 'react-hot-toast';
 
 const WishlistPage = () => {
   const [items, setItems] = useState([]);
@@ -13,14 +13,18 @@ const WishlistPage = () => {
   useEffect(() => {
     setLoading(true);
     getWishlist().then(({ data }) => {
-      setItems(data.wishlist || []);
+      setItems(data.items || []);
     }).catch(console.error).finally(() => setLoading(false));
   }, []);
 
-  const handleRemove = (id) => {
-    removeFromWishlist(id).then(() => {
-      setItems(items.filter(item => item.product_id !== id));
-    });
+  const handleRemove = async (id) => {
+    try {
+      await removeFromWishlist(id);
+      setItems(items.filter(item => item.id !== id));
+      toast.success('Removed from Wish List');
+    } catch (error) {
+       console.error(error);
+    }
   };
 
   return (
@@ -64,12 +68,12 @@ const WishlistPage = () => {
                     <Link to="/" className="text-[13px] text-[#007185] hover:underline mt-2">Start shopping</Link>
                  </div>
               ) : items.map(item => (
-                 <div key={item.product_id} className="flex gap-6 border-b border-[#eee] py-6 last:border-none">
+                 <div key={item.id} className="flex gap-6 border-b border-[#eee] py-6 last:border-none">
                     <div className="w-[180px] h-[180px] border p-2 flex items-center justify-center cursor-pointer">
                        <img src={item.image_url} className="max-w-full max-h-full object-contain" />
                     </div>
                     <div className="flex-1 flex flex-col pt-1">
-                       <Link to={`/products/${item.product_id}`} className="text-[18px] font-medium leading-tight hover:text-[#c45500] no-underline text-black">
+                       <Link to={`/products/${item.id}`} className="text-[18px] font-medium leading-tight hover:text-[#c45500] no-underline text-black">
                          {item.name}
                        </Link>
                        <div className="flex items-center gap-1 mt-1 text-[13px]">
@@ -81,17 +85,17 @@ const WishlistPage = () => {
                        <div className="mt-2 text-[18px] font-bold text-[#b12704]">
                           ₹{(item.price || 0).toLocaleString()}
                        </div>
-                       <p className="text-[12px] text-[#565959] mt-1">Item added April 14, 2024</p>
+                       <p className="text-[12px] text-[#565959] mt-1">Item added {new Date(item.added_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                     </div>
                     <div className="w-[200px] flex flex-col gap-2 pt-1">
                        <button 
-                        onClick={() => addToCart(item.product_id, 1)}
+                        onClick={() => { addToCart(item.id, 1); toast.success('Added to Cart'); }}
                         className="amazon-button-yellow w-full py-1.5 rounded-[20px] text-[13px] border border-[#a88734] font-medium shadow-sm"
                        >
                           Add to Cart
                        </button>
                        <button 
-                        onClick={() => handleRemove(item.product_id)}
+                        onClick={() => handleRemove(item.id)}
                         className="w-full py-1.5 border border-[#ddd] rounded-[20px] text-[13px] bg-white hover:bg-gray-50"
                        >
                           Delete
