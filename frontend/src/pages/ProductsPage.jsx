@@ -120,7 +120,7 @@ const ProductsPage = () => {
                        M.R.P: <span className="line-through">₹{(product.original_price || product.price * 1.5).toLocaleString()}</span>
                     </div>
                     {product.is_prime && (
-                       <img src="https://m.media-amazon.com/images/G/31/marketing/fba/prime-logo._CB485932532_.png" alt="Prime" className="h-[15px] mb-2" />
+                       <img src="https://m.media-amazon.com/images/G/31/prime/prime_logo_RGB._CB423594142_.png" alt="Prime" className="h-[15px] mb-2" />
                     )}
                     <button className="amazon-button-yellow w-full py-1.5 rounded-[20px] text-[13px] border border-[#a88734] font-medium shadow-sm hover:bg-[#f7ca00]">
                        Add to cart

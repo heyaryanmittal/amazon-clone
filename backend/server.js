@@ -10,11 +10,23 @@ const app = express();
 // Middleware
 app.use(compression());
 app.use(cors({
-  origin: [
-    process.env.CLIENT_URL,
-    'http://localhost:5173',
-    'https://amazon-clone-ac.vercel.app'
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      process.env.CLIENT_URL,
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'https://amazon-clone-ac.vercel.app'
+    ].filter(Boolean);
+
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
