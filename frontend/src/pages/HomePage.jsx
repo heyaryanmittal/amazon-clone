@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getFeaturedProducts } from '../services/api';
+import { getProducts } from '../services/api';
 
 const HERO_IMAGES = [
   '/images/landing/landing_1.jpg',
@@ -169,26 +169,28 @@ const HorizontalScroller = ({ title, linkText, items }) => {
 
         <div ref={scrollRef} className="flex gap-5 overflow-x-auto scrollbar-hide py-2 scroll-smooth">
           {items.map((item, i) => (
-            <Link key={i} to="/products" className="min-w-[210px] max-w-[210px] cursor-pointer flex-shrink-0 flex flex-col group/item transition-all">
+            <Link key={i} to={`/products/${item.id}`} className="min-w-[210px] max-w-[210px] cursor-pointer flex-shrink-0 flex flex-col group/item transition-all">
               <div className="h-[200px] bg-[#f7f7f7] p-4 flex items-center justify-center mb-2 overflow-hidden">
-                <img src={item.img} alt="Product" className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" />
+                <img src={item.image_url || item.img} alt="Product" className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" />
               </div>
-              {item.price && (
+              {(item.price) && (
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
                     <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">Up to {item.discount || '40%'} off</span>
                     <span className="text-[#cc0c39] text-[12px] font-bold">Limited time deal</span>
                   </div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-[17px] text-[#0f1111] font-medium">₹{item.price}</span>
-                    <span className="text-[12px] text-[#565959]">M.R.P: <span className="line-through">₹{item.ogPrice}</span></span>
+                    <span className="text-[17px] text-[#0f1111] font-medium">₹{(parseFloat(item.price)).toLocaleString('en-IN')}</span>
+                    {(item.original_price || item.ogPrice) && (
+                      <span className="text-[12px] text-[#565959]">M.R.P: <span className="line-through">₹{(parseFloat(item.original_price || item.ogPrice)).toLocaleString('en-IN')}</span></span>
+                    )}
                   </div>
                 </div>
               )}
               {item.name ? (
                 <div className="text-[13px] text-[#0f1111] line-clamp-2 mt-1 leading-relaxed group-hover/item:text-[#007185]">{item.name}</div>
               ) : (
-                <div className="text-[13px] text-[#0f1111] line-clamp-1 mt-1 font-medium">{item.category || 'Product'}</div>
+                <div className="text-[13px] text-[#0f1111] line-clamp-1 mt-1 font-medium">{item.category_name || item.category || 'Product'}</div>
               )}
             </Link>
           ))}
@@ -298,23 +300,39 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const [headphones, setHeadphones] = useState([]);
+
+  useEffect(() => {
+    // Fetch headphones from backend
+    getProducts({ category: 'electronics', limit: 10 }).then(({ data }) => {
+      // Filter for products that have headphone/earbud/speaker in name or specific slugs we just seeded
+      const headphoneSlugs = [
+        'mackie-thump212-powered-loudspeaker',
+        'sony-wi-c100-wireless-earphones',
+        'sony-wh-ch720n-pink',
+        'sony-wh-ch720n-blue',
+        'boat-airdopes-131-black',
+        'truefree-o1-open-ear',
+        'marshall-minor-iii-tws',
+        'soundpeats-air3-tws',
+        'openrun-pro-bone-conduction',
+        'usb-c-wired-in-ear-earphones'
+      ];
+      const filtered = data.products.filter(p => headphoneSlugs.includes(p.slug));
+      
+      // If none found (maybe seed failed or slow), fallback to some logic or just show what we got
+      if (filtered.length > 0) {
+        setHeadphones(filtered);
+      } else {
+        setHeadphones(data.products.slice(0, 10)); // Just show some electronics
+      }
+    }).catch(err => {
+      console.error('Failed to fetch headphones:', err);
+    });
+  }, []);
+
   // DUMMY ARRAYS FOR SCROLLERS
   const getScrollerItems = (keyword) => {
-    if (keyword === 'headphones') {
-      return [
-        { img: '/images/headphones/headphone_1.jpg', name: 'Sony WH-1000XM5 Wireless Headphones', price: '24,990', ogPrice: '34,990', discount: '29%' },
-        { img: '/images/headphones/headphone_2.jpg', name: 'Bose QuietComfort 45 Bluetooth Headphones', price: '19,900', ogPrice: '29,900', discount: '33%' },
-        { img: '/images/headphones/headphone_3.jpg', name: 'JBL Tune 760NC Noise Cancelling Headphones', price: '5,499', ogPrice: '7,999', discount: '31%' },
-        { img: '/images/headphones/headphone_4.jpg', name: 'Sennheiser HD 450SE Wireless Headphones', price: '7,490', ogPrice: '14,990', discount: '50%' },
-        { img: '/images/headphones/headphone_5.jpg', name: 'boAt Rockerz 450 Bluetooth On-Ear Headphones', price: '1,299', ogPrice: '3,990', discount: '67%' },
-        { img: '/images/headphones/headphone_6.jpg', name: 'Sony WH-CH720N Noise Cancelling Headphones', price: '9,990', ogPrice: '14,990', discount: '33%' },
-        { img: '/images/headphones/headphone_7.jpg', name: 'Apple AirPods Pro (2nd Gen) with MagSafe', price: '21,900', ogPrice: '24,900', discount: '12%' },
-        { img: '/images/headphones/headphone_8.jpg', name: 'OnePlus Buds Z2 Active Noise Cancellation', price: '4,499', ogPrice: '5,999', discount: '25%' },
-        { img: '/images/headphones/headphone_9.jpg', name: 'Realme Buds Air 5 Pro Dual Driver TWS', price: '4,999', ogPrice: '7,999', discount: '38%' },
-        { img: '/images/headphones/headphone_10.jpg', name: 'Marshall Major IV Wireless Bluetooth Headphones', price: '12,999', ogPrice: '14,999', discount: '13%' }
-      ];
-    }
-    
     const placeholders = {
       furniture: [
         { img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa', price: '22,499', ogPrice: '45,000' },
@@ -382,7 +400,7 @@ const HomePage = () => {
         <CardGridRow cards={ROW_1_CARDS} isFirstRow={true} />
 
         {/* ROW 2: Scroller -> Up to 40% off | Headphones and earbuds */}
-        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={getScrollerItems('headphones')} />
+        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={headphones.length > 0 ? headphones : getScrollerItems('headphones')} />
 
         {/* ROW 3: Scroller -> Up to 60% off | Deals on everyday furniture */}
         <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={getScrollerItems('furniture')} />

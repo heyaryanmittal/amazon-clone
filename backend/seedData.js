@@ -145,6 +145,37 @@ async function seed() {
       images: [
         { imageUrl: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=800', isPrimary: true, sortOrder: 1 }
       ]
+    },
+    // HEADPHONES (FROM LOCAL IMAGES)
+    { name: 'Mackie Thump212 1200W 12-inch Powered Loudspeaker', slug: 'mackie-thump212-powered-loudspeaker', description: 'Powerful 1200W class-D amplifier. Built-in feedback eliminator.', specifications: {"Power":"1200W","Driver":"12-inch","Type":"Powered Speaker"}, categoryId: catMap['electronics'], brand: 'Mackie', price: 34990, originalPrice: 45000, stock: 15, rating: 4.5, reviewCount: 850, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_1.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Sony WI-C100 Wireless In-Ear Bluetooth Headphones with 25h Battery Life', slug: 'sony-wi-c100-wireless-earphones', description: 'Customizable sound with Headphones Connect app. IPX4 water resistant.', specifications: {"Type":"Neckband","Battery":"25 hours","Bluetooth":"5.0"}, categoryId: catMap['electronics'], brand: 'Sony', price: 1699, originalPrice: 2790, stock: 200, rating: 4.3, reviewCount: 15400, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_2.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Sony WH-CH720N Wireless Noise Cancelling Headphones - Pink', slug: 'sony-wh-ch720n-pink', description: 'Lightest wireless noise-cancelling overhead headphones yet.', specifications: {"Type":"Over-ear","Noice Cancelling":"Yes","Battery":"35 hours"}, categoryId: catMap['electronics'], brand: 'Sony', price: 9990, originalPrice: 14990, stock: 50, rating: 4.5, reviewCount: 2300, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_3.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Sony WH-CH720N Wireless Noise Cancelling Headphones - Blue', slug: 'sony-wh-ch720n-blue', description: 'Dual Noise Sensor technology and Integrated Processor V1.', specifications: {"Type":"Over-ear","Noice Cancelling":"Yes","Battery":"35 hours"}, categoryId: catMap['electronics'], brand: 'Sony', price: 9990, originalPrice: 14990, stock: 45, rating: 4.6, reviewCount: 2500, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_4.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'boAt Airdopes 131 True Wireless Earbuds with 60 Hours Playback', slug: 'boat-airdopes-131-black', description: 'IWP technology and 13mm drivers for deep bass.', specifications: {"Type":"TWS","Battery":"60 hours Total","Driver":"13mm"}, categoryId: catMap['electronics'], brand: 'boAt', price: 899, originalPrice: 2990, stock: 300, rating: 4.1, reviewCount: 45000, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_5.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'TRUEFREE O1 Open Ear Bluetooth Headphones for Sports and Running', slug: 'truefree-o1-open-ear', description: 'Directional audio technology for safety and comfort.', specifications: {"Type":"Open Ear","Battery":"10 hours","Bluetooth":"5.3"}, categoryId: catMap['electronics'], brand: 'TRUEFREE', price: 4599, originalPrice: 6999, stock: 80, rating: 4.4, reviewCount: 1200, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_6.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Marshall Minor III True Wireless In-Ear Headphones - Black', slug: 'marshall-minor-iii-tws', description: 'Signature Marshall sound without any clutter.', specifications: {"Type":"TWS","Battery":"25 hours Total","Driver":"12mm"}, categoryId: catMap['electronics'], brand: 'Marshall', price: 11999, originalPrice: 14999, stock: 60, rating: 4.6, reviewCount: 890, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_7.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'SoundPEATS Air3 Wireless Earbuds with Qualcomm QCC3040', slug: 'soundpeats-air3-tws', description: 'In-ear detection and aptX-Adaptive codec support.', specifications: {"Type":"TWS","Chip":"Qualcomm QCC3040","Battery":"17.5 hours"}, categoryId: catMap['electronics'], brand: 'SoundPEATS', price: 3999, originalPrice: 5999, stock: 120, rating: 4.3, reviewCount: 3400, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_8.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'SHOKZ OpenRun Pro - Premium Bone Conduction Sport Headphones', slug: 'openrun-pro-bone-conduction', description: 'Enhanced bass and 10-hour battery life. IP55 water resistant.', specifications: {"Type":"Bone Conduction","Battery":"10 hours","Rating":"IP55"}, categoryId: catMap['electronics'], brand: 'SHOKZ', price: 15999, originalPrice: 19999, stock: 30, rating: 4.7, reviewCount: 1500, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_9.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'USB-C Wired In-Ear Headphones with Mic and Hi-Fi Sound', slug: 'usb-c-wired-in-ear-earphones', description: 'Ergonomic design with magnetic earbuds and digital audio chip.', specifications: {"Type":"Wired","Connector":"USB-C","Mic":"Yes"}, categoryId: catMap['electronics'], brand: 'Generic', price: 499, originalPrice: 999, stock: 500, rating: 4.0, reviewCount: 12000, isPrime: false, isFeatured: true,
+      images: [{ imageUrl: '/images/headphones/headphone_10.jpg', isPrimary: true, sortOrder: 1 }]
     }
   ];
 
