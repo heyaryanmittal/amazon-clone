@@ -47,11 +47,12 @@ const formatProduct = (p) => {
 router.get('/', async (req, res) => {
   try {
     const {
-      search   = '',
-      category = '',
-      minPrice = 0,
-      maxPrice = 999999,
-      sortBy   = 'createdAt',
+      search    = '',
+      category  = '',
+      minPrice  = 0,
+      maxPrice  = 999999,
+      minRating = '',
+      sortBy    = 'createdAt',
       sortOrder = 'desc',
       page  = 1,
       limit = 20,
@@ -64,11 +65,27 @@ router.get('/', async (req, res) => {
     const where = { isActive: true };
 
     if (search) {
-      where.OR = [
-        { name:        { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } },
-        { brand:       { contains: search, mode: 'insensitive' } }
-      ];
+      // Split search into words for better matching
+      const searchTerms = search.trim().split(/\s+/);
+      if (searchTerms.length > 1) {
+        // For multi-word searches: match the full phrase OR all individual words
+        where.OR = [
+          { name:        { contains: search, mode: 'insensitive' } },
+          { description: { contains: search, mode: 'insensitive' } },
+          { brand:       { contains: search, mode: 'insensitive' } },
+          // Also match if name contains any of the individual words
+          ...searchTerms.map(term => ({ name: { contains: term, mode: 'insensitive' } })),
+          ...searchTerms.map(term => ({ brand: { contains: term, mode: 'insensitive' } })),
+        ];
+      } else {
+        where.OR = [
+          { name:        { contains: search, mode: 'insensitive' } },
+          { description: { contains: search, mode: 'insensitive' } },
+          { brand:       { contains: search, mode: 'insensitive' } },
+          // Also search by category name
+          { category:    { name: { contains: search, mode: 'insensitive' } } }
+        ];
+      }
     }
 
     if (category) {
@@ -83,6 +100,10 @@ router.get('/', async (req, res) => {
       gte: parseFloat(minPrice),
       lte: parseFloat(maxPrice)
     };
+
+    if (minRating) {
+      where.rating = { gte: parseFloat(minRating) };
+    }
 
     // Map frontend sort names to Prisma field names
     const sortMap = {

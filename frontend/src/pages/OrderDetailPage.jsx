@@ -105,7 +105,7 @@ const OrderDetailPage = () => {
               {items.map((item, i) => (
                  <div key={item.id || i} className="flex gap-4 md:gap-8 border-b border-[#eee] last:border-0 pb-6 last:pb-0">
                     <div className="w-[100px] h-[100px] md:w-[130px] md:h-[130px] shrink-0 bg-white p-2">
-                       <img src={item.productImage || 'https://placehold.co/200'} alt={item.productName} className="w-full h-full object-contain mix-blend-multiply" />
+                       <img src={item.productImage || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80'} alt={item.productName} className="w-full h-full object-contain mix-blend-multiply" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80'; }} />
                     </div>
                     <div className="flex-1 flex flex-col">
                        <Link to={`/products/${item.productId}`} className="text-[#007185] hover:text-[#c45500] font-medium text-[16px] leading-[1.3] block mb-1">

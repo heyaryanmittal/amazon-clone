@@ -206,7 +206,7 @@ const HorizontalScroller = ({ title, linkText, items }) => {
           {items.map((item, i) => (
             <Link key={i} to={`/products/${item.id}`} className="min-w-[210px] max-w-[210px] cursor-pointer flex-shrink-0 flex flex-col group/item transition-all">
               <div className="h-[200px] bg-[#f7f7f7] p-4 flex items-center justify-center mb-2 overflow-hidden">
-                <img src={item.image_url || item.img} alt="Product" className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" />
+                <img src={item.image_url || item.primary_image || item.img} alt={item.name || 'Product'} className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80'; }} />
               </div>
               {(item.price) && (
                 <div className="flex flex-col gap-1">
@@ -297,7 +297,7 @@ const GridCard = ({ card }) => {
                   onMouseEnter={() => setSelectedIdx(i)}
                   className={`p-0.5 border rounded-[2px] cursor-pointer transition-all ${i===selectedIdx ? 'border-[#007185] shadow-[0_0_2px_#007185]' : 'border-[#ddd] hover:border-[#888]'}`}
                >
-                 <img src={thumb} className="w-full h-full object-cover rounded-[1px]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/50'; }} />
+                 <img src={thumb} className="w-full h-full object-cover rounded-[1px]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=80&q=80'; }} />
                </div>
             ))}
           </div>
@@ -334,13 +334,13 @@ const AmazonLiveSection = () => (
        </div>
        <div className="flex-1 flex overflow-x-auto gap-4 scrollbar-hide">
           {[
-            { img: 'https://images.unsplash.com/photo-150574042192b-fa4a70826993?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
-            { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
-            { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
-            { img: 'https://images.unsplash.com/photo-1583394838336-acd97773df81?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
+             { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
+             { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
+             { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
+             { img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
           ].map((item, i) => (
              <div key={i} className="min-w-[160px] flex flex-col border border-[#ddd] p-3 rounded cursor-pointer hover:shadow-sm">
-                <img src={item.img} className="w-full h-[140px] border border-[#eee] object-contain mb-3" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/150'; }} />
+                <img src={item.img} className="w-full h-[140px] border border-[#eee] object-contain mb-3" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&q=80'; }} />
                 <div className="text-[13px] line-clamp-2 text-[#0f1111] leading-[1.3] mb-1">{item.name}</div>
                 <div className="text-[14px] text-[#B12704] font-medium">₹{item.price}</div>
              </div>
@@ -371,60 +371,23 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch headphones from backend
-    getProducts({ category: 'electronics', limit: 30 }).then(({ data }) => {
-      const headphoneSlugs = [
-        'mackie-thump212-powered-loudspeaker',
-        'sony-wi-c100-wireless-earphones',
-        'sony-wh-ch720n-pink',
-        'sony-wh-ch720n-blue',
-        'boat-airdopes-131-black',
-        'truefree-o1-open-ear',
-        'marshall-minor-iii-tws',
-        'soundpeats-air3-tws',
-        'openrun-pro-bone-conduction',
-        'usb-c-wired-in-ear-earphones'
-      ];
-      const filtered = headphoneSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
-      if (filtered.length > 0) setHeadphones(filtered);
-      else setHeadphones(data.products.slice(0, 10));
+    // Fetch electronics products for headphone scroller
+    getProducts({ category: 'electronics', limit: 12 }).then(({ data }) => {
+      setHeadphones(data.products || []);
     }).catch(err => console.error('Failed to fetch headphones:', err));
 
-    // Fetch furniture from backend
-    getProducts({ category: 'home-kitchen', limit: 30 }).then(({ data }) => {
-      const furnitureSlugs = [
-        'modern-velvet-3-seater-sofa-emerald',
-        'ergonomic-office-chair-high-back',
-        'solid-oak-wood-dining-table-6-seater',
-        'queen-size-platform-bed-storage',
-        'industrial-style-bookshelf-metal-frame',
-        'round-marble-coffee-table-gold',
-        'scandinavian-tv-unit-light-oak',
-        'wingback-accent-chair-mustard',
-        'standing-mirror-full-length-walnut',
-        'nest-of-tables-sheesham'
-      ];
-      const filtered = furnitureSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
-      if (filtered.length > 0) setFurniture(filtered);
-      else setFurniture(data.products.slice(0, 10));
+    // Fetch home-kitchen products for furniture scroller
+    getProducts({ category: 'home-kitchen', limit: 12 }).then(({ data }) => {
+      setFurniture(data.products || []);
     }).catch(err => console.error('Failed to fetch furniture:', err));
 
-    getProducts({ limit: 100 }).then(({ data }) => {
-      const artSlugs = [
-        'abstract-canvas-wall-art-hand-painted', 'hand-thrown-ceramic-vase-terracotta', 'organic-lavender-hand-poured-soy-candle',
-        'handcrafted-wooden-serving-tray', 'woven-macrame-wall-hanging-decor', 'premium-full-grain-leather-journal',
-        'hand-painted-mandala-decorative-plate', 'bamboo-woven-storage-basket-set-2', 'vintage-artisan-brass-desk-clock', 'handmade-goat-milk-soap-bar'
-      ];
-      const filteredArt = artSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
-      if (filteredArt.length > 0) setArt(filteredArt);
+    // Fetch beauty and sports/toys for art & cookware scrollers
+    getProducts({ category: 'beauty-health', limit: 12 }).then(({ data }) => {
+      setArt(data.products || []);
+    }).catch(console.error);
 
-      const cookwareSlugs = [
-        'non-stick-induction-base-frying-pan-24cm', 'premium-acacia-wood-cutting-board', 'enameled-cast-iron-dutch-oven-4-5-quart',
-        'stainless-steel-chef-knife-8-inch', 'ceramic-coffee-mug-set-6', 'glass-teapot-rustproof-infuser',
-        'textured-stoneware-serving-bowls', 'crystal-wine-glasses-set-6', 'rectangular-ceramic-baking-dish', 'silicone-kitchen-utensils-set-12'
-      ];
-      const filteredCookware = cookwareSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
-      if (filteredCookware.length > 0) setCookware(filteredCookware);
+    getProducts({ category: 'sports-fitness', limit: 12 }).then(({ data }) => {
+      setCookware(data.products || []);
     }).catch(console.error);
   }, []);
 

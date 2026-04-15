@@ -43,7 +43,7 @@ const ProductCard = ({ product, showBuyNow = false }) => {
   const navigate = useNavigate();
 
   const discount = getDiscount(product.price, product.original_price);
-  const image = product.primary_image || product.image || 'https://via.placeholder.com/300x300?text=No+Image';
+  const image = product.primary_image || product.image_url || product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80';
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -90,7 +90,8 @@ const ProductCard = ({ product, showBuyNow = false }) => {
           loading="lazy"
           className="w-full h-full object-contain transition-transform duration-[250ms] group-hover:scale-105"
           onError={(e) => {
-            e.target.src = `https://via.placeholder.com/300x300/f7f7f7/aaaaaa?text=${encodeURIComponent(product.brand || 'Product')}`;
+            e.target.onerror = null;
+            e.target.src = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80';
           }}
         />
       </Link>

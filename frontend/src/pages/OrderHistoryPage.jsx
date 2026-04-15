@@ -76,7 +76,7 @@ const OrderHistoryPage = () => {
                    {(order.items || []).map((item, idx) => (
                       <div key={idx} className="flex gap-4">
                          <div className="w-[90px] h-[90px] p-1 border rounded cursor-pointer">
-                            <img src={item.image_url || 'https://via.placeholder.com/90'} className="w-full h-full object-contain" />
+                            <img src={item.image_url || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=90&q=80'} className="w-full h-full object-contain" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=90&q=80'; }} />
                          </div>
                          <div className="flex-1">
                             <Link to={`/products/${item.product_id}`} className="text-[#007185] hover:text-[#c45500] hover:underline text-[14px] font-medium line-clamp-2 leading-snug">

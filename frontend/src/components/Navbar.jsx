@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Search, MapPin, ChevronDown, ChevronUp, ChevronRight, Menu, X, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { getProducts } from '../services/api';
 import LocationModal from './LocationModal';
 
 const Navbar = () => {
@@ -18,6 +19,11 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [currentPincode, setCurrentPincode] = useState('110001');
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchInputRef = useRef(null);
+  const suggestionsRef = useRef(null);
+  const debounceRef = useRef(null);
 
   const categories = [
     'All Categories', 'Alexa Skills', 'Amazon Devices', 'Amazon Fashion', 'Amazon Fresh', 'Amazon Fresh Meat', 'Amazon Pharmacy', 'Appliances', 'Apps & Games', 'Audible Audiobooks', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Deals', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Gift Cards', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Kindle Store', 'Luggage & Bags', 'Luxury Beauty', 'Movies & TV Shows', 'MP3 Music', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Prime Video', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Subscribe & Save', 'Tools & Home Improvement', 'Toys & Games', 'Under ₹500', 'Video Games', 'Watches'
@@ -25,13 +31,66 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim() || selectedCategory !== 'all') {
+    setShowSuggestions(false);
+    if (searchQuery.trim() || selectedCategory !== 'all-categories') {
       const params = new URLSearchParams();
       if (searchQuery.trim()) params.set('search', searchQuery.trim());
-      if (selectedCategory !== 'all') params.set('category', selectedCategory);
+      if (selectedCategory !== 'all-categories') params.set('category', selectedCategory);
       navigate(`/products?${params.toString()}`);
+    } else if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
+
+  // Debounced live search suggestions
+  const handleSearchInput = (value) => {
+    setSearchQuery(value);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (value.trim().length < 2) {
+      setSearchSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    debounceRef.current = setTimeout(() => {
+      getProducts({ search: value.trim(), limit: 7 })
+        .then(({ data }) => {
+          const suggestions = (data.products || []).map(p => ({
+            id: p.id,
+            name: p.name,
+            category_name: p.category_name,
+            price: p.price,
+            image_url: p.image_url,
+          }));
+          setSearchSuggestions(suggestions);
+          setShowSuggestions(true);
+        })
+        .catch(() => {});
+    }, 250);
+  };
+
+  const selectSuggestion = (suggestion) => {
+    setSearchQuery(suggestion.name);
+    setShowSuggestions(false);
+    navigate(`/products?search=${encodeURIComponent(suggestion.name)}`);
+  };
+
+  // Close suggestions on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        suggestionsRef.current && 
+        !suggestionsRef.current.contains(e.target) && 
+        searchInputRef.current && 
+        !searchInputRef.current.contains(e.target)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -70,7 +129,7 @@ const Navbar = () => {
           </div>
 
           {/* Search Bar */}
-          <form className="flex-1 w-full sm:flex-1 flex h-10 rounded overflow-hidden bg-white focus-within:ring-[3px] focus-within:ring-[#F08804] border-none my-1" onSubmit={handleSearch}>
+          <form className="flex-1 w-full sm:flex-1 flex h-10 rounded overflow-hidden bg-white focus-within:ring-[3px] focus-within:ring-[#F08804] border-none my-1 relative" onSubmit={handleSearch} ref={searchInputRef}>
             <div className="relative flex items-center h-full bg-[#f3f3f3] hover:bg-[#dadada] border-r border-[#cdcdcd] cursor-pointer text-[#5f5f5f] text-[12px] w-auto max-w-[50px] sm:max-w-[70px]">
               <select
                 className="absolute inset-0 bg-transparent border-none text-transparent cursor-pointer focus:outline-none w-full appearance-none z-10"
@@ -99,11 +158,45 @@ const Navbar = () => {
               className="flex-1 border-none px-3 text-[15px] text-[#111] outline-none min-w-0 placeholder-[#767676] bg-white h-full"
               placeholder="Search Amazon.in"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchInput(e.target.value)}
+              onFocus={() => searchSuggestions.length > 0 && setShowSuggestions(true)}
             />
             <button type="submit" className="bg-[#febd69] hover:bg-[#f3a847] border-none w-[45px] h-full cursor-pointer flex items-center justify-center transition-colors text-[#333] shrink-0">
               <Search size={22} strokeWidth={2} />
             </button>
+
+            {/* Search Suggestions Dropdown */}
+            {showSuggestions && searchSuggestions.length > 0 && (
+              <div ref={suggestionsRef} className="absolute top-[calc(100%+2px)] left-0 right-0 bg-white border border-[#ccc] rounded-b-[4px] shadow-[0_4px_16px_rgba(0,0,0,0.2)] z-[9999] max-h-[400px] overflow-y-auto">
+                {searchSuggestions.map((suggestion) => (
+                  <div
+                    key={suggestion.id}
+                    onClick={() => selectSuggestion(suggestion)}
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#eee] cursor-pointer transition-colors border-b border-[#f0f0f0] last:border-none"
+                  >
+                    <Search size={14} className="text-[#999] shrink-0" />
+                    <div className="w-[36px] h-[36px] bg-[#f7f7f7] rounded flex items-center justify-center shrink-0 overflow-hidden border border-[#eee]">
+                      <img 
+                        src={suggestion.image_url} 
+                        alt="" 
+                        className="w-full h-full object-contain" 
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[14px] text-[#0f1111] line-clamp-1">{suggestion.name}</div>
+                      <div className="text-[11px] text-[#565959]">{suggestion.category_name} · ₹{suggestion.price?.toLocaleString('en-IN')}</div>
+                    </div>
+                  </div>
+                ))}
+                <div
+                  onClick={handleSearch}
+                  className="px-4 py-2.5 text-[13px] text-[#007185] hover:bg-[#f3f3f3] cursor-pointer text-center font-medium border-t border-[#ddd]"
+                >
+                  See all results for "{searchQuery}"
+                </div>
+              </div>
+            )}
           </form>
 
           {/* Right Actions */}

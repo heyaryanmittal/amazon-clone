@@ -103,7 +103,7 @@ const OrderConfirmationPage = () => {
                   <div className="flex flex-col gap-3">
                      {items.map((item, idx) => (
                         <div key={idx} className="flex gap-3 items-center border border-[#eee] p-2 rounded-[4px]">
-                           <img src={item.productImage || 'https://placehold.co/100'} className="w-12 h-12 object-contain" />
+                           <img src={item.productImage || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80'} className="w-12 h-12 object-contain" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80'; }} />
                            <div className="flex-1 min-w-0">
                               <p className="text-[13px] text-[#007185] font-medium line-clamp-1 hover:underline cursor-pointer">{item.productName}</p>
                               <p className="text-[12px] text-[#555]">Qty: {item.quantity}</p>
