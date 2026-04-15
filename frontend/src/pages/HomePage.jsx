@@ -355,6 +355,8 @@ const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [headphones, setHeadphones] = useState([]);
   const [furniture, setFurniture] = useState([]);
+  const [art, setArt] = useState([]);
+  const [cookware, setCookware] = useState([]);
 
   useEffect(() => {
     document.title = 'Amazon.in: Online Shopping India - Buy mobiles, laptops, cameras, books, watches, apparel, shoes and e-Gift Cards.';
@@ -406,6 +408,24 @@ const HomePage = () => {
       if (filtered.length > 0) setFurniture(filtered);
       else setFurniture(data.products.slice(0, 10));
     }).catch(err => console.error('Failed to fetch furniture:', err));
+
+    getProducts({ limit: 100 }).then(({ data }) => {
+      const artSlugs = [
+        'abstract-canvas-wall-art-hand-painted', 'hand-thrown-ceramic-vase-terracotta', 'organic-lavender-hand-poured-soy-candle',
+        'handcrafted-wooden-serving-tray', 'woven-macrame-wall-hanging-decor', 'premium-full-grain-leather-journal',
+        'hand-painted-mandala-decorative-plate', 'bamboo-woven-storage-basket-set-2', 'vintage-artisan-brass-desk-clock', 'handmade-goat-milk-soap-bar'
+      ];
+      const filteredArt = artSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
+      if (filteredArt.length > 0) setArt(filteredArt);
+
+      const cookwareSlugs = [
+        'non-stick-induction-base-frying-pan-24cm', 'premium-acacia-wood-cutting-board', 'enameled-cast-iron-dutch-oven-4-5-quart',
+        'stainless-steel-chef-knife-8-inch', 'ceramic-coffee-mug-set-6', 'glass-teapot-rustproof-infuser',
+        'textured-stoneware-serving-bowls', 'crystal-wine-glasses-set-6', 'rectangular-ceramic-baking-dish', 'silicone-kitchen-utensils-set-12'
+      ];
+      const filteredCookware = cookwareSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
+      if (filteredCookware.length > 0) setCookware(filteredCookware);
+    }).catch(console.error);
   }, []);
 
   // DUMMY ARRAYS FOR SCROLLERS
@@ -430,14 +450,28 @@ const HomePage = () => {
         { img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400', name: 'Queen Size Platform Bed with Storage', price: '18,500', ogPrice: '32,000' }
       ],
       art: [
-        { img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400', category: 'Handmade Paintings' },
-        { img: 'https://images.unsplash.com/photo-1459749411177-042180ec75c0?w=400', category: 'Sculptures' },
-        { img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400', category: 'Digital Art Prints' }
+        { img: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400', name: 'Abstract Canvas Wall Art - Hand Painted', price: '4,999', ogPrice: '7,500' },
+        { img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400', name: 'Hand-thrown Ceramic Vase (Terracotta)', price: '1,299', ogPrice: '2,000' },
+        { img: 'https://images.unsplash.com/photo-1603006905393-3ea735c02b33?w=400', name: 'Organic Lavender Hand-poured Soy Candle', price: '699', ogPrice: '1,200' },
+        { img: 'https://images.unsplash.com/photo-1584346961448-6927d6dbca5c?w=400', name: 'Handcrafted Wooden Serving Tray with Handles', price: '1,450', ogPrice: '2,200' },
+        { img: 'https://images.unsplash.com/photo-1520698188168-52fb0971b3e5?w=400', name: 'Woven Macrame Wall Hanging Decor', price: '899', ogPrice: '1,500' },
+        { img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400', name: 'Premium Full-Grain Leather Bound Journal', price: '1,250', ogPrice: '1,999' },
+        { img: 'https://images.unsplash.com/photo-1593444081033-b9dc34db3fc8?w=400', name: 'Hand-painted Mandala Decorative Plate', price: '550', ogPrice: '999' },
+        { img: 'https://images.unsplash.com/photo-1596321287664-d6ccad3b668f?w=400', name: 'Bamboo Woven Storage Basket Set of 2', price: '1,100', ogPrice: '1,800' },
+        { img: 'https://images.unsplash.com/photo-1612028659560-24419fba2f2a?w=400', name: 'Vintage Artisan Brass Desk Clock', price: '2,100', ogPrice: '3,500' },
+        { img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=400', name: 'Handmade Natural Goat Milk Soap Bar', price: '299', ogPrice: '450' }
       ],
       cookware: [
-        { img: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400', name: 'Non-Stick Ceramic Cookware Set', price: '3,499', ogPrice: '7,000' },
-        { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400', name: 'Hard Anodized Pressure Cooker', price: '2,299', ogPrice: '4,500' },
-        { img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400', name: 'Stainless Steel Knife Block Set', price: '1,199', ogPrice: '2,999' }
+        { img: 'https://images.unsplash.com/photo-1584269600464-37f10b45c3b4?w=400', name: 'Non-Stick Induction Base Frying Pan (24cm)', price: '850', ogPrice: '1,500' },
+        { img: 'https://images.unsplash.com/photo-1590302824795-468f7bd8f760?w=400', name: 'Premium Acacia Wood Cutting Board', price: '1,299', ogPrice: '2,499' },
+        { img: 'https://images.unsplash.com/photo-1592318469950-ec2e36780c12?w=400', name: 'Enameled Cast Iron Dutch Oven (4.5 Quart)', price: '4,500', ogPrice: '7,999' },
+        { img: 'https://images.unsplash.com/photo-1589330107297-c81ca039bbf2?w=400', name: 'Stainless Steel Chef Knife (8-inch)', price: '999', ogPrice: '1,999' },
+        { img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', name: 'Ceramic Coffee Mug Set of 6', price: '899', ogPrice: '1,500' },
+        { img: 'https://images.unsplash.com/photo-1611143899225-b461fa034e32?w=400', name: 'Glass Teapot with Rustproof Infuser', price: '1,150', ogPrice: '1,800' },
+        { img: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400', name: 'Textured Stoneware Serving Bowls (Set of 4)', price: '1,450', ogPrice: '2,200' },
+        { img: 'https://images.unsplash.com/photo-1510619717117-916c80cda776?w=400', name: 'Crystal Wine Glasses (Set of 6)', price: '2,199', ogPrice: '3,500' },
+        { img: 'https://images.unsplash.com/photo-1622245366436-eedd7d91e6b9?w=400', name: 'Rectangular Ceramic Baking Dish', price: '1,699', ogPrice: '2,500' },
+        { img: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=400', name: 'Silicone Kitchen Utensils Set (12 Pieces)', price: '1,899', ogPrice: '3,000' }
       ],
       brands: [
         { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400', name: 'Matte Liquid Lipstick Set', price: '999', ogPrice: '2,500' },
@@ -508,10 +542,10 @@ const HomePage = () => {
         <CardGridRow cards={ROW_4_CARDS} />
 
         {/* ROW 5: Scroller -> Up to 75% off | Curated products | Small Businesses */}
-        <HorizontalScroller title="Up to 75% off | Curated products | Small Businesses" linkText="Shop now" items={getScrollerItems('art')} />
+        <HorizontalScroller title="Up to 75% off | Curated products | Small Businesses" linkText="Shop now" items={art.length > 0 ? art : getScrollerItems('art')} />
 
         {/* ROW 6: Scroller -> Up to 60% off | Cookware... | Amazon Launchpad */}
-        <HorizontalScroller title="Up to 60% off | Cookware, Mugs and Dining | Amazon Launchpad" linkText="See more" items={getScrollerItems('cookware')} />
+        <HorizontalScroller title="Up to 60% off | Cookware, Mugs and Dining | Amazon Launchpad" linkText="See more" items={cookware.length > 0 ? cookware : getScrollerItems('cookware')} />
 
         {/* ROW 7: 4 Custom Cards */}
         <CardGridRow cards={ROW_7_CARDS} />

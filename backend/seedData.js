@@ -207,6 +207,68 @@ async function seed() {
     },
     { name: 'Nest of Tables (Set of 3) - Dark Sheesham', slug: 'nest-of-tables-sheesham', description: 'Compact set of 3 nesting tables made from durable Sheesham wood.', specifications: {"Material":"Sheesham Wood","Set Of":"3","Type":"Nesting Tables"}, categoryId: catMap['home-kitchen'], brand: 'IndoHandicrafts', price: 3899, originalPrice: 6500, stock: 50, rating: 4.3, reviewCount: 220, isPrime: true, isFeatured: true,
       images: [{ imageUrl: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    // ART AND HANDICRAFTS (SMALL BUSINESSES)
+    { name: 'Abstract Canvas Wall Art - Hand Painted', slug: 'abstract-canvas-wall-art-hand-painted', description: 'Original handmade abstract acrylic painting on premium canvas. Perfect for modern living rooms.', specifications: {"Medium":"Acrylic","Dimensions":"24x36 inches","Frame":"Unframed"}, categoryId: catMap['home-kitchen'], brand: 'ArtisanCrafts', price: 4999, originalPrice: 7500, stock: 5, rating: 4.8, reviewCount: 42, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Hand-thrown Ceramic Vase (Terracotta)', slug: 'hand-thrown-ceramic-vase-terracotta', description: 'Rustic decorative terracotta vase, crafted on a pottery wheel by expert artisans.', specifications: {"Material":"Clay/Terracotta","Height":"12 inches","Weight":"1.5 kg"}, categoryId: catMap['home-kitchen'], brand: 'EarthlyPots', price: 1299, originalPrice: 2000, stock: 20, rating: 4.6, reviewCount: 89, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Organic Lavender Hand-poured Soy Candle', slug: 'organic-lavender-hand-poured-soy-candle', description: 'Scented soy wax candle infused with natural lavender essential oils. Slow burning.', specifications: {"Burn Time":"45 Hours","Wax":"100% Soy","Scent":"Lavender"}, categoryId: catMap['beauty-health'], brand: 'Lumina', price: 699, originalPrice: 1200, stock: 50, rating: 4.9, reviewCount: 231, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1603006905393-3ea735c02b33?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Handcrafted Wooden Serving Tray with Handles', slug: 'handcrafted-wooden-serving-tray', description: 'Solid acacia wood serving tray. Treated with food-safe natural oils.', specifications: {"Material":"Acacia Wood","Dimensions":"18x12 inches"}, categoryId: catMap['home-kitchen'], brand: 'Woodworks', price: 1450, originalPrice: 2200, stock: 35, rating: 4.5, reviewCount: 112, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1584346961448-6927d6dbca5c?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Woven Macrame Wall Hanging Decor', slug: 'woven-macrame-wall-hanging-decor', description: 'Boho style macrame wall ornament crafted with 100% natural cotton cord.', specifications: {"Material":"Cotton Line & Wood","Length":"25 inches"}, categoryId: catMap['home-kitchen'], brand: 'BohoChic', price: 899, originalPrice: 1500, stock: 40, rating: 4.7, reviewCount: 304, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1520698188168-52fb0971b3e5?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Premium Full-Grain Leather Bound Journal', slug: 'premium-full-grain-leather-journal', description: 'Vintage style leather diary with unlined artisan paper. Perfect for sketching or writing.', specifications: {"Pages":"240","Material":"Full-grain leather","Size":"A5"}, categoryId: catMap['office-products'], brand: 'VintageQuill', price: 1250, originalPrice: 1999, stock: 65, rating: 4.8, reviewCount: 567, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Hand-painted Mandala Decorative Plate', slug: 'hand-painted-mandala-decorative-plate', description: 'Intricate mandala dotted art on a wooden plate. Comes with a display stand.', specifications: {"Diameter":"10 inches","Material":"MDF Wood"}, categoryId: catMap['home-kitchen'], brand: 'DesiCrafts', price: 550, originalPrice: 999, stock: 25, rating: 4.4, reviewCount: 56, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1593444081033-b9dc34db3fc8?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Bamboo Woven Storage Basket Set of 2', slug: 'bamboo-woven-storage-basket-set-2', description: 'Eco-friendly handwoven bamboo baskets for organization or planters.', specifications: {"Material":"Natural Bamboo","Sizes":"Medium & Large"}, categoryId: catMap['home-kitchen'], brand: 'EcoWeave', price: 1100, originalPrice: 1800, stock: 60, rating: 4.5, reviewCount: 145, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1596321287664-d6ccad3b668f?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Vintage Artisan Brass Desk Clock', slug: 'vintage-artisan-brass-desk-clock', description: 'Antique finish solid brass table clock with Roman numerals.', specifications: {"Material":"Brass","Mechanism":"Quartz","Dimensions":"6x4 inches"}, categoryId: catMap['home-kitchen'], brand: 'TimeCrafters', price: 2100, originalPrice: 3500, stock: 15, rating: 4.6, reviewCount: 88, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1612028659560-24419fba2f2a?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Handmade Natural Goat Milk Soap Bar', slug: 'handmade-goat-milk-soap-bar', description: 'Artisan cold-pressed soap. Sulphate-free and deeply moisturizing.', specifications: {"Weight":"100g","Ingredients":"Goat Milk, Olive Oil"}, categoryId: catMap['beauty-health'], brand: 'PureSuds', price: 299, originalPrice: 450, stock: 100, rating: 4.7, reviewCount: 423, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    // COOKWARE
+    { name: 'Non-Stick Induction Base Frying Pan (24cm)', slug: 'non-stick-induction-base-frying-pan-24cm', description: 'Heavy gauge aluminum body with a premium non-stick coating and bakelite handle.', specifications: {"Diameter":"24cm","Compatibility":"Gas & Induction"}, categoryId: catMap['home-kitchen'], brand: 'ChefMaster', price: 850, originalPrice: 1500, stock: 80, rating: 4.3, reviewCount: 1420, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1584269600464-37f10b45c3b4?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Premium Acacia Wood Cutting Board', slug: 'premium-acacia-wood-cutting-board', description: 'Thick butcher block style chopping board with juice groove.', specifications: {"Material":"Acacia Wood","Dimensions":"16x12x1.5 inches"}, categoryId: catMap['home-kitchen'], brand: 'WoodPro', price: 1299, originalPrice: 2499, stock: 45, rating: 4.8, reviewCount: 890, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1590302824795-468f7bd8f760?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Enameled Cast Iron Dutch Oven (4.5 Quart)', slug: 'enameled-cast-iron-dutch-oven-4-5-quart', description: 'Versatile cooking pot, perfect for slow cooking, roasting, and baking bread.', specifications: {"Capacity":"4.5 Quart","Material":"Cast Iron Enameled"}, categoryId: catMap['home-kitchen'], brand: 'Culina', price: 4500, originalPrice: 7999, stock: 25, rating: 4.7, reviewCount: 654, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1592318469950-ec2e36780c12?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Stainless Steel Chef Knife (8-inch)', slug: 'stainless-steel-chef-knife-8-inch', description: 'High-carbon stainless steel blade for precision slicing and dicing.', specifications: {"Blade Length":"8 inches","Handle":"Ergonomic Wood"}, categoryId: catMap['home-kitchen'], brand: 'SharpEdge', price: 999, originalPrice: 1999, stock: 120, rating: 4.6, reviewCount: 2310, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1589330107297-c81ca039bbf2?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Ceramic Coffee Mug Set of 6', slug: 'ceramic-coffee-mug-set-6', description: 'Minimalist matte finish coffee mugs. Microwave and dishwasher safe.', specifications: {"Capacity":"350ml","Material":"Ceramic"}, categoryId: catMap['home-kitchen'], brand: 'BrewMates', price: 899, originalPrice: 1500, stock: 65, rating: 4.4, reviewCount: 453, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Glass Teapot with Rustproof Infuser', slug: 'glass-teapot-rustproof-infuser', description: 'Borosilicate glass teapot, stovetop safe, with a removable stainless steel filter.', specifications: {"Capacity":"1000ml","Material":"Glass & Steel"}, categoryId: catMap['home-kitchen'], brand: 'TeaWorld', price: 1150, originalPrice: 1800, stock: 40, rating: 4.5, reviewCount: 765, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1611143899225-b461fa034e32?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Textured Stoneware Serving Bowls (Set of 4)', slug: 'textured-stoneware-serving-bowls', description: 'Beautifully crafted deep bowls for soups, cereals, or salads.', specifications: {"Quantity":"4 Pieces","Material":"Stoneware"}, categoryId: catMap['home-kitchen'], brand: 'StoneCraft', price: 1450, originalPrice: 2200, stock: 35, rating: 4.6, reviewCount: 320, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Crystal Wine Glasses (Set of 6)', slug: 'crystal-wine-glasses-set-6', description: 'Lead-free crystal glasses with elegant long stems. Ideal for red and white wine.', specifications: {"Capacity":"450ml","Material":"Crystal Glass"}, categoryId: catMap['home-kitchen'], brand: 'GlassElegance', price: 2199, originalPrice: 3500, stock: 55, rating: 4.7, reviewCount: 899, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1510619717117-916c80cda776?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Rectangular Ceramic Baking Dish', slug: 'rectangular-ceramic-baking-dish', description: 'Durable bakeware for lasagnas, casseroles, and roasting. Oven safe up to 500F.', specifications: {"Dimensions":"13x9 inches","Material":"Glazed Ceramic"}, categoryId: catMap['home-kitchen'], brand: 'OvenSafe', price: 1699, originalPrice: 2500, stock: 30, rating: 4.8, reviewCount: 412, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1622245366436-eedd7d91e6b9?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Silicone Kitchen Utensils Set (12 Pieces)', slug: 'silicone-kitchen-utensils-set-12', description: 'Heat resistant non-stick spatulas, spoons, and tongs with wooden handles.', specifications: {"Items":"12 Piece Set","Material":"Silicone & Wood"}, categoryId: catMap['home-kitchen'], brand: 'HomeCook', price: 1899, originalPrice: 3000, stock: 85, rating: 4.5, reviewCount: 1560, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=800', isPrimary: true, sortOrder: 1 }]
     }
   ];
 
