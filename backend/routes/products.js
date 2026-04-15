@@ -181,13 +181,20 @@ router.get('/featured', async (req, res) => {
   }
 });
 
-// GET /api/products/:id
-router.get('/:id', async (req, res) => {
+// GET /api/products/:idOrSlug
+router.get('/:idOrSlug', async (req, res) => {
   try {
-    const productId = parseInt(req.params.id);
+    const { idOrSlug } = req.params;
+    const isNumeric = /^\d+$/.test(idOrSlug);
 
     const product = await prisma.product.findFirst({
-      where: { id: productId, isActive: true },
+      where: {
+        OR: [
+          isNumeric ? { id: parseInt(idOrSlug) } : null,
+          { slug: idOrSlug }
+        ].filter(Boolean),
+        isActive: true
+      },
       include: {
         category: {
           select: { id: true, name: true, slug: true }

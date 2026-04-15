@@ -31,6 +31,7 @@ async function seed() {
     { name: 'Office Products',  slug: 'office-products', icon: '💼', description: 'Stationery and more' }
   ];
 
+/*
   for (const cat of categoriesData) {
     await prisma.category.upsert({
       where: { slug: cat.slug },
@@ -38,6 +39,7 @@ async function seed() {
       update: {}
     });
   }
+*/
   console.log('✅ Categories seeded');
 
   const categories = await prisma.category.findMany();
@@ -45,11 +47,11 @@ async function seed() {
   categories.forEach(c => { catMap[c.slug] = c.id; });
 
   // 3. Helper to generate products
-  const createProduct = (catSlug, index, name, price, ogPrice, brand, img) => ({
+  const createProduct = (catSlug, index, name, price, ogPrice, brand, img, customSlug) => ({
     name,
-    slug: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
-    description: `A premium ${name} designed for comfort and performance in the ${catSlug} category.`,
-    specifications: {"Brand": brand, "Warranty": "1 Year", "Color": "Standard"},
+    slug: customSlug || `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+    description: `A premium ${name} designed for comfort and performance in the ${catSlug} category. Experience unparalleled quality and sophisticated design.`,
+    specifications: {"Brand": brand, "Warranty": "1 Year", "Color": "Standard", "Material": "Premium Grade"},
     categoryId: catMap[catSlug],
     brand,
     price,
@@ -217,10 +219,10 @@ async function seed() {
     "https://images.unsplash.com/photo-1585515320310-259814833e62?w=500",
     "https://images.unsplash.com/photo-1507473885765-e6ed057ab793?w=500",
     "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500",
-    "https://images.unsplash.com/photo-1602928294248-ad69e46a9b75?w=500",
+    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500",
     "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500",
     "https://images.unsplash.com/photo-1585664811087-47f65abbad64?w=500",
-    "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500",
+    "https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?w=500",
     "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500"
   ];
   homeNames.forEach((n, i) => allProducts.push(createProduct('home-kitchen', i, n, 899 + i * 400, 1599 + i * 600, 'ComfortHome', homeImgs[i])));
@@ -294,22 +296,133 @@ async function seed() {
   ];
   toysNames.forEach((n, i) => allProducts.push(createProduct('toys-games', i, n, 399 + i * 400, 799 + i * 600, 'PlayBox', toysImgs[i])));
 
+  // --- HOMEPAGE SCROLLER PRODUCTS ---
+  
+  // 1. Headphones
+  const hpProducts = [
+    { name: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones', price: 29990, og: 34990, img: '/images/headphones/headphone_1.jpg' },
+    { name: 'Bose QuietComfort 45 Bluetooth Headphones', price: 24500, og: 29900, img: '/images/headphones/headphone_2.jpg' },
+    { name: 'Sennheiser HD 660S Professional Headphones', price: 42000, og: 49990, img: '/images/headphones/headphone_3.jpg' },
+    { name: 'Apple AirPods Max - Sky Blue', price: 54900, og: 59900, img: '/images/headphones/headphone_4.jpg' },
+    { name: 'Jabra Elite 85h Smart Noise Cancelling Headphones', price: 18999, og: 24999, img: '/images/headphones/headphone_5.jpg' },
+    { name: 'Audio-Technica ATH-M50x Professional Monitor Headphones', price: 11500, og: 14500, img: '/images/headphones/headphone_6.jpg' },
+    { name: 'Beats Solo3 Wireless On-Ear Headphones', price: 14500, og: 19900, img: '/images/headphones/headphone_7.jpg' },
+    { name: 'Marshall Major IV On-Ear Bluetooth Headphones', price: 11999, og: 14999, img: '/images/headphones/headphone_8.jpg' },
+    { name: 'JBL Tune 710BT Wireless Over-Ear Headphones', price: 5499, og: 7999, img: '/images/headphones/headphone_9.jpg' },
+    { name: 'USB-C Wired In-Ear Headphones with Mic', price: 499, og: 999, img: '/images/headphones/headphone_10.jpg' }
+  ];
+  hpProducts.forEach((p, i) => allProducts.push(createProduct('electronics', i, p.name, p.price, p.og, 'HP-Series', p.img, `headphones-${i}`)));
+
+  // 2. Furniture
+  const furNames = [
+    'Modern Velvet 3-Seater Sofa - Forest Green', 'Minimalist Wooden Study Desk with Shelf',
+    'Oak Wood Dining Table - 6 Seater', 'Queen Size Platform Bed with Storage',
+    'Wall-Mounted Floating Bookshelf Set of 3', 'Mid-Century Modern Accent Chair',
+    'Linen Upholstered Ottoman with Storage', 'Solid Teak Coffee Table with Drawer',
+    'Industrial Metal Wardrobe with Shelves', 'Bamboo Side Table with Magazine Rack'
+  ];
+  const furImgs = [
+    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500', 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=500',
+    'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=500', 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=500',
+    'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=500', 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500',
+    'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=500', 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=500',
+    'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=500', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500'
+  ];
+  furNames.forEach((n, i) => allProducts.push(createProduct('home-kitchen', i, n, 5000 + i * 2000, 10000 + i * 3000, 'HomeLux', furImgs[i], `furniture-${i}`)));
+
+  // 3. Art/Small Business
+  const artNames = [
+    'Abstract Canvas Wall Art - Hand Painted', 'Artist Acrylic Paint Set (24 Colours)',
+    'Organic Lavender Hand-poured Soy Candle', 'Hand-thrown Ceramic Vase (Terracotta)',
+    'Premium Full-Grain Leather Bound Journal', 'Hand-painted Mandala Decorative Plate',
+    'Bamboo Woven Storage Basket Set of 2', 'Watercolour Brush Pen Set (48 Colours)',
+    'Art Easel Stand - Adjustable Tripod', 'Handmade Natural Goat Milk Soap Set'
+  ];
+  const artImgs = [
+    'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=500', 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500',
+    'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=500', 'https://images.unsplash.com/photo-1610701502262-da56703fd640?w=500',
+    'https://images.unsplash.com/photo-1544816155-12df9643f363?w=500', 'https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=500',
+    'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=500', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500',
+    'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500', 'https://images.unsplash.com/photo-1582201942988-13e60e3f3673?w=500'
+  ];
+  artNames.forEach((n, i) => allProducts.push(createProduct('home-kitchen', i, n, 400 + i * 200, 800 + i * 300, 'SmallBiz', artImgs[i], `art-${i}`)));
+
+  // 4. Cookware
+  const cookNames = [
+    'Non-Stick Induction Base Frying Pan (24cm)', 'Premium Acacia Wood Cutting Board',
+    'Enameled Cast Iron Dutch Oven (4.5 Quart)', 'Stainless Steel Chef Knife Set (5-Piece)',
+    'Ceramic Coffee Mug Set of 6', 'Glass Teapot with Rustproof Infuser',
+    'Textured Stoneware Serving Bowls (Set of 4)', 'Crystal Wine Glasses (Set of 6)',
+    'Rectangular Ceramic Baking Dish', 'Silicone Kitchen Utensils Set (12 Pieces)'
+  ];
+  const cookImgs = [
+    'https://images.unsplash.com/photo-1556912998-c57cc6b71821?w=500', 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500',
+    'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=500', 'https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500',
+    'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500', 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500',
+    'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500', 'https://images.unsplash.com/photo-1583394838223-aef6146ee53f?w=500',
+    'https://images.unsplash.com/photo-1585664811087-47f65abbad64?w=500', 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=500'
+  ];
+  cookNames.forEach((n, i) => allProducts.push(createProduct('home-kitchen', i, n, 800 + i * 300, 1500 + i * 400, 'ChefMaster', cookImgs[i], `cookware-${i}`)));
+
+  // 5. Beauty Brands
+  const brandNames = [
+    'Matte Liquid Lipstick Set (6 Shades)', 'Refresh Face Wash - Organic Aloe Vera',
+    'Hyaluronic Acid Skin Serum (30ml)', 'Vitamin C Brightening Moisturizer',
+    'Rose Gold Makeup Brush Set (12 Pcs)', 'Lavender Essential Oil - Pure (15ml)',
+    'Men\'s Grooming Kit - Beard Care Set', 'Coconut & Shea Butter Body Lotion',
+    'Hair Repair Keratin Treatment Mask', 'Compact Powder Foundation - Matte Finish'
+  ];
+  const brandImgs = [
+    'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500', 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500',
+    'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=500', 'https://images.unsplash.com/photo-1601054763260-1510443e06f9?w=500',
+    'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=500', 'https://images.unsplash.com/photo-1602928340334-a78b5ce54ccd?w=500',
+    'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=500', 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=500',
+    'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500', 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500'
+  ];
+  brandNames.forEach((n, i) => allProducts.push(createProduct('beauty-health', i, n, 400 + i * 150, 900 + i * 200, 'GlowUp', brandImgs[i], `brands-${i}`)));
+  // 6. Amazon LIVE Products
+  const liveProducts = [
+    { name: 'Premium Studio Headphones - Wireless', price: 12999, og: 19999, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500' },
+    { name: 'Smart Watch Series 7 - Black', price: 2499, og: 4999, img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500' },
+    { name: 'Polarized Sunglasses - Classic Style', price: 899, og: 1599, img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500' },
+    { name: 'E-Sports Gaming Mouse - RGB', price: 1599, og: 2999, img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500' }
+  ];
+  liveProducts.forEach((p, i) => allProducts.push(createProduct('electronics', i, p.name, p.price, p.og, 'LivePromo', p.img, `live-${i}`)));
+
   // 4. Seeding Products
-  for (const { images, ...productData } of allProducts) {
-    await prisma.product.upsert({
-      where: { slug: productData.slug },
-      create: {
-        ...productData,
-        images: { create: images }
-      },
-      update: {
-        ...productData,
-        images: {
-          deleteMany: {},
-          create: images
+  console.log(`🚀 Seeding ${allProducts.length} products...`);
+  
+  // Helper to chunk the array for batch processing
+  const chunkArray = (arr, size) => {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunks.push(arr.slice(i, i + size));
+    }
+    return chunks;
+  };
+
+  const productChunks = chunkArray(allProducts, 10);
+  let seededCount = 0;
+
+  for (const chunk of productChunks) {
+    await Promise.all(chunk.map(async ({ images, ...productData }) => {
+      await prisma.product.upsert({
+        where: { slug: productData.slug },
+        create: {
+          ...productData,
+          images: { create: images }
+        },
+        update: {
+          ...productData,
+          images: {
+            deleteMany: {},
+            create: images
+          }
         }
-      }
-    });
+      });
+    }));
+    seededCount += chunk.length;
+    console.log(`👉 Progress: ${seededCount}/${allProducts.length} products synced...`);
   }
 
   console.log(`✅ ${allProducts.length} products seeded across 10 categories!`);

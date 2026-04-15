@@ -23,17 +23,17 @@ const ROW_1_CARDS = [
     type: 'quad', title: 'Revamp your home in style', link: 'Explore all',
     items: [
       { img: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=300', label: 'Cushion covers, bedsheets & more' },
-      { img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=300', label: 'Figurines, vases & more' },
+      { img: 'https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=300', label: 'Figurines, vases & more' },
       { img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=300', label: 'Home storage' },
-      { img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300', label: 'Lighting solutions' }
+      { img: 'https://images.unsplash.com/photo-1507473885765-e6ed057ab793?w=300', label: 'Lighting solutions' }
     ]
   },
   {
     type: 'quad', title: 'Bulk order discounts + Up to 18% GST savings', link: 'Register now',
     items: [
       { img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300', label: 'Up to 45% off | Laptops' },
-      { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=300', label: 'Up to 60% off | Kitchen appliances' },
-      { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=300', label: 'Min. 50% off | Office...' },
+      { img: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300', label: 'Up to 60% off | Kitchen appliances' },
+      { img: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=300', label: 'Min. 50% off | Office...' },
       { img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300', label: 'Register using GST' }
     ]
   },
@@ -62,28 +62,28 @@ const ROW_4_CARDS = [
     type: 'single-thumbs', title: 'Up to 60% off | Cool comfort at every corner', link: 'See all offers', price: '3,492', ogPrice: '8,000',
     mainImg: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=60&w=500',
     thumbs: [
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=60&w=400',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400&q=80',
+      'https://images.unsplash.com/photo-1618221735421-4f99581a62d4?auto=format&fit=crop&q=60&w=400',
+      'https://images.unsplash.com/photo-1586023494544-7f41508db83e?w=400&q=80',
+      'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400&q=80',
       'https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=60&w=400'
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 50% off | Deals on home decor', link: 'Shop now', price: '2,499', ogPrice: '6,000',
-    mainImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',
+    mainImg: 'https://images.unsplash.com/photo-1510563800743-aed236490d08?w=400&q=80',
     thumbs: [
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400&q=80',
+      'https://images.unsplash.com/photo-1516516628854-d30555f30894?w=400&q=80',
+      'https://images.unsplash.com/photo-1594895666320-96f7e44a03ee?w=400&q=80',
       'https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=400&q=80',
       'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=400&q=80'
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Best offers on kitchen products from brands...', link: 'See all offers', price: '1,299', ogPrice: '3,500',
-    mainImg: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80',
+    mainImg: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&q=80',
     thumbs: [
-      'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80',
-      'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&q=80',
+      'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?w=400&q=80',
+      'https://images.unsplash.com/photo-1556912998-c57cc6b71821?w=400&q=80',
       'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',
       'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=400&q=80'
     ]
@@ -93,11 +93,11 @@ const ROW_4_CARDS = [
 const ROW_7_CARDS = [
   {
     type: 'single-thumbs', title: 'Starting ₹299 | Trending kitchen essentials', link: 'Shop now', price: '4,499', ogPrice: '12,000',
-    mainImg: 'https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=400&q=80',
+    mainImg: 'https://images.unsplash.com/photo-1556910602-3884ee9ad327?w=400&q=80',
     thumbs: [
       'https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=400&q=80',
       'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=400&q=80',
-      'https://images.unsplash.com/photo-1556910602-3884ee9ad327?w=400&q=80',
+      'https://images.unsplash.com/photo-1547471080-7cc20320ee1e?w=400&q=80',
       'https://images.unsplash.com/photo-1563177404-9b2dca91fa6c?w=400&q=80'
     ]
   },
@@ -112,9 +112,9 @@ const ROW_7_CARDS = [
   },
   {
     type: 'single-thumbs', title: 'Min. 25% off | Trending & small decor', link: 'See all offers', price: '899', ogPrice: '2,500',
-    mainImg: 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
+    mainImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
     thumbs: [
-      'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
+      'https://images.unsplash.com/photo-1510563800743-aed236490d08?w=400&q=80',
       'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=400&q=80',
       'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&q=80',
       'https://images.unsplash.com/photo-1594913366159-1832cdcbe0c1?w=400&q=80'
@@ -126,8 +126,8 @@ const ROW_7_CARDS = [
     thumbs: [
       'https://images.unsplash.com/photo-1490212000085-f2603837e226?w=400&q=80',
       'https://images.unsplash.com/photo-1459749411177-042180ec75c0?w=400&q=80',
-      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80',
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80'
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
+      'https://images.unsplash.com/photo-1524168204150-6226fd722bac?w=400&q=80'
     ]
   }
 ];
@@ -154,8 +154,8 @@ const ROW_10_CARDS = [
   {
     type: 'quad', title: 'Best Sellers in Home & Kitchen', link: 'See more',
     items: [
-      { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200&q=80', label: 'Pressure Cookers' },
-      { img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200&q=80', label: 'Storage' },
+      { img: 'https://images.unsplash.com/photo-1556910602-3884ee9ad327?w=200&q=80', label: 'Pressure Cookers' },
+      { img: 'https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?w=200&q=80', label: 'Storage' },
       { img: 'https://images.unsplash.com/photo-1522338271444-12403063f3da?w=200&q=80', label: 'Tools' },
       { img: 'https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=200&q=80', label: 'Cleaning' }
     ]
@@ -206,7 +206,7 @@ const HorizontalScroller = ({ title, linkText, items }) => {
           {items.map((item, i) => (
             <Link key={i} to={`/products/${item.id}`} className="min-w-[210px] max-w-[210px] cursor-pointer flex-shrink-0 flex flex-col group/item transition-all">
               <div className="h-[200px] bg-[#f7f7f7] p-4 flex items-center justify-center mb-2 overflow-hidden">
-                <img src={item.image_url || item.primary_image || item.img} alt={item.name || 'Product'} className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80'; }} />
+                <img src={item.image_url || item.primary_image || item.img} alt={item.name || 'Product'} className="max-h-full max-w-full object-contain group-hover/item:scale-105 transition-transform duration-300" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=200&q=80'; }} />
               </div>
               {(item.price) && (
                 <div className="flex flex-col gap-1">
@@ -334,16 +334,16 @@ const AmazonLiveSection = () => (
        </div>
        <div className="flex-1 flex overflow-x-auto gap-4 scrollbar-hide">
           {[
-             { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
-             { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
-             { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
-             { img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
+             { id: 246, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
+             { id: 245, img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
+             { id: 244, img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
+             { id: 247, img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
           ].map((item, i) => (
-             <div key={i} className="min-w-[160px] flex flex-col border border-[#ddd] p-3 rounded cursor-pointer hover:shadow-sm">
-                <img src={item.img} className="w-full h-[140px] border border-[#eee] object-contain mb-3" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&q=80'; }} />
-                <div className="text-[13px] line-clamp-2 text-[#0f1111] leading-[1.3] mb-1">{item.name}</div>
+             <Link key={i} to={`/products/${item.id}`} className="min-w-[160px] flex flex-col border border-[#ddd] p-3 rounded cursor-pointer hover:shadow-sm no-underline group/live">
+                <img src={item.img} className="w-full h-[140px] border border-[#eee] object-contain mb-3 group-hover/live:scale-105 transition-transform" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1574634534894-89d7576c8259?w=150&q=80'; }} />
+                <div className="text-[13px] line-clamp-2 text-[#0f1111] leading-[1.3] mb-1 group-hover/live:text-[#007185]">{item.name}</div>
                 <div className="text-[14px] text-[#B12704] font-medium">₹{item.price}</div>
-             </div>
+             </Link>
           ))}
        </div>
     </div>
@@ -353,10 +353,6 @@ const AmazonLiveSection = () => (
 
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [headphones, setHeadphones] = useState([]);
-  const [furniture, setFurniture] = useState([]);
-  const [art, setArt] = useState([]);
-  const [cookware, setCookware] = useState([]);
 
   useEffect(() => {
     document.title = 'Amazon.in: Online Shopping India - Buy mobiles, laptops, cameras, books, watches, apparel, shoes and e-Gift Cards.';
@@ -370,86 +366,72 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    // Fetch electronics products for headphone scroller
-    getProducts({ category: 'electronics', limit: 12 }).then(({ data }) => {
-      setHeadphones(data.products || []);
-    }).catch(err => console.error('Failed to fetch headphones:', err));
+  // Curated scroller data — every image matches its product name
+  const scrollerData = {
+    headphones: [
+      { id: 194, img: '/images/headphones/headphone_1.jpg', name: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones', price: '29,990', ogPrice: '34,990' },
+      { id: 195, id_ref: 'hp-1', img: '/images/headphones/headphone_2.jpg', name: 'Bose QuietComfort 45 Bluetooth Headphones', price: '24,500', ogPrice: '29,900' },
+      { id: 196, img: '/images/headphones/headphone_3.jpg', name: 'Sennheiser HD 660S Professional Headphones', price: '42,000', ogPrice: '49,990' },
+      { id: 197, img: '/images/headphones/headphone_4.jpg', name: 'Apple AirPods Max - Sky Blue', price: '54,900', ogPrice: '59,900' },
+      { id: 198, img: '/images/headphones/headphone_5.jpg', name: 'Jabra Elite 85h Smart Noise Cancelling Headphones', price: '18,999', ogPrice: '24,999' },
+      { id: 199, img: '/images/headphones/headphone_6.jpg', name: 'Audio-Technica ATH-M50x Professional Monitor Headphones', price: '11,500', ogPrice: '14,500' },
+      { id: 202, img: '/images/headphones/headphone_7.jpg', name: 'Beats Solo3 Wireless On-Ear Headphones', price: '14,500', ogPrice: '19,900' },
+      { id: 201, img: '/images/headphones/headphone_8.jpg', name: 'Marshall Major IV On-Ear Bluetooth Headphones', price: '11,999', ogPrice: '14,999' },
+      { id: 200, img: '/images/headphones/headphone_9.jpg', name: 'JBL Tune 710BT Wireless Over-Ear Headphones', price: '5,499', ogPrice: '7,999' },
+      { id: 203, img: '/images/headphones/headphone_10.jpg', name: 'USB-C Wired In-Ear Headphones with Mic', price: '499', ogPrice: '999' }
+    ],
+    furniture: [
+      { id: 209, img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa - Forest Green', price: '22,499', ogPrice: '45,000' },
+      { id: 213, img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400', name: 'Minimalist Wooden Study Desk with Shelf', price: '12,999', ogPrice: '22,000' },
+      { id: 210, img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Oak Wood Dining Table - 6 Seater', price: '34,999', ogPrice: '60,000' },
+      { id: 207, img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400', name: 'Queen Size Platform Bed with Storage', price: '18,500', ogPrice: '32,000' },
+      { id: 206, img: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400', name: 'Wall-Mounted Floating Bookshelf Set of 3', price: '2,499', ogPrice: '4,500' },
+      { id: 208, img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400', name: 'Mid-Century Modern Accent Chair', price: '9,999', ogPrice: '18,000' },
+      { id: 211, img: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=400', name: 'Linen Upholstered Ottoman with Storage', price: '5,499', ogPrice: '9,999' },
+      { id: 212, img: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400', name: 'Solid Teak Coffee Table with Drawer', price: '8,999', ogPrice: '16,000' },
+      { id: 205, img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400', name: 'Industrial Metal Wardrobe with Shelves', price: '15,999', ogPrice: '28,000' },
+      { id: 204, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400', name: 'Bamboo Side Table with Magazine Rack', price: '3,299', ogPrice: '5,999' }
+    ],
+    art: [
+      { id: 223, img: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400', name: 'Abstract Canvas Wall Art - Hand Painted', price: '4,999', ogPrice: '7,500' },
+      { id: 221, img: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400', name: 'Artist Acrylic Paint Set (24 Colours)', price: '1,299', ogPrice: '2,000' },
+      { id: 217, img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=400', name: 'Organic Lavender Hand-poured Soy Candle', price: '699', ogPrice: '1,200' },
+      { id: 215, img: 'https://images.unsplash.com/photo-1610701502262-da56703fd640?w=400', name: 'Hand-thrown Ceramic Vase (Terracotta)', price: '1,450', ogPrice: '2,200' },
+      { id: 214, img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400', name: 'Premium Full-Grain Leather Bound Journal', price: '1,250', ogPrice: '1,999' },
+      { id: 220, img: 'https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=400', name: 'Hand-painted Mandala Decorative Plate', price: '550', ogPrice: '999' },
+      { id: 219, img: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=400', name: 'Bamboo Woven Storage Basket Set of 2', price: '1,100', ogPrice: '1,800' },
+      { id: 222, img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400', name: 'Watercolour Brush Pen Set (48 Colours)', price: '899', ogPrice: '1,500' },
+      { id: 218, img: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400', name: 'Art Easel Stand - Adjustable Tripod', price: '2,100', ogPrice: '3,500' },
+      { id: 216, img: 'https://images.unsplash.com/photo-1582201942988-13e60e3f3673?w=400', name: 'Handmade Natural Goat Milk Soap Set', price: '399', ogPrice: '750' }
+    ],
+    cookware: [
+      { id: 224, img: 'https://images.unsplash.com/photo-1556912998-c57cc6b71821?w=400', name: 'Non-Stick Induction Base Frying Pan (24cm)', price: '850', ogPrice: '1,500' },
+      { id: 233, img: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400', name: 'Premium Acacia Wood Cutting Board', price: '1,299', ogPrice: '2,499' },
+      { id: 231, img: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400', name: 'Enameled Cast Iron Dutch Oven (4.5 Quart)', price: '4,500', ogPrice: '7,999' },
+      { id: 227, img: 'https://images.unsplash.com/photo-1593618998160-e34014e67546?w=400', name: 'Stainless Steel Chef Knife Set (5-Piece)', price: '2,999', ogPrice: '5,499' },
+      { id: 225, img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', name: 'Ceramic Coffee Mug Set of 6', price: '899', ogPrice: '1,500' },
+      { id: 230, img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400', name: 'Glass Teapot with Rustproof Infuser', price: '1,150', ogPrice: '1,800' },
+      { id: 228, img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400', name: 'Textured Stoneware Serving Bowls (Set of 4)', price: '1,450', ogPrice: '2,200' },
+      { id: 232, img: 'https://images.unsplash.com/photo-1583394838223-aef6146ee53f?w=400', name: 'Crystal Wine Glasses (Set of 6)', price: '2,199', ogPrice: '3,500' },
+      { id: 229, img: 'https://images.unsplash.com/photo-1585664811087-47f65abbad64?w=400', name: 'Rectangular Ceramic Baking Dish', price: '1,699', ogPrice: '2,500' },
+      { id: 226, img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400', name: 'Silicone Kitchen Utensils Set (12 Pieces)', price: '1,899', ogPrice: '3,000' }
+    ],
+    brands: [
+      { id: 237, img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400', name: 'Matte Liquid Lipstick Set (6 Shades)', price: '999', ogPrice: '2,500' },
+      { id: 242, img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400', name: 'Refresh Face Wash - Organic Aloe Vera', price: '450', ogPrice: '800' },
+      { id: 236, img: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400', name: 'Hyaluronic Acid Skin Serum (30ml)', price: '1,200', ogPrice: '2,200' },
+      { id: 241, img: 'https://images.unsplash.com/photo-1601054763260-1510443e06f9?w=400', name: 'Vitamin C Brightening Moisturizer', price: '799', ogPrice: '1,500' },
+      { id: 243, img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=400', name: 'Rose Gold Makeup Brush Set (12 Pcs)', price: '1,499', ogPrice: '2,999' },
+      { id: 240, img: 'https://images.unsplash.com/photo-1602928340334-a78b5ce54ccd?w=400', name: 'Lavender Essential Oil - Pure (15ml)', price: '349', ogPrice: '699' },
+      { id: 238, img: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400', name: 'Men\'s Grooming Kit - Beard Care Set', price: '899', ogPrice: '1,800' },
+      { id: 239, img: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400', name: 'Coconut & Shea Butter Body Lotion', price: '599', ogPrice: '1,100' },
+      { id: 235, img: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400', name: 'Hair Repair Keratin Treatment Mask', price: '650', ogPrice: '1,200' },
+      { id: 234, img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400', name: 'Compact Powder Foundation - Matte Finish', price: '549', ogPrice: '999' }
+    ]
+  };
 
-    // Fetch home-kitchen products for furniture scroller
-    getProducts({ category: 'home-kitchen', limit: 12 }).then(({ data }) => {
-      setFurniture(data.products || []);
-    }).catch(err => console.error('Failed to fetch furniture:', err));
-
-    // Fetch beauty and sports/toys for art & cookware scrollers
-    getProducts({ category: 'beauty-health', limit: 12 }).then(({ data }) => {
-      setArt(data.products || []);
-    }).catch(console.error);
-
-    getProducts({ category: 'sports-fitness', limit: 12 }).then(({ data }) => {
-      setCookware(data.products || []);
-    }).catch(console.error);
-  }, []);
-
-  // DUMMY ARRAYS FOR SCROLLERS
   const getScrollerItems = (keyword) => {
-    const placeholders = {
-      headphones: [
-        { img: '/images/headphones/headphone_1.jpg', name: 'Mackie Thump212 1200W 12-inch Powered Loudspeaker', price: '34,990', ogPrice: '45,000' },
-        { img: '/images/headphones/headphone_2.jpg', name: 'Sony WI-C100 Wireless In-Ear Bluetooth Headphones', price: '1,699', ogPrice: '2,790' },
-        { img: '/images/headphones/headphone_3.jpg', name: 'Sony WH-CH720N Wireless Noise Cancelling Headphones - Pink', price: '9,990', ogPrice: '14,990' },
-        { img: '/images/headphones/headphone_4.jpg', name: 'Sony WH-CH720N Wireless Noise Cancelling Headphones - Blue', price: '9,990', ogPrice: '14,990' },
-        { img: '/images/headphones/headphone_5.jpg', name: 'boAt Airdopes 131 True Wireless Earbuds', price: '899', ogPrice: '2,990' },
-        { img: '/images/headphones/headphone_6.jpg', name: 'TRUEFREE O1 Open Ear Bluetooth Headphones', price: '4,599', ogPrice: '6,999' },
-        { img: '/images/headphones/headphone_7.jpg', name: 'Marshall Minor III True Wireless In-Ear Headphones', price: '11,999', ogPrice: '14,999' },
-        { img: '/images/headphones/headphone_8.jpg', name: 'SoundPEATS Air3 Wireless Earbuds', price: '3,999', ogPrice: '5,999' },
-        { img: '/images/headphones/headphone_9.jpg', name: 'SHOKZ OpenRun Pro - Premium Bone Conduction Sport Headphones', price: '15,999', ogPrice: '19,999' },
-        { img: '/images/headphones/headphone_10.jpg', name: 'USB-C Wired In-Ear Headphones with Mic', price: '499', ogPrice: '999' }
-      ],
-      furniture: [
-        { img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa', price: '22,499', ogPrice: '45,000' },
-        { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400', name: 'Ergonomic Office Chair with Lumbar Support', price: '7,999', ogPrice: '15,000' },
-        { img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Oak Wood Dining Table - 6 Seater', price: '34,999', ogPrice: '60,000' },
-        { img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400', name: 'Queen Size Platform Bed with Storage', price: '18,500', ogPrice: '32,000' }
-      ],
-      art: [
-        { img: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400', name: 'Abstract Canvas Wall Art - Hand Painted', price: '4,999', ogPrice: '7,500' },
-        { img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400', name: 'Hand-thrown Ceramic Vase (Terracotta)', price: '1,299', ogPrice: '2,000' },
-        { img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=400', name: 'Organic Lavender Hand-poured Soy Candle', price: '699', ogPrice: '1,200' },
-        { img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400', name: 'Handcrafted Wooden Serving Tray with Handles', price: '1,450', ogPrice: '2,200' },
-        { img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400', name: 'Woven Macrame Wall Hanging Decor', price: '899', ogPrice: '1,500' },
-        { img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400', name: 'Premium Full-Grain Leather Bound Journal', price: '1,250', ogPrice: '1,999' },
-        { img: 'https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=400', name: 'Hand-painted Mandala Decorative Plate', price: '550', ogPrice: '999' },
-        { img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400', name: 'Bamboo Woven Storage Basket Set of 2', price: '1,100', ogPrice: '1,800' },
-        { img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400', name: 'Vintage Artisan Brass Desk Clock', price: '2,100', ogPrice: '3,500' },
-        { img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400', name: 'Handmade Natural Goat Milk Soap Bar', price: '299', ogPrice: '450' }
-      ],
-      cookware: [
-        { img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400', name: 'Non-Stick Induction Base Frying Pan (24cm)', price: '850', ogPrice: '1,500' },
-        { img: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=400', name: 'Premium Acacia Wood Cutting Board', price: '1,299', ogPrice: '2,499' },
-        { img: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=400', name: 'Enameled Cast Iron Dutch Oven (4.5 Quart)', price: '4,500', ogPrice: '7,999' },
-        { img: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=400', name: 'Stainless Steel Chef Knife (8-inch)', price: '999', ogPrice: '1,999' },
-        { img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', name: 'Ceramic Coffee Mug Set of 6', price: '899', ogPrice: '1,500' },
-        { img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400', name: 'Glass Teapot with Rustproof Infuser', price: '1,150', ogPrice: '1,800' },
-        { img: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400', name: 'Textured Stoneware Serving Bowls (Set of 4)', price: '1,450', ogPrice: '2,200' },
-        { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400', name: 'Crystal Wine Glasses (Set of 6)', price: '2,199', ogPrice: '3,500' },
-        { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400', name: 'Rectangular Ceramic Baking Dish', price: '1,699', ogPrice: '2,500' },
-        { img: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=400', name: 'Silicone Kitchen Utensils Set (12 Pieces)', price: '1,899', ogPrice: '3,000' }
-      ],
-      brands: [
-        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400', name: 'Matte Liquid Lipstick Set', price: '999', ogPrice: '2,500' },
-        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400', name: 'Refresh Face Wash - Organic', price: '450', ogPrice: '800' },
-        { img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=400', name: 'Hyaluronic Acid Skin Serum', price: '1,200', ogPrice: '2,200' }
-      ],
-      upgrade: [
-        { img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Solid Wood Wall Shelf Decor', price: '4,500', ogPrice: '8,000' },
-        { img: 'https://images.unsplash.com/photo-1513511933972-f8d569feba8c?w=400', name: 'Abstract Canvas Wall Art', price: '1,800', ogPrice: '3,500' },
-        { img: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=400', name: 'Minimalist Study Desk Lamp', price: '899', ogPrice: '1,500' }
-      ]
-    };
-    
-    const pool = placeholders[keyword] || [{ img: 'https://images.unsplash.com/photo-1620714223084-8fcacc6df38d?w=400', name: 'Curated Selection', price: '999', ogPrice: '1,999' }];
-    return Array.from({ length: 12 }, (_, i) => ({ ...pool[i % pool.length], id: `${keyword}-${i}` }));
+    return scrollerData[keyword] || [];
   };
 
   return (
@@ -496,19 +478,19 @@ const HomePage = () => {
         <CardGridRow cards={ROW_1_CARDS} isFirstRow={true} />
 
         {/* ROW 2: Scroller -> Up to 40% off | Headphones and earbuds */}
-        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={headphones.length > 0 ? headphones : getScrollerItems('headphones')} />
+        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={getScrollerItems('headphones')} />
 
         {/* ROW 3: Scroller -> Up to 60% off | Deals on everyday furniture */}
-        <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={furniture.length > 0 ? furniture : getScrollerItems('furniture')} />
+        <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={getScrollerItems('furniture')} />
 
         {/* ROW 4: 4 Custom Cards */}
         <CardGridRow cards={ROW_4_CARDS} />
 
         {/* ROW 5: Scroller -> Up to 75% off | Curated products | Small Businesses */}
-        <HorizontalScroller title="Up to 75% off | Curated products | Small Businesses" linkText="Shop now" items={art.length > 0 ? art : getScrollerItems('art')} />
+        <HorizontalScroller title="Up to 75% off | Curated products | Small Businesses" linkText="Shop now" items={getScrollerItems('art')} />
 
         {/* ROW 6: Scroller -> Up to 60% off | Cookware... | Amazon Launchpad */}
-        <HorizontalScroller title="Up to 60% off | Cookware, Mugs and Dining | Amazon Launchpad" linkText="See more" items={cookware.length > 0 ? cookware : getScrollerItems('cookware')} />
+        <HorizontalScroller title="Up to 60% off | Cookware, Mugs and Dining | Amazon Launchpad" linkText="See more" items={getScrollerItems('cookware')} />
 
         {/* ROW 7: 4 Custom Cards */}
         <CardGridRow cards={ROW_7_CARDS} />

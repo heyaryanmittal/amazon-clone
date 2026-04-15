@@ -20,18 +20,19 @@ const ProductDetailPage = () => {
   useEffect(() => {
     setLoading(true);
     getProduct(id).then(({ data }) => {
-      setProduct(data.product);
+      const fetchedProduct = data.product;
+      setProduct(fetchedProduct);
       setImages(data.images || []);
       setSelectedImage(0);
-    }).catch(console.error).finally(() => setLoading(false));
 
-    // Check if in wishlist
-    const token = localStorage.getItem('amazon_token');
-    if (token) {
-      checkWishlist(id).then(({ data }) => {
-        setIsInWishlist(data.inWishlist);
-      }).catch(() => {});
-    }
+      // Check if in wishlist after product id is available
+      const token = localStorage.getItem('amazon_token');
+      if (token && fetchedProduct) {
+        checkWishlist(fetchedProduct.id).then(({ data }) => {
+          setIsInWishlist(data.inWishlist);
+        }).catch(() => {});
+      }
+    }).catch(console.error).finally(() => setLoading(false));
   }, [id]);
 
   const handleAddToCart = () => {
