@@ -13,37 +13,37 @@ const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Appliances for your home | Up to 55% off', link: 'See more',
     items: [
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg', label: 'Air conditioners' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg', label: 'Refrigerators' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg', label: 'Microwaves' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg', label: 'Washing machines' }
+      { img: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=200&q=80', label: 'Air conditioners' },
+      { img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=200&q=80', label: 'Refrigerators' },
+      { img: 'https://images.unsplash.com/photo-1542223616-953ebbb0e222?w=200&q=80', label: 'Microwaves' },
+      { img: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=200&q=80', label: 'Washing machines' }
     ]
   },
   {
     type: 'quad', title: 'Revamp your home in style', link: 'Explore all',
     items: [
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_furnishings_2._SY116_CB584596691_.jpg', label: 'Cushion covers, bedsheets & more' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_decor_1._SY116_CB584596691_.jpg', label: 'Figurines, vases & more' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_storage_1._SY116_CB584596691_.jpg', label: 'Home storage' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGW/PCQC/186x116_Home_lighting_2._SY116_CB584596691_.jpg', label: 'Lighting solutions' }
+      { img: 'https://images.unsplash.com/photo-1522771731470-ea43294798cd?w=200&q=80', label: 'Cushion covers, bedsheets & more' },
+      { img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=200&q=80', label: 'Figurines, vases & more' },
+      { img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=200&q=80', label: 'Home storage' },
+      { img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=200&q=80', label: 'Lighting solutions' }
     ]
   },
   {
     type: 'quad', title: 'Bulk order discounts + Up to 18% GST savings', link: 'Register now',
     items: [
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Laptops_186x116._SY116_CB583852028_.jpg', label: 'Up to 45% off | Laptops' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Kitchen_186x116._SY116_CB583852028_.jpg', label: 'Up to 60% off | Kitchen appliances' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Furniture_186x116._SY116_CB583852028_.jpg', label: 'Min. 50% off | Office...' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Article/PC_QC_Amazon_biz_186x116._SY116_CB583852028_.jpg', label: 'Register using GST' }
+      { img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=80', label: 'Up to 45% off | Laptops' },
+      { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200&q=80', label: 'Up to 60% off | Kitchen appliances' },
+      { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=200&q=80', label: 'Min. 50% off | Office...' },
+      { img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=200&q=80', label: 'Register using GST' }
     ]
   },
   {
     type: 'quad', title: 'Starting ₹49 | Deals on home essentials', link: 'Explore all',
     items: [
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_1._SY116_CB561113576_.jpg', label: 'Cleaning supplies' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_3._SY116_CB561113576_.jpg', label: 'Bathroom accessories' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_4._SY116_CB561113576_.jpg', label: 'Home tools' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/march/BISS/1X_2._SY116_CB561113576_.jpg', label: 'Wallpapers' }
+      { img: 'https://images.unsplash.com/photo-1584820927498-cafe5c152a73?w=200&q=80', label: 'Cleaning supplies' },
+      { img: 'https://images.unsplash.com/photo-1585058284564-96696b026ae2?w=200&q=80', label: 'Bathroom accessories' },
+      { img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=200&q=80', label: 'Home tools' },
+      { img: 'https://images.unsplash.com/photo-1615800098774-c010c0d1e5fb?w=200&q=80', label: 'Wallpapers' }
     ]
   }
 ];
@@ -52,40 +52,40 @@ const ROW_4_CARDS = [
   {
     type: 'quad', title: "Customers' Most-Loved Fashion for you", link: 'Explore more',
     items: [
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Fashion/GW/Aug_rec/QC_Mens_tops/Mens_tops_1._SY116_CB566731998_.jpg', label: '' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Fashion/GW/Aug_rec/QC_Mens_tops/Mens_tops_2._SY116_CB566731998_.jpg', label: '' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Fashion/GW/Aug_rec/QC_Mens_tops/Mens_tops_3._SY116_CB566731998_.jpg', label: '' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Fashion/GW/Aug_rec/QC_Mens_tops/Mens_tops_4._SY116_CB566731998_.jpg', label: '' }
+      { img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&q=80', label: '' },
+      { img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80', label: '' },
+      { img: 'https://images.unsplash.com/photo-1434389678278-be4d41a6b8e3?w=200&q=80', label: '' },
+      { img: 'https://images.unsplash.com/photo-1489987707023-af82705283fc?w=200&q=80', label: '' }
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Cool comfort at every corner', link: 'See all offers', price: '3,492', ogPrice: '8,000',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/img23/CE/Aug/Fans_Tall_card_2_1._SY304_CB566746817_.jpg',
+    mainImg: 'https://images.unsplash.com/photo-1558231464-9a48d0df621c?w=400&q=80',
     thumbs: [
-      'https://images-eu.ssl-images-amazon.com/images/G/31/img23/CE/Aug/Fans_Tall_card_2_1._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/img23/CE/Aug/Fans_Tall_card_2_2._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/img23/CE/Aug/Fans_Tall_card_2_3._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/img23/CE/Aug/Fans_Tall_card_2_4._SY304_CB566746817_.jpg'
+      'https://images.unsplash.com/photo-1558231464-9a48d0df621c?w=100&q=80',
+      'https://images.unsplash.com/photo-1585822765379-7a3eb11b1574?w=100&q=80',
+      'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=100&q=80',
+      'https://images.unsplash.com/photo-1498843053639-170ff2122f35?w=100&q=80'
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 50% off | Deals on home decor', link: 'Shop now', price: '2,499', ogPrice: '6,000',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_2_1._SY304_CB566746817_.jpg',
+    mainImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',
     thumbs: [
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_2_1._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_2_2._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_2_3._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_2_4._SY304_CB566746817_.jpg'
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=100&q=80',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=100&q=80',
+      'https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=100&q=80',
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=100&q=80'
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Best offers on kitchen products from brands...', link: 'See all offers', price: '1,299', ogPrice: '3,500',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_3_1._SY304_CB566746817_.jpg',
+    mainImg: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80',
     thumbs: [
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_3_1._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_3_2._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_3_3._SY304_CB566746817_.jpg',
-      'https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_3_4._SY304_CB566746817_.jpg'
+      'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=100&q=80',
+      'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=100&q=80',
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&q=80',
+      'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=100&q=80'
     ]
   }
 ];
@@ -93,47 +93,47 @@ const ROW_4_CARDS = [
 const ROW_7_CARDS = [
   {
     type: 'single-thumbs', title: 'Starting ₹299 | Trending kitchen essentials', link: 'Shop now', price: '4,499', ogPrice: '12,000',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_4_1._SY304_CB566746817_.jpg',
-    thumbs: Array(4).fill('https://images-eu.ssl-images-amazon.com/images/G/31/Kitchen/2024/aug24/hero/QC/QC_4_1._SY304_CB566746817_.jpg')
+    mainImg: 'https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=400&q=80',
+    thumbs: Array(4).fill('https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=100&q=80')
   },
   {
     type: 'quad', title: 'Best Sellers in Beauty', link: 'See more',
     items: [
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Beauty/2024/Aug/hero/QC_1._SY116_CB566746817_.jpg', label: '' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Beauty/2024/Aug/hero/QC_2._SY116_CB566746817_.jpg', label: '' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Beauty/2024/Aug/hero/QC_3._SY116_CB566746817_.jpg', label: '' },
-      { img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Beauty/2024/Aug/hero/QC_4._SY116_CB566746817_.jpg', label: '' }
+      { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', label: '' },
+      { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', label: '' },
+      { img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=200&q=80', label: '' },
+      { img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80', label: '' }
     ]
   },
   {
     type: 'single-thumbs', title: 'Min. 25% off | Trending & small decor', link: 'See all offers', price: '899', ogPrice: '2,500',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_5_1._SY304_CB566746817_.jpg',
-    thumbs: Array(4).fill('https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_5_1._SY304_CB566746817_.jpg')
+    mainImg: 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
+    thumbs: Array(4).fill('https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=100&q=80')
   },
   {
     type: 'single-thumbs', title: 'Min. 50% off | Top deals from Small Businesses', link: 'See all deals', price: '450', ogPrice: '1,200',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_6_1._SY304_CB566746817_.jpg',
-    thumbs: Array(4).fill('https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_6_1._SY304_CB566746817_.jpg')
+    mainImg: 'https://images.unsplash.com/photo-1490212000085-f2603837e226?w=400&q=80',
+    thumbs: Array(4).fill('https://images.unsplash.com/photo-1490212000085-f2603837e226?w=100&q=80')
   }
 ];
 
 const ROW_10_CARDS = [
   {
     type: 'quad', title: 'Best Sellers in Computers & Accessories', link: 'See more',
-    items: Array(4).fill({ img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/CE/Aug/QC_7_1._SY116_CB566746817_.jpg', label: '' })
+    items: Array(4).fill({ img: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&q=80', label: '' })
   },
   {
     type: 'quad', title: 'Best Sellers in Clothing & Accessories', link: 'See more',
-    items: Array(4).fill({ img: 'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Fashion/GW/Aug_rec/QC_8_1._SY116_CB566731998_.jpg', label: '' })
+    items: Array(4).fill({ img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=200&q=80', label: '' })
   },
   {
     type: 'quad', title: 'Best Sellers in Home & Kitchen', link: 'See more',
-    items: Array(4).fill({ img: 'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_9_1._SY116_CB566746817_.jpg', label: '' })
+    items: Array(4).fill({ img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200&q=80', label: '' })
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Inverter Batteries from brands near you', link: 'Explore more', price: '12,999', ogPrice: '25,000',
-    mainImg: 'https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_10_1._SY304_CB566746817_.jpg',
-    thumbs: Array(4).fill('https://images-eu.ssl-images-amazon.com/images/G/31/Home/2024/aug24/hero/QC/QC_10_1._SY304_CB566746817_.jpg')
+    mainImg: 'https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=400&q=80',
+    thumbs: Array(4).fill('https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=100&q=80')
   }
 ];
 
@@ -193,7 +193,7 @@ const CardGridRow = ({ cards, isFirstRow }) => (
           <div className="grid grid-cols-2 gap-x-4 gap-y-4 flex-1 mb-4">
             {card.items.map((item, i) => (
               <div key={i} className="flex flex-col cursor-pointer">
-                <Link to="/products"><img src={item.img} alt={item.label} className="w-full h-[110px] object-cover mb-1 bg-[#f3f4f6]" onError={(e)=>e.target.src='https://via.placeholder.com/150'} /></Link>
+                <Link to="/products"><img src={item.img} alt={item.label} className="w-full h-[110px] object-cover mb-1 bg-[#f3f4f6]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/150'; }} /></Link>
                 {item.label && <Link to="/products" className="text-[12px] text-[#0f1111] no-underline line-clamp-1 hover:underline">{item.label}</Link>}
               </div>
             ))}
@@ -203,7 +203,7 @@ const CardGridRow = ({ cards, isFirstRow }) => (
         {card.type === 'single-thumbs' && (
           <div className="flex-1 mb-4 flex flex-col justify-between">
             <Link to="/products" className="flex-1 flex flex-col bg-white mb-2 overflow-hidden relative no-underline">
-               <img src={card.mainImg} alt={card.title} className="max-h-[180px] w-full object-contain mb-2" onError={(e)=>e.target.src='https://via.placeholder.com/300'} />
+               <img src={card.mainImg} alt={card.title} className="max-h-[180px] w-full object-contain mb-2" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/300'; }} />
                {card.price ? (
                  <div className="flex flex-col gap-0.5">
                    <div className="flex items-center gap-1.5">
@@ -221,7 +221,7 @@ const CardGridRow = ({ cards, isFirstRow }) => (
             <div className="grid grid-cols-4 gap-2 h-[60px] mt-2">
               {card.thumbs.map((thumb, i) => (
                  <div key={i} className={`p-0.5 border rounded-[2px] cursor-pointer ${i===0 ? 'border-[#007185] shadow-[0_0_2px_#007185]' : 'border-[#ddd] hover:border-[#888]'}`}>
-                   <img src={thumb} className="w-full h-full object-cover rounded-[1px]" onError={(e)=>e.target.src='https://via.placeholder.com/50'} />
+                   <img src={thumb} className="w-full h-full object-cover rounded-[1px]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/50'; }} />
                  </div>
               ))}
             </div>
@@ -252,7 +252,7 @@ const AmazonLiveSection = () => (
        <div className="flex-1 flex overflow-x-auto gap-4 scrollbar-hide">
           {[1,2,3,4].map(i => (
              <div key={i} className="min-w-[160px] flex flex-col border border-[#ddd] p-3 rounded cursor-pointer hover:shadow-sm">
-                <img src={`https://via.placeholder.com/150x150?text=Live+Product+${i}`} className="w-full h-[140px] border border-[#eee] object-contain mb-3" />
+                <img src={`https://placehold.co/150x150?text=Live+Product+${i}`} className="w-full h-[140px] border border-[#eee] object-contain mb-3" />
                 <div className="text-[13px] line-clamp-2 text-[#0f1111] leading-[1.3] mb-1">Exclusive product featured in Amazon Live stream...</div>
                 <div className="text-[14px] text-[#B12704] font-medium">₹1,249.00</div>
              </div>

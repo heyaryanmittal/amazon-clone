@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const CartPage = () => {
-  const { cart, updateQuantity, removeFromCart, summary } = useCart();
+  const { items, updateItem, removeItem, summary } = useCart();
   const navigate = useNavigate();
+
+  const cart = items || [];
 
   if (cart.length === 0) {
     return (
@@ -30,7 +30,6 @@ const CartPage = () => {
               </div>
            </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -53,14 +52,14 @@ const CartPage = () => {
 
            <div className="flex flex-col gap-5">
               {cart.map(item => (
-                <div key={item.product_id} className="flex gap-4 border-b border-[#ddd] pb-5">
+                <div key={item.cart_id} className="flex gap-4 border-b border-[#ddd] pb-5">
                    <div className="w-[180px] h-[180px] bg-[#f7f7f7] p-2 flex items-center justify-center shrink-0">
-                      <img src={item.product.image_url} className="max-w-full max-h-full object-contain" />
+                      <img src={item.image || item.image_url} className="max-w-full max-h-full object-contain" />
                    </div>
                    <div className="flex-1 flex flex-col">
                       <div className="flex justify-between">
-                         <h2 className="text-[18px] font-medium leading-[1.2] hover:text-[#c45500] cursor-pointer">{item.product.name}</h2>
-                         <span className="text-[18px] font-bold">₹{item.product.price.toLocaleString()}</span>
+                         <h2 className="text-[18px] font-medium leading-[1.2] hover:text-[#c45500] cursor-pointer">{item.name}</h2>
+                         <span className="text-[18px] font-bold">₹{item.price.toLocaleString()}</span>
                       </div>
                       <div className="text-[12px] text-[#007600] mt-1">In stock</div>
                       <div className="text-[12px] text-[#565959] mt-1">Size: Standard | Style: Premium Edition</div>
@@ -70,13 +69,13 @@ const CartPage = () => {
                            <select 
                             className="bg-transparent text-[13px] outline-none cursor-pointer"
                             value={item.quantity}
-                            onChange={(e) => updateQuantity(item.product_id, parseInt(e.target.value))}
+                            onChange={(e) => updateItem(item.cart_id, parseInt(e.target.value))}
                            >
                               {[1,2,3,4,5,6,7,8,9,10].map(n => <option key={n} value={n}>Qty: {n}</option>)}
                            </select>
                         </div>
                         <div className="w-[1px] h-3 bg-[#ddd]"></div>
-                        <button onClick={() => removeFromCart(item.product_id)} className="text-[#007185] text-[12px] hover:underline cursor-pointer bg-transparent border-none p-0">Delete</button>
+                        <button onClick={() => removeItem(item.cart_id)} className="text-[#007185] text-[12px] hover:underline cursor-pointer bg-transparent border-none p-0">Delete</button>
                         <div className="w-[1px] h-3 bg-[#ddd]"></div>
                         <button className="text-[#007185] text-[12px] hover:underline cursor-pointer bg-transparent border-none p-0">Save for later</button>
                         <div className="w-[1px] h-3 bg-[#ddd]"></div>

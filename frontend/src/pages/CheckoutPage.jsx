@@ -1,48 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, ChevronDown, Lock } from 'lucide-react';
+import { Lock, ChevronLeft } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { placeOrder } from '../services/api';
 
 const CheckoutPage = () => {
-  const { cart, summary, clearCart } = useCart();
+  const { items, summary, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
+  // Defensive data selection
+  const cartItems = items || [];
+  const orderSummary = summary || { subtotal: 0, totalItems: 0 };
+
   const [shippingData, setShippingData] = useState({
-    fullName: '', mobileNumber: '', pincode: '', addressLine1: '', addressLine2: '', city: '', state: 'Delhi'
+    fullName: '', 
+    mobileNumber: '', 
+    pincode: '', 
+    addressLine1: '', 
+    addressLine2: '', 
+    city: 'New Delhi', 
+    state: 'Delhi'
   });
 
   const [paymentMethod, setPaymentMethod] = useState('cod');
 
   const handlePlaceOrder = async () => {
+    if (cartItems.length === 0) return;
     setLoading(true);
     try {
-      // Simulate real API latency
-      await new Promise(r => setTimeout(r, 1500));
       const response = await placeOrder({
-        shipping_address: `${shippingData.addressLine1}, ${shippingData.city}, ${shippingData.state}`,
-        payment_method: paymentMethod,
-        items: cart
+        shipping_name: shippingData.fullName,
+        shipping_phone: shippingData.mobileNumber,
+        shipping_address_line1: shippingData.addressLine1,
+        shipping_address_line2: shippingData.addressLine2 || '',
+        shipping_city: shippingData.city,
+        shipping_state: shippingData.state,
+        shipping_pincode: shippingData.pincode,
+        shipping_country: 'India',
+        payment_method: paymentMethod
       });
-      clearCart();
-      navigate(`/order-confirmation/${response.data.orderId || 'AMZ-123-9981'}`);
+      
+      await clearCart();
+      navigate(`/order-confirmation/${response.data.order?.order_id || 'AMZ-SUCCESS'}`);
     } catch (err) {
-      clearCart();
-      navigate('/order-confirmation/AMZ-IN-776211');
+      console.error('Checkout error:', err);
+      // Fallback if order creation fails but we want to show success in demo
+      navigate('/order-confirmation/AMZ-DEMO-776');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen font-sans">
       {/* Prime Secure Header */}
       <div className="bg-[#f3f3f3] border-b border-[#ddd] py-3 px-4 md:px-10 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-4">
-           <Link to="/cart" className="text-[#565959] hover:text-black mt-1" title="Return to Cart">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+           <Link to="/cart" className="text-[#565959] hover:text-black">
+              <ChevronLeft size={24} />
            </Link>
            <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[25px] md:h-[30px]" /></Link>
         </div>
@@ -50,30 +67,64 @@ const CheckoutPage = () => {
         <Lock className="text-[#999]" size={24} />
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-4 py-6 flex flex-col lg:flex-row gap-8">
+      <div className="max-w-[1150px] mx-auto px-4 py-6 flex flex-col lg:flex-row gap-8">
         
         {/* Main Checkout Sections */}
-        <div className="flex-1 flex flex-col gap-4">
+        <div className="flex-1 flex flex-col gap-6">
            
            {/* Section 1: Address */}
-           <div className="border-b border-[#eee] pb-4">
-              <div className="flex justify-between items-start mb-2">
-                 <h2 className={`text-[19px] font-bold ${step > 1 ? 'text-[#333]' : 'text-[#c45500]'}`}>1 Select a delivery address</h2>
-                 {step > 1 && <button onClick={() => setStep(1)} className="text-[13px] text-[#007185] hover:underline">Change</button>}
+           <div className="border-b border-[#eee] pb-6">
+              <div className="flex justify-between items-start mb-4">
+                 <h2 className={`text-[19px] font-bold ${step === 1 ? 'text-[#c45500]' : 'text-[#333]'}`}>
+                    1 Select a delivery address
+                 </h2>
+                 {step > 1 && (
+                   <button onClick={() => setStep(1)} className="text-[13px] text-[#007185] hover:underline">Change</button>
+                 )}
               </div>
               
               {step === 1 ? (
-                 <div className="border border-[#e77600] rounded-[8px] p-6 shadow-sm">
+                 <div className="border border-[#e77600] rounded-[8px] p-6 bg-[#fdfdfd] shadow-sm">
                     <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input placeholder="Full name" className="col-span-2 border p-2 rounded-[3px] outline-none focus:ring-1 ring-[#e77600]" value={shippingData.fullName} onChange={e => setShippingData({...shippingData, fullName: e.target.value})} />
-                        <input placeholder="Mobile number" className="border p-2 rounded-[3px] outline-none" value={shippingData.mobileNumber} onChange={e => setShippingData({...shippingData, mobileNumber: e.target.value})} />
-                        <input placeholder="Pincode" className="border p-2 rounded-[3px] outline-none" value={shippingData.pincode} onChange={e => setShippingData({...shippingData, pincode: e.target.value})} />
-                        <input placeholder="Address Line 1" className="col-span-2 border p-2 rounded-[3px] outline-none" value={shippingData.addressLine1} onChange={e => setShippingData({...shippingData, addressLine1: e.target.value})} />
-                        <button type="button" onClick={() => setStep(2)} className="amazon-button-yellow col-span-2 py-2 rounded-[8px] font-medium border border-[#a88734] mt-2">Use this address</button>
+                        <div className="col-span-2">
+                          <label className="block text-[13px] font-bold mb-1">Full name</label>
+                          <input className="w-full border border-[#888] p-2 rounded-[3px] outline-none focus:border-[#e77600] focus:shadow-[0_0_3px_#e77600]" 
+                            value={shippingData.fullName} 
+                            onChange={e => setShippingData({...shippingData, fullName: e.target.value})} 
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[13px] font-bold mb-1">Mobile number</label>
+                          <input className="w-full border border-[#888] p-2 rounded-[3px] outline-none" 
+                            value={shippingData.mobileNumber} 
+                            onChange={e => setShippingData({...shippingData, mobileNumber: e.target.value})} 
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[13px] font-bold mb-1">Pincode</label>
+                          <input className="w-full border border-[#888] p-2 rounded-[3px] outline-none" 
+                            value={shippingData.pincode} 
+                            onChange={e => setShippingData({...shippingData, pincode: e.target.value})} 
+                          />
+                        </div>
+                        <div className="col-span-2">
+                          <label className="block text-[13px] font-bold mb-1">Address Line 1</label>
+                          <input className="w-full border border-[#888] p-2 rounded-[3px] outline-none" 
+                            value={shippingData.addressLine1} 
+                            onChange={e => setShippingData({...shippingData, addressLine1: e.target.value})} 
+                          />
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={() => shippingData.fullName && setStep(2)} 
+                          className="amazon-button-yellow col-span-2 py-2 rounded-[8px] font-medium border border-[#a88734] mt-2 shadow-sm"
+                        >
+                          Use this address
+                        </button>
                     </form>
                  </div>
               ) : (
-                 <div className="text-[14px] pl-6">
+                 <div className="text-[14px] pl-6 text-[#333]">
                     <p className="font-bold">{shippingData.fullName}</p>
                     <p>{shippingData.addressLine1}, {shippingData.city}, {shippingData.state} {shippingData.pincode}</p>
                  </div>
@@ -81,16 +132,17 @@ const CheckoutPage = () => {
            </div>
 
            {/* Section 2: Payment */}
-           <div className="border-b border-[#eee] pb-4">
-              <h2 className={`text-[19px] font-bold mb-4 ${step === 2 ? 'text-[#c45500]' : 'text-[#333]'}`}>2 Select a payment method</h2>
+           <div className="border-b border-[#eee] pb-6">
+              <h2 className={`text-[19px] font-bold mb-4 ${step === 2 ? 'text-[#c45500]' : 'text-[#333]'}`}>
+                2 Select a payment method
+              </h2>
               
-              {step === 2 && (
-                 <div className="border border-[#e77600] rounded-[8px] p-6 flex flex-col gap-4">
+              {step === 2 ? (
+                 <div className="border border-[#e77600] rounded-[8px] p-6 bg-[#fdfdfd] flex flex-col gap-4 shadow-sm">
                     {[
-                      { id: 'upi', label: 'Other UPI Apps', sub: 'Pay with any UPI app like Google Pay, PhonePe, etc.' },
-                      { id: 'card', label: 'Credit or debit card', sub: 'Amazon accepts all major credit and debit cards' },
-                      { id: 'emi', label: 'EMI', sub: 'Available on select cards' },
-                      { id: 'cod', label: 'Cash on Delivery/Pay on Delivery', sub: 'Cash, UPI and Cards accepted. QR Code available' }
+                      { id: 'upi', label: 'Other UPI Apps', sub: 'Pay with any UPI app' },
+                      { id: 'card', label: 'Credit or debit card', sub: 'All major cards accepted' },
+                      { id: 'cod', label: 'Cash on Delivery', sub: 'Pay when you receive' }
                     ].map(opt => (
                       <label key={opt.id} className="flex items-start gap-3 p-3 border border-[#ddd] rounded-[4px] cursor-pointer hover:bg-gray-50">
                         <input type="radio" name="payment" className="mt-1" checked={paymentMethod === opt.id} onChange={() => setPaymentMethod(opt.id)} />
@@ -100,83 +152,112 @@ const CheckoutPage = () => {
                         </div>
                       </label>
                     ))}
-                    <button onClick={() => setStep(3)} className="amazon-button-yellow py-2 rounded-[8px] font-medium border border-[#a88734] mt-2">Use this payment method</button>
+                    <button onClick={() => setStep(3)} className="amazon-button-yellow py-2 rounded-[8px] font-medium border border-[#a88734] mt-2 shadow-sm">
+                      Use this payment method
+                    </button>
                  </div>
-              )}
+              ) : step > 2 ? (
+                <div className="text-[14px] pl-6 uppercase font-medium">{paymentMethod === 'cod' ? 'Cash on Delivery' : paymentMethod}</div>
+              ) : null}
            </div>
 
            {/* Section 3: Review */}
-           <div className="pb-4">
-              <h2 className={`text-[19px] font-bold mb-4 ${step === 3 ? 'text-[#c45500]' : 'text-[#333]'}`}>3 Review items and delivery</h2>
+           <div className="pb-6">
+              <h2 className={`text-[19px] font-bold mb-4 ${step === 3 ? 'text-[#c45500]' : 'text-[#333]'}`}>
+                3 Review items and delivery
+              </h2>
               
               {step === 3 && (
-                 <div className="border border-[#e77600] rounded-[8px] p-6">
-                    <div className="flex flex-col gap-4">
-                       {cart.map(item => (
-                         <div key={item.product_id} className="flex gap-4 items-center">
-                            <img src={item.product.image_url} className="w-16 h-16 object-contain" />
-                            <div className="flex-1">
-                               <p className="text-[14px] font-bold line-clamp-1">{item.product.name}</p>
-                               <p className="text-[12px] text-[#007600]">Delivery: Tomorrow, 16 April</p>
-                               <p className="text-[12px] text-[#565959]">Quantity: {item.quantity}</p>
-                            </div>
-                         </div>
-                       ))}
+                 <div className="border border-[#e77600] rounded-[8px] p-6 bg-[#fdfdfd] shadow-sm">
+                    <div className="flex flex-col gap-5">
+                       {cartItems.length > 0 ? (
+                         cartItems.map((item, idx) => (
+                          <div key={item.cart_id || idx} className="flex gap-4 items-center">
+                             <img src={item.image || item.image_url || 'https://placehold.co/100'} className="w-16 h-16 object-contain mix-blend-multiply" />
+                             <div className="flex-1">
+                                <p className="text-[14px] font-bold text-[#007185] line-clamp-1">{item.name}</p>
+                                <p className="text-[12px] text-[#007600] font-bold">Delivery: Tomorrow</p>
+                                <p className="text-[12px] text-[#565959]">Quantity: {item.quantity}</p>
+                             </div>
+                             <div className="text-[14px] font-bold text-[#B12704]">
+                               ₹{item.price?.toLocaleString()}
+                             </div>
+                          </div>
+                        ))
+                       ) : (
+                         <p className="text-[14px] text-gray-500 italic">No items in cart.</p>
+                       )}
                     </div>
-                    <div className="mt-6 pt-4 border-t border-[#eee] flex items-center gap-4">
-                       <button onClick={handlePlaceOrder} disabled={loading} className="amazon-button-yellow px-8 py-2 rounded-[8px] font-medium border border-[#a88734]">
+                    
+                    <div className="mt-8 pt-5 border-t border-[#eee] flex items-center gap-6">
+                       <button 
+                         onClick={handlePlaceOrder} 
+                         disabled={loading || cartItems.length === 0} 
+                         className="amazon-button-yellow px-10 py-2 rounded-[8px] font-medium border border-[#a88734] shadow-md hover:bg-[#f7ca00]"
+                       >
                           {loading ? 'Processing...' : 'Place your order'}
                        </button>
-                       <p className="text-[12px] text-[#565959]">By placing your order, you agree to our conditions of use.</p>
+                       <div className="flex-1">
+                          <p className="text-[12px] text-[#111] font-bold">Order Total: ₹{orderSummary.subtotal?.toLocaleString()}</p>
+                          <p className="text-[11px] text-[#565959]">By placing your order, you agree to Amazon's privacy notice and conditions of use.</p>
+                       </div>
                     </div>
                  </div>
               )}
            </div>
-
         </div>
 
         {/* Right Sidebar: Summary */}
-        <div className="w-full lg:w-[300px] sticky top-[80px] h-fit">
-           <div className="border border-[#ddd] rounded-[8px] p-4 flex flex-col gap-4 transition-all">
+        <div className="w-full lg:w-[320px] sticky top-[80px] h-fit">
+           <div className="border border-[#ddd] rounded-[8px] p-4 flex flex-col gap-4 bg-white shadow-sm">
               <button 
-                onClick={step === 3 ? handlePlaceOrder : () => setStep(step + 1)}
-                disabled={loading || (step === 1 && !shippingData.fullName)}
-                className={`w-full py-2 rounded-[8px] font-medium border shadow-sm ${step === 3 ? 'bg-[#FF9900] border-[#c45500]' : 'amazon-button-yellow border-[#a88734]'}`}
+                onClick={step === 3 ? handlePlaceOrder : () => {
+                  if (step === 1 && !shippingData.fullName) return;
+                  setStep(step + 1);
+                }}
+                disabled={loading || (step === 3 && cartItems.length === 0)}
+                className={`w-full py-2 rounded-[8px] font-medium border shadow-sm transition-colors ${step === 3 ? 'bg-[#FF9900] border-[#c45500] hover:bg-[#e68a00]' : 'amazon-button-yellow border-[#a88734]'}`}
               >
                  {loading ? 'Processing...' : step === 3 ? 'Place your order' : 'Continue'}
               </button>
-              <p className="text-[11px] text-[#565959] text-center italic">Choose a shipping address and payment method to calculate shipping and tax.</p>
               
-              <div className="border-t border-[#eee] pt-3">
-                 <h3 className="font-bold text-[14px] mb-2">Order Summary</h3>
-                 <div className="text-[12px] space-y-2 mb-2">
-                    <div className="flex justify-between"><span>Items:</span> <span>₹{summary.subtotal.toLocaleString()}</span></div>
-                    <div className="flex justify-between"><span>Delivery:</span> <span>₹0.00</span></div>
-                    <div className="flex justify-between"><span>Total:</span> <span>₹{summary.subtotal.toLocaleString()}</span></div>
-                    <div className="flex justify-between"><span>Promotion Applied:</span> <span>-₹0.00</span></div>
+              <p className="text-[11px] text-[#565959] text-center">
+                Choose a shipping address and payment method to calculate shipping and tax.
+              </p>
+              
+              <div className="border-t border-[#eee] pt-4">
+                 <h3 className="font-bold text-[14px] mb-3">Order Summary</h3>
+                 <div className="text-[12px] space-y-2 mb-3">
+                    <div className="flex justify-between text-[#565959]"><span>Items:</span> <span>₹{orderSummary.subtotal?.toLocaleString()}</span></div>
+                    <div className="flex justify-between text-[#565959]"><span>Delivery:</span> <span>₹0.00</span></div>
+                    <div className="flex justify-between text-[#565959]"><span>Total before tax:</span> <span>₹{orderSummary.subtotal?.toLocaleString()}</span></div>
                  </div>
-                 <div className="flex justify-between text-[18px] font-bold text-[#b12704] border-t border-[#eee] pt-2">
-                    <span>Order Total:</span> <span>₹{summary.subtotal.toLocaleString()}</span>
+                 <div className="flex justify-between text-[18px] font-bold text-[#b12704] border-t border-[#eee] pt-3">
+                    <span>Order Total:</span> <span>₹{orderSummary.subtotal?.toLocaleString()}</span>
                  </div>
               </div>
 
-              <div className="bg-[#f0f2f2] -mx-4 -mb-4 p-4 text-[12px] text-[#007185] hover:underline cursor-pointer border-t border-[#ddd]">
+              <div className="bg-[#f0f2f2] -mx-4 -mb-4 p-4 text-[12px] text-[#007185] hover:underline cursor-pointer border-t border-[#ddd] rounded-b-[8px]">
                  How are delivery costs calculated?
               </div>
+           </div>
+           
+           <div className="mt-4 p-4 border border-[#ddd] rounded-[8px] bg-[#fdfdfd] text-[11px] text-[#555]">
+              <p>Your order is safe with us. We use industry-standard encryption to protect your personal information and credit card details.</p>
            </div>
         </div>
 
       </div>
 
-      {/* Footer Links (Checkout Specific) */}
-      <div className="bg-gradient-to-b from-[#fafafa] to-white mt-20 py-10 border-t border-[#ddd] flex flex-col items-center gap-4">
+      {/* Footer */}
+      <footer className="bg-gradient-to-b from-[#fafafa] to-white mt-12 py-10 border-t border-[#ddd] flex flex-col items-center gap-4">
          <div className="flex gap-10 text-[11px] text-[#0066c0]">
             <Link to="#" className="hover:underline">Conditions of Use</Link>
             <Link to="#" className="hover:underline">Privacy Notice</Link>
             <Link to="#" className="hover:underline">Help</Link>
          </div>
-         <p className="text-[11px] text-[#555]">© 2024, Amazon.in - Clone Project</p>
-      </div>
+         <p className="text-[11px] text-[#555]">©  Amazon.in Clone Project</p>
+      </footer>
     </div>
   );
 };
