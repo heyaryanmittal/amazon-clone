@@ -8,6 +8,15 @@
     font-family: "Amazon Ember", Arial, sans-serif;
     @apply bg-[#e3e6e6] text-[#0f1111] antialiased leading-[1.5];
   }
+
+  a, button, select, input[type="submit"], input[type="button"], label {
+    cursor: pointer;
+  }
+
+  /* React Router Link component also renders as <a>, so this covers it */
+  .cursor-pointer, [role="button"] {
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
