@@ -19,10 +19,12 @@ import LanguageSettingsPage from './pages/LanguageSettingsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
+import InvoicePage from './pages/InvoicePage';
 
 function AppContent() {
   const location = useLocation();
   const isCheckout = location.pathname === '/checkout';
+  const isInvoice = location.pathname.startsWith('/invoice');
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,7 +32,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {!isCheckout && <Navbar />}
+      {!isCheckout && !isInvoice && <Navbar />}
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -41,6 +43,7 @@ function AppContent() {
           <Route path="/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
           <Route path="/orders" element={<OrderHistoryPage />} />
           <Route path="/orders/:orderId" element={<OrderDetailPage />} />
+          <Route path="/invoice/:orderId" element={<InvoicePage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/language-settings" element={<LanguageSettingsPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -48,7 +51,7 @@ function AppContent() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      {!isCheckout && <Footer />}
+      {!isCheckout && !isInvoice && <Footer />}
     </div>
   );
 }

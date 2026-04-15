@@ -65,7 +65,7 @@ const OrderHistoryPage = () => {
                       <div className="flex gap-2">
                         <Link to={`/orders/${order.id}`} className="text-[#007185] hover:underline">View order details</Link>
                         <span className="text-gray-300">|</span>
-                        <Link to="#" className="text-[#007185] hover:underline">Invoice</Link>
+                        <Link to={`/invoice/${order.id}`} className="text-[#007185] hover:underline">Invoice</Link>
                       </div>
                    </div>
                 </div>
