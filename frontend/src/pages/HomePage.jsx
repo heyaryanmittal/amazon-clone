@@ -4,46 +4,46 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getFeaturedProducts } from '../services/api';
 
 const HERO_IMAGES = [
-  '/banners/media__1776199825381.png',
-  '/banners/media__1776199837626.png',
-  '/banners/media__1776199851769.png'
+  '/images/landing_1.jpg',
+  '/images/landing_2.png',
+  '/images/landing_3.jpg'
 ];
 
 const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Appliances for your home | Up to 55% off', link: 'See more',
     items: [
-      { img: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=200&q=80', label: 'Air conditioners' },
-      { img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=200&q=80', label: 'Refrigerators' },
-      { img: 'https://images.unsplash.com/photo-1542223616-953ebbb0e222?w=200&q=80', label: 'Microwaves' },
-      { img: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=200&q=80', label: 'Washing machines' }
+      { img: 'https://images.unsplash.com/photo-1591405351990-4726e33df58d?w=300', label: 'Air conditioners' },
+      { img: 'https://images.unsplash.com/photo-1571175432270-482a52748b5c?w=300', label: 'Refrigerators' },
+      { img: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300', label: 'Microwaves' },
+      { img: 'https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300', label: 'Washing machines' }
     ]
   },
   {
     type: 'quad', title: 'Revamp your home in style', link: 'Explore all',
     items: [
-      { img: 'https://images.unsplash.com/photo-1522771731470-ea43294798cd?w=200&q=80', label: 'Cushion covers, bedsheets & more' },
-      { img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=200&q=80', label: 'Figurines, vases & more' },
-      { img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=200&q=80', label: 'Home storage' },
-      { img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=200&q=80', label: 'Lighting solutions' }
+      { img: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=300', label: 'Cushion covers, bedsheets & more' },
+      { img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=300', label: 'Figurines, vases & more' },
+      { img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=300', label: 'Home storage' },
+      { img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300', label: 'Lighting solutions' }
     ]
   },
   {
     type: 'quad', title: 'Bulk order discounts + Up to 18% GST savings', link: 'Register now',
     items: [
-      { img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=80', label: 'Up to 45% off | Laptops' },
-      { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200&q=80', label: 'Up to 60% off | Kitchen appliances' },
-      { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=200&q=80', label: 'Min. 50% off | Office...' },
-      { img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=200&q=80', label: 'Register using GST' }
+      { img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300', label: 'Up to 45% off | Laptops' },
+      { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=300', label: 'Up to 60% off | Kitchen appliances' },
+      { img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=300', label: 'Min. 50% off | Office...' },
+      { img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300', label: 'Register using GST' }
     ]
   },
   {
     type: 'quad', title: 'Starting ₹49 | Deals on home essentials', link: 'Explore all',
     items: [
-      { img: 'https://images.unsplash.com/photo-1584820927498-cafe5c152a73?w=200&q=80', label: 'Cleaning supplies' },
-      { img: 'https://images.unsplash.com/photo-1585058284564-96696b026ae2?w=200&q=80', label: 'Bathroom accessories' },
-      { img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=200&q=80', label: 'Home tools' },
-      { img: 'https://images.unsplash.com/photo-1615800098774-c010c0d1e5fb?w=200&q=80', label: 'Wallpapers' }
+      { img: 'https://images.unsplash.com/photo-1584820927498-cafe5c152a73?w=300', label: 'Cleaning supplies' },
+      { img: 'https://images.unsplash.com/photo-1585058284564-96696b026ae2?w=300', label: 'Bathroom accessories' },
+      { img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=300', label: 'Home tools' },
+      { img: 'https://images.unsplash.com/photo-1615800098774-c010c0d1e5fb?w=300', label: 'Wallpapers' }
     ]
   }
 ];
@@ -151,11 +151,11 @@ const HorizontalScroller = ({ title, linkText, items }) => {
   };
 
   return (
-    <div className="bg-white p-5 mb-5 mx-0 md:mx-4 max-w-[1500px] xl:mx-auto relative group">
-      <div className="flex items-end gap-4 mb-4">
-        <h2 className="text-[21px] font-bold text-[#0f1111] leading-6">{title}</h2>
+    <div className="bg-white p-5 pb-7 mb-5 mx-0 md:mx-4 max-w-[1500px] xl:mx-auto relative group shadow-sm">
+      <div className="flex items-center gap-4 mb-3">
+        <h2 className="text-[21px] font-extrabold text-[#0f1111] leading-6">{title}</h2>
         {linkText && (
-          <Link to="/products" className="text-[#007185] text-[14px] hover:text-[#c45500] hover:underline font-medium mb-[2px]">
+          <Link to="/products" className="text-[#007185] text-[13px] hover:text-[#c45500] hover:underline font-medium pt-1">
             {linkText}
           </Link>
         )}
@@ -184,10 +184,10 @@ const HorizontalScroller = ({ title, linkText, items }) => {
 
 
 const CardGridRow = ({ cards, isFirstRow }) => (
-  <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 px-4 max-w-[1500px] mx-auto z-30 relative ${isFirstRow ? 'mt-[-100px] md:mt-[-200px] lg:mt-[-350px]' : ''}`}>
+  <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 px-4 max-w-[1500px] mx-auto z-30 relative ${isFirstRow ? 'mt-[-150px] md:mt-[-250px] lg:mt-[-380px]' : ''}`}>
     {cards.map((card, idx) => (
-      <div key={idx} className="bg-white p-5 flex flex-col min-h-[420px] max-h-[420px] shadow-sm z-30 relative group">
-        <h2 className="text-[21px] font-bold text-[#0f1111] mb-2.5 leading-[1.2] min-h-[50px]">{card.title}</h2>
+      <div key={idx} className="bg-white p-5 flex flex-col min-h-[420px] max-h-[420px] shadow-sm z-30 relative group overflow-hidden">
+        <h2 className="text-[21px] font-extrabold text-[#0f1111] mb-2.5 leading-[1.2] min-h-[50px]">{card.title}</h2>
         
         {card.type === 'quad' && (
           <div className="grid grid-cols-2 gap-x-4 gap-y-4 flex-1 mb-4">
@@ -279,24 +279,52 @@ const HomePage = () => {
   }, []);
 
   // DUMMY ARRAYS FOR SCROLLERS
-  const generateImages = (count, keyword) => Array(count).fill(`https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&q=80`);
+  const generateImages = (count, keyword) => {
+    const images = {
+      furniture: [
+        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300',
+        'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=300',
+        'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=300',
+        'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=300'
+      ],
+      headphones: [
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300',
+        'https://images.unsplash.com/photo-1583394838336-3d46f052e121?w=300',
+        'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300',
+        'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=300'
+      ],
+      art: [
+        'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=300',
+        'https://images.unsplash.com/photo-1459749411177-042180ec75c0?w=300',
+        'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=300'
+      ],
+      cookware: [
+        'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=300',
+        'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=300',
+        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300'
+      ]
+    };
+    
+    const pool = images[keyword] || ['https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300'];
+    return Array.from({ length: count }, (_, i) => pool[i % pool.length]);
+  };
 
   return (
     <div className="bg-[#e3e6e6]">
       {/* Hero Banner Area */}
       <div className="relative mx-auto w-full max-w-[1500px]">
         {/* Carousel Image */}
-        <div className="relative h-[230px] md:h-[400px] lg:h-[600px] w-full overflow-hidden">
+        <div className="relative h-[280px] md:h-[450px] lg:h-[650px] w-full overflow-hidden">
           {HERO_IMAGES.map((img, i) => (
             <img 
               key={i}
               src={img} 
               alt="Hero Banner" 
-              className={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-500 ease-in-out ${i === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
+              className={`absolute top-0 left-0 w-full h-full object-cover object-top transition-opacity duration-700 ease-in-out ${i === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} 
             />
           ))}
           {/* Gradient Overlay to blend into the main background */}
-          <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#e3e6e6] to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-[#e3e6e6] via-[#e3e6e6]/60 to-transparent z-20 pointer-events-none"></div>
         </div>
 
         {/* Carousel Controls */}
@@ -327,8 +355,8 @@ const HomePage = () => {
         {/* ROW 2: Scroller -> Up to 60% off | Deals on everyday furniture */}
         <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={generateImages(12, 'furniture')} />
 
-        {/* ROW 3: Scroller -> Up to 45% off | Headphones and earbuds */}
-        <HorizontalScroller title="Up to 45% off | Headphones and earbuds" linkText="See all offers" items={generateImages(12, 'headphones')} />
+        {/* ROW 3: Scroller -> Up to 40% off | Headphones and earbuds */}
+        <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={generateImages(12, 'headphones')} />
 
         {/* ROW 4: 4 Custom Cards */}
         <CardGridRow cards={ROW_4_CARDS} />
