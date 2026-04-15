@@ -412,10 +412,16 @@ const HomePage = () => {
   const getScrollerItems = (keyword) => {
     const placeholders = {
       headphones: [
-        { img: 'https://images.unsplash.com/photo-150574042192b-fa4a70826993?w=400', name: 'Premium Wireless Headphones', price: '2,999', ogPrice: '5,000' },
-        { img: 'https://images.unsplash.com/photo-1590658268037-6f11da9240f9?w=400', name: 'Bluetooth Earbuds with Mic', price: '1,499', ogPrice: '3,000' },
-        { img: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400', name: 'Noise Cancelling Over-Ear Headphones', price: '4,599', ogPrice: '8,000' },
-        { img: 'https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=400', name: 'Sport Earphones Water Resistant', price: '999', ogPrice: '2,000' }
+        { img: '/images/headphones/headphone_1.jpg', name: 'Mackie Thump212 1200W 12-inch Powered Loudspeaker', price: '34,990', ogPrice: '45,000' },
+        { img: '/images/headphones/headphone_2.jpg', name: 'Sony WI-C100 Wireless In-Ear Bluetooth Headphones', price: '1,699', ogPrice: '2,790' },
+        { img: '/images/headphones/headphone_3.jpg', name: 'Sony WH-CH720N Wireless Noise Cancelling Headphones - Pink', price: '9,990', ogPrice: '14,990' },
+        { img: '/images/headphones/headphone_4.jpg', name: 'Sony WH-CH720N Wireless Noise Cancelling Headphones - Blue', price: '9,990', ogPrice: '14,990' },
+        { img: '/images/headphones/headphone_5.jpg', name: 'boAt Airdopes 131 True Wireless Earbuds', price: '899', ogPrice: '2,990' },
+        { img: '/images/headphones/headphone_6.jpg', name: 'TRUEFREE O1 Open Ear Bluetooth Headphones', price: '4,599', ogPrice: '6,999' },
+        { img: '/images/headphones/headphone_7.jpg', name: 'Marshall Minor III True Wireless In-Ear Headphones', price: '11,999', ogPrice: '14,999' },
+        { img: '/images/headphones/headphone_8.jpg', name: 'SoundPEATS Air3 Wireless Earbuds', price: '3,999', ogPrice: '5,999' },
+        { img: '/images/headphones/headphone_9.jpg', name: 'SHOKZ OpenRun Pro - Premium Bone Conduction Sport Headphones', price: '15,999', ogPrice: '19,999' },
+        { img: '/images/headphones/headphone_10.jpg', name: 'USB-C Wired In-Ear Headphones with Mic', price: '499', ogPrice: '999' }
       ],
       furniture: [
         { img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa', price: '22,499', ogPrice: '45,000' },
