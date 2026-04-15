@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Star, MapPin, ChevronRight, ShieldCheck, Truck, RefreshCcw, Tag } from 'lucide-react';
-import { getProduct } from '../services/api';
+import { getProduct, addToWishlist, removeFromWishlist, checkWishlist } from '../services/api';
 import { useCart } from '../context/CartContext';
 import Navbar from '../components/Navbar';
+import toast from 'react-hot-toast';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -12,6 +13,7 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isInWishlist, setIsInWishlist] = useState(false);
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
@@ -20,13 +22,43 @@ const ProductDetailPage = () => {
     getProduct(id).then(({ data }) => {
       setProduct(data.product);
       setImages(data.images || []);
-      setSelectedImage(0); // Reset to first image on product change
+      setSelectedImage(0);
     }).catch(console.error).finally(() => setLoading(false));
+
+    // Check if in wishlist
+    const token = localStorage.getItem('amazon_token');
+    if (token) {
+      checkWishlist(id).then(({ data }) => {
+        setIsInWishlist(data.inWishlist);
+      }).catch(() => {});
+    }
   }, [id]);
 
   const handleAddToCart = () => {
     addToCart(product.id, quantity);
-    navigate('/cart');
+    toast.success('Added to Cart');
+  };
+
+  const handleToggleWishlist = async () => {
+    const token = localStorage.getItem('amazon_token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      if (isInWishlist) {
+        await removeFromWishlist(product.id);
+        setIsInWishlist(false);
+        toast.success('Removed from Wish List');
+      } else {
+        await addToWishlist(product.id);
+        setIsInWishlist(true);
+        toast.success('Added to Wish List');
+      }
+    } catch (error) {
+      toast.error('Failed to update Wish List');
+    }
   };
 
   if (loading) return <div className="animate-pulse bg-white min-h-screen"></div>;
@@ -196,7 +228,12 @@ const ProductDetailPage = () => {
               </div>
 
               <div className="border-t border-[#eee] mt-2 pt-2">
-                 <button className="text-[13px] text-[#007185] hover:underline hover:text-[#c45500] w-full text-left">Add to Wish List</button>
+                 <button 
+                    onClick={handleToggleWishlist}
+                    className="text-[13px] text-[#007185] hover:underline hover:text-[#c45500] w-full text-left font-medium"
+                 >
+                    {isInWishlist ? 'Remove from Wish List' : 'Add to Wish List'}
+                 </button>
               </div>
            </div>
         </div>
