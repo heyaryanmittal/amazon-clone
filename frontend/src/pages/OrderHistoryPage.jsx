@@ -1,145 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Package, ChevronRight } from 'lucide-react';
 import { getOrders } from '../services/api';
-
-const STATUS_COLORS = {
-  pending: 'status-pending',
-  confirmed: 'status-confirmed',
-  processing: 'status-processing',
-  shipped: 'status-shipped',
-  delivered: 'status-delivered',
-  cancelled: 'status-cancelled',
-};
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const OrderHistoryPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({});
 
   useEffect(() => {
-    document.title = 'Your Orders - Amazon.in';
     getOrders().then(({ data }) => {
       setOrders(data.orders || []);
-      setPagination(data.pagination || {});
     }).catch(console.error).finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="loading-spinner" style={{ minHeight: 400 }}>
-          <div className="spinner"></div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-[1500px] mx-auto px-4">
-      <div className="py-4 max-w-[1000px] mx-auto min-h-[calc(100vh-140px)]" id="orders-page">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-[28px] font-normal text-[#131921] m-0">Your Orders</h1>
-          <span className="text-[14px] text-[#565959] ml-auto">
-            {pagination.total || orders.length} order{orders.length !== 1 ? 's' : ''} placed
-          </span>
+    <div className="bg-white min-h-screen">
+      <div className="max-w-[1000px] mx-auto px-4 py-6">
+        <div className="flex items-center gap-2 text-[14px] mb-4 text-[#565959]">
+           <Link to="/account" className="hover:underline">Your Account</Link>
+           <span>›</span>
+           <span className="text-[#c45500]">Your Orders</span>
         </div>
 
-        {orders.length === 0 ? (
-          <div className="bg-white mb-2 p-6 rounded-[3px]">
-            <div className="flex flex-col items-center justify-center p-12 text-center text-[#565959] bg-white rounded-lg border border-[#eee]">
-              <span className="text-5xl mb-4 opacity-50">📦</span>
-              <h2>No orders yet</h2>
-              <p>You haven't placed any orders. Start shopping!</p>
-              <Link to="/products" className="bg-[#FF9900] text-[#333] border border-[#c45500] rounded-full py-1.5 px-3.5 font-semibold text-[13px] inline-flex items-center gap-2 cursor-pointer transition-all duration-150 no-underline hover:bg-[#e68a00] mt-4">Shop Now</Link>
-            </div>
-          </div>
-        ) : (
-          orders.map(order => (
-            <div key={order.id} className="border border-[#D5D9D9] rounded-lg mb-4 overflow-hidden shadow-[0_1px_2px_rgba(15,17,17,0.15)] flex flex-col bg-white" id={`order-${order.order_id}`}>
-              {/* Header */}
-              <div className="bg-[#F0F2F2] border-b border-[#D5D9D9] px-[18px] py-[14px] flex flex-wrap gap-4 md:gap-8 justify-between">
-                <div className="flex flex-col">
-                  <div className="text-[11px] text-[#565959] mb-1 font-bold tracking-[0.2px] uppercase">ORDER PLACED</div>
-                  <div className="text-[13px] text-[#565959]">
-                    {new Date(order.placed_at).toLocaleDateString('en-IN', {
-                      day: 'numeric', month: 'long', year: 'numeric'
-                    })}
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-[11px] text-[#565959] mb-1 font-bold tracking-[0.2px] uppercase">TOTAL</div>
-                  <div className="text-[13px] text-[#565959]">₹{parseFloat(order.total_amount).toLocaleString('en-IN')}</div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-[11px] text-[#565959] mb-1 font-bold tracking-[0.2px] uppercase">SHIP TO</div>
-                  <div className="text-[13px] text-[#565959]">{order.shipping_name}</div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-[11px] text-[#565959] mb-1 font-bold tracking-[0.2px] uppercase">STATUS</div>
-                  <div className="text-[13px] text-[#565959]">
-                    <span className={`px-2 py-0.5 rounded-[3px] text-[11px] font-bold uppercase tracking-[0.5px] whitespace-nowrap ${
-                      order.status === 'pending' ? 'bg-[#fcf3e6] text-[#c4772b] border border-[#f5b871]' :
-                      order.status === 'confirmed' ? 'bg-[#e6fcf2] text-[#007600] border border-[#71f5af]' :
-                      order.status === 'processing' ? 'bg-[#e6f2fc] text-[#007185] border border-[#71bff5]' :
-                      order.status === 'shipped' ? 'bg-[#ece6fc] text-[#481ca6] border border-[#a871f5]' :
-                      order.status === 'delivered' ? 'bg-[#e6fcf2] text-[#007600] border border-[#71f5af]' :
-                      order.status === 'cancelled' ? 'bg-[#fce6e6] text-[#cc0c39] border border-[#f57171]' :
-                      'bg-[#fcf3e6] text-[#c4772b] border border-[#f5b871]'
-                    }`}>
-                      {order.status?.charAt(0).toUpperCase() + order.status?.slice(1)}
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <Link
-                    to={`/orders/${order.order_id}`}
-                    className="text-[#007185] no-underline text-[13px] flex items-center gap-1 hover:text-[#C45500] hover:underline"
-                  >
-                    View Details <ChevronRight size={14} />
-                  </Link>
-                  <div className="text-[11px] text-[#565959] mt-1">
-                    {order.order_id}
-                  </div>
-                </div>
-              </div>
+        <div className="flex justify-between items-center mb-6">
+           <h1 className="text-[28px] font-normal">Your Orders</h1>
+           <div className="relative">
+              <input type="text" placeholder="Search all orders" className="border border-[#ddd] rounded-[4px] py-1 px-8 outline-none focus:border-[#e77600] text-[13px] w-[300px]" />
+              <svg className="absolute left-2 top-2 text-gray-400" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+           </div>
+        </div>
 
-              {/* Items preview */}
-              <div className="p-[18px] flex flex-col bg-white">
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {Array.from({ length: Math.min(order.item_count || 1, 4) }).map((_, i) => (
-                    <div key={i} style={{
-                      width: 60, height: 60,
-                      background: '#f0f0f0',
-                      borderRadius: 4,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 24,
-                    }}>
-                      📦
-                    </div>
-                  ))}
-                  {order.item_count > 4 && (
-                    <div style={{
-                      width: 60, height: 60, background: '#f5f5f5', borderRadius: 4,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 13, fontWeight: 600, color: '#565959',
-                    }}>
-                      +{order.item_count - 4}
-                    </div>
-                  )}
+        <div className="flex gap-10 border-b border-[#ddd] mb-6 text-[14px] font-medium text-[#565959]">
+           <span className="border-b-2 border-[#c45500] text-[#0f1111] pb-1 cursor-pointer">Orders</span>
+           <span className="hover:text-[#0f1111] cursor-pointer">Buy Again</span>
+           <span className="hover:text-[#0f1111] cursor-pointer">Not Yet Shipped</span>
+           <span className="hover:text-[#0f1111] cursor-pointer">Cancelled</span>
+        </div>
+
+        <div className="flex flex-col gap-6">
+           {loading ? (
+             <div className="animate-pulse bg-gray-100 h-40 rounded"></div>
+           ) : orders.length === 0 ? (
+             <p className="text-[14px]">You have not placed any orders yet.</p>
+           ) : orders.map(order => (
+             <div key={order.id} className="border border-[#ddd] rounded-[8px] overflow-hidden">
+                {/* Order Header Strip */}
+                <div className="bg-[#f0f2f2] px-6 py-3 flex justify-between items-center text-[12px] text-[#565959]">
+                   <div className="flex gap-12">
+                      <div className="flex flex-col uppercase">
+                         <span>Order Placed</span>
+                         <span className="text-[#0f1111] font-medium">{new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                      </div>
+                      <div className="flex flex-col uppercase">
+                         <span>Total</span>
+                         <span className="text-[#0f1111] font-medium">₹{(order.total_amount || 0).toLocaleString()}</span>
+                      </div>
+                      <div className="flex flex-col uppercase">
+                         <span>Ship To</span>
+                         <span className="text-[#007185] hover:text-[#c45500] cursor-pointer hover:underline">{order.shipping_address ? order.shipping_address.split(',')[0] : 'Customer'}</span>
+                      </div>
+                   </div>
+                   <div className="flex flex-col items-end uppercase">
+                      <span>Order # {order.order_id || 'AMZ-123-445'}</span>
+                      <div className="flex gap-2">
+                        <Link to={`/orders/${order.id}`} className="text-[#007185] hover:underline">View order details</Link>
+                        <span className="text-gray-300">|</span>
+                        <Link to="#" className="text-[#007185] hover:underline">Invoice</Link>
+                      </div>
+                   </div>
                 </div>
-                <div style={{ marginTop: 8, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-                  <Link
-                    to={`/orders/${order.order_id}`}
-                    className="text-[13px] text-[#007185] no-underline hover:text-[#C45500] hover:underline"
-                  >
-                    View order details
-                  </Link>
+
+                {/* Order Item Content */}
+                <div className="p-6 flex flex-col gap-4">
+                   <h3 className="text-[18px] font-bold text-[#0f1111]">Delivered</h3>
+                   {(order.items || []).map((item, idx) => (
+                      <div key={idx} className="flex gap-4">
+                         <div className="w-[90px] h-[90px] p-1 border rounded cursor-pointer">
+                            <img src={item.image_url || 'https://via.placeholder.com/90'} className="w-full h-full object-contain" />
+                         </div>
+                         <div className="flex-1">
+                            <Link to={`/products/${item.product_id}`} className="text-[#007185] hover:text-[#c45500] hover:underline text-[14px] font-medium line-clamp-2 leading-snug">
+                               {item.name || 'Product'}
+                            </Link>
+                            <p className="text-[12px] text-[#565959] mt-1 italic">Return window closed on 12-Apr-2024</p>
+                            <div className="flex gap-2 mt-4">
+                               <button className="amazon-button-yellow rounded-[8px] border border-[#a88734] px-4 py-1.5 text-[13px] shadow-sm">Buy it again</button>
+                               <button className="bg-[#f0f2f2] hover:bg-[#e7e9eb] border border-[#d5d9d9] rounded-[8px] px-4 py-1.5 text-[13px] shadow-sm">View your item</button>
+                            </div>
+                         </div>
+                         <div className="w-[200px] flex flex-col gap-2">
+                            <button className="w-full py-1.5 border border-[#ddd] rounded-[8px] text-[13px] hover:bg-gray-50 shadow-sm">Track package</button>
+                            <button className="w-full py-1.5 border border-[#ddd] rounded-[8px] text-[13px] hover:bg-gray-50 shadow-sm">Return or replace items</button>
+                            <button className="w-full py-1.5 border border-[#ddd] rounded-[8px] text-[13px] hover:bg-gray-50 shadow-sm">Write a product review</button>
+                         </div>
+                      </div>
+                   ))}
                 </div>
-              </div>
-            </div>
-          ))
-        )}
+             </div>
+           ))}
+        </div>
       </div>
     </div>
   );

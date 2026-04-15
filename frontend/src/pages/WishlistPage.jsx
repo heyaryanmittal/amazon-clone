@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Trash2, ShoppingCart } from 'lucide-react';
 import { getWishlist, removeFromWishlist } from '../services/api';
 import { useCart } from '../context/CartContext';
-import { StarRating, getDiscount } from '../components/ProductCard';
-import toast from 'react-hot-toast';
+import { Star } from 'lucide-react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const WishlistPage = () => {
   const [items, setItems] = useState([]);
@@ -12,129 +12,99 @@ const WishlistPage = () => {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    document.title = 'Your Wishlist - Amazon.in';
-    loadWishlist();
+    setLoading(true);
+    getWishlist().then(({ data }) => {
+      setItems(data.wishlist || []);
+    }).catch(console.error).finally(() => setLoading(false));
   }, []);
 
-  const loadWishlist = async () => {
-    try {
-      const { data } = await getWishlist();
-      setItems(data.items || []);
-    } catch {
-      toast.error('Failed to load wishlist');
-    } finally {
-      setLoading(false);
-    }
+  const handleRemove = (id) => {
+    removeFromWishlist(id).then(() => {
+      setItems(items.filter(item => item.product_id !== id));
+    });
   };
-
-  const handleRemove = async (productId) => {
-    try {
-      await removeFromWishlist(productId);
-      setItems(prev => prev.filter(item => item.product_id !== productId));
-      toast.success('Removed from wishlist');
-    } catch {
-      toast.error('Failed to remove from wishlist');
-    }
-  };
-
-  const handleAddToCart = async (productId) => {
-    await addToCart(productId);
-  };
-
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="loading-spinner" style={{ minHeight: 400 }}>
-          <div className="spinner"></div>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className="max-w-[1500px] mx-auto px-4 py-4">
-      <div>
-        <h1 className="text-[28px] font-normal text-[#131921] mb-4 flex items-center gap-3">
-          <Heart size={28} color="#CC0C39" fill="#CC0C39" />
-          Your Wishlist ({items.length} item{items.length !== 1 ? 's' : ''})
-        </h1>
+    <div className="bg-white min-h-screen">
+      <div className="max-w-[1500px] mx-auto px-4 py-8 flex gap-8">
+        
+        {/* Sidebar */}
+        <div className="w-[280px] hidden md:block">
+           <div className="border border-[#ddd] p-5 rounded-[4px] shadow-sm">
+              <h2 className="text-[18px] font-bold mb-4">Your Lists</h2>
+              <ul className="list-none p-0 text-[14px] flex flex-col gap-3">
+                 <li className="font-bold flex justify-between bg-[#f0f2f2] -mx-5 px-5 py-2 border-l-4 border-[#e77600] cursor-pointer">
+                    <span>Shopping List</span>
+                    <span className="text-[#565959] font-normal">Private</span>
+                 </li>
+                 <li className="hover:text-[#c45500] cursor-pointer pl-2">Wish List</li>
+                 <li className="hover:text-[#c45500] cursor-pointer pl-2">Ideas</li>
+              </ul>
+              <button className="text-[13px] text-[#007185] hover:underline mt-6 leading-tight">+ Create a List</button>
+           </div>
+        </div>
 
-        {items.length === 0 ? (
-          <div className="bg-white mb-2 p-6 rounded-[3px]">
-            <div className="flex flex-col items-center justify-center p-12 text-center text-[#565959] bg-white rounded-lg border border-[#eee]">
-              <span className="text-5xl mb-4 opacity-50">❤️</span>
-              <h2 className="text-[24px] font-bold text-black mb-2">Your wishlist is empty</h2>
-              <p className="text-[16px] mb-4">Add items to your wishlist to save them for later.</p>
-              <Link to="/products" className="bg-[#FF9900] text-[#333] border border-[#c45500] rounded-full py-1.5 px-3.5 font-semibold text-[13px] inline-flex items-center gap-2 cursor-pointer transition-all duration-150 no-underline hover:bg-[#e68a00]">Start Shopping</Link>
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
-            {items.map(item => {
-              const discount = getDiscount(item.price, item.original_price);
-              return (
-                <div key={item.wishlist_id} className="relative bg-white border border-[#ececec] rounded flex flex-col p-3 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] group" id={`wishlist-item-${item.id}`}>
-                  {discount > 0 && <div className="absolute top-3 left-3 bg-[#CC0C39] text-white text-[11px] font-bold px-1.5 py-0.5 rounded-[3px] z-10">-{discount}%</div>}
-                  <button
-                    className="absolute top-3 right-3 bg-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer shadow-[0_2px_5px_rgba(0,0,0,0.15)] border border-[#ddd] opacity-100 text-[#CC0C39] z-10"
-                    onClick={() => handleRemove(item.id)}
-                    title="Remove from Wishlist"
-                  >
-                    <Heart size={16} fill="#CC0C39" />
-                  </button>
+        {/* Main Content */}
+        <div className="flex-1">
+           <div className="flex justify-between items-center mb-6 border-b border-[#eee] pb-4">
+              <h1 className="text-[28px] font-normal">Shopping List</h1>
+              <div className="flex gap-4 text-[14px] text-[#565959]">
+                 <span className="hover:underline cursor-pointer">Invite</span>
+                 <span>|</span>
+                 <span className="hover:underline cursor-pointer">More</span>
+              </div>
+           </div>
 
-                  <Link to={`/products/${item.id}`} className="w-full h-[200px] flex items-center justify-center mb-3 bg-[#f7f7f7]">
-                    <img
-                      src={item.primary_image || 'https://via.placeholder.com/300x300/f7f7f7/aaaaaa?text=Product'}
-                      alt={item.name}
-                      className="max-w-full max-h-full object-contain mix-blend-multiply"
-                      onError={(e) => { e.target.src = 'https://via.placeholder.com/300x300/f7f7f7/aaaaaa?text=Product'; }}
-                    />
-                  </Link>
-
-                  <div className="flex flex-col flex-1">
-                    <Link to={`/products/${item.id}`} className="text-[#0f1111] text-[14px] leading-[1.3] no-underline max-h-[3.9em] overflow-hidden hover:text-[#C45500]">
-                      {item.name}
-                    </Link>
-
-                    <div className="flex items-center mt-1 mb-1">
-                      <StarRating rating={parseFloat(item.rating) || 4.0} />
-                      <span className="text-[#007185] text-[12px] ml-1 hover:text-[#C45500] cursor-pointer">({(item.review_count || 0).toLocaleString()})</span>
+           <div className="flex flex-col">
+              {loading ? (
+                 <div className="animate-pulse bg-gray-100 h-40 rounded"></div>
+              ) : items.length === 0 ? (
+                 <div className="flex flex-col items-center py-10">
+                    <img src="https://m.media-amazon.com/images/G/31/cart/empty/kettle-desaturated._CB445243306_.svg" className="w-40 mb-4 opacity-50" />
+                    <p className="text-[14px]">Your Wish List is empty.</p>
+                    <Link to="/" className="text-[13px] text-[#007185] hover:underline mt-2">Start shopping</Link>
+                 </div>
+              ) : items.map(item => (
+                 <div key={item.product_id} className="flex gap-6 border-b border-[#eee] py-6 last:border-none">
+                    <div className="w-[180px] h-[180px] border p-2 flex items-center justify-center cursor-pointer">
+                       <img src={item.image_url} className="max-w-full max-h-full object-contain" />
                     </div>
-
-                    <div className="flex items-baseline gap-1.5 mt-auto pt-2">
-                      <span className="text-[21px] font-medium text-[#0f1111]">
-                        <span className="text-[12px] align-top">₹</span>
-                        {parseInt(item.price).toLocaleString('en-IN')}
-                      </span>
-                      {item.original_price > item.price && (
-                        <span className="text-[12px] text-[#565959] line-through decoration-[#565959]">₹{parseInt(item.original_price).toLocaleString('en-IN')}</span>
-                      )}
+                    <div className="flex-1 flex flex-col pt-1">
+                       <Link to={`/products/${item.product_id}`} className="text-[18px] font-medium leading-tight hover:text-[#c45500] no-underline text-black">
+                         {item.name}
+                       </Link>
+                       <div className="flex items-center gap-1 mt-1 text-[13px]">
+                          <div className="flex text-[#ffa41c]">
+                             {[...Array(5)].map((_, i) => <Star key={i} size={14} fill={i < (item.rating||4) ? "currentColor" : "none"} />)}
+                          </div>
+                          <span className="text-[#007185] hover:underline">({item.review_count || 120})</span>
+                       </div>
+                       <div className="mt-2 text-[18px] font-bold text-[#b12704]">
+                          ₹{(item.price || 0).toLocaleString()}
+                       </div>
+                       <p className="text-[12px] text-[#565959] mt-1">Item added April 14, 2024</p>
                     </div>
-
-                    <div className="flex gap-2 mt-2">
-                      <button
-                        className="flex-1 bg-[#FFD814] text-[#0f1111] border border-[#FCD200] rounded-full py-1 px-3 text-[12px] cursor-pointer transition-colors hover:bg-[#F7CA00] flex items-center justify-center"
-                        onClick={() => handleAddToCart(item.id)}
-                      >
-                        <ShoppingCart size={14} className="inline mr-1" />
-                        Add to Cart
-                      </button>
-                      <button
-                        onClick={() => handleRemove(item.id)}
-                        className="bg-white border border-[#DDD] rounded-full w-9 h-9 flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#f3f3f3]"
-                        title="Remove"
-                      >
-                        <Trash2 size={14} color="#CC0C39" />
-                      </button>
+                    <div className="w-[200px] flex flex-col gap-2 pt-1">
+                       <button 
+                        onClick={() => addToCart(item.product_id, 1)}
+                        className="amazon-button-yellow w-full py-1.5 rounded-[20px] text-[13px] border border-[#a88734] font-medium shadow-sm"
+                       >
+                          Add to Cart
+                       </button>
+                       <button 
+                        onClick={() => handleRemove(item.product_id)}
+                        className="w-full py-1.5 border border-[#ddd] rounded-[20px] text-[13px] bg-white hover:bg-gray-50"
+                       >
+                          Delete
+                       </button>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                 </div>
+              ))}
+           </div>
+        </div>
+
       </div>
+      <Footer />
     </div>
   );
 };

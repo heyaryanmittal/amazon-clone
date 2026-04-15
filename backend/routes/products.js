@@ -1,81 +1,128 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const prisma = require('../config/db');
+
+/**
+ * Helper to transform Prisma product objects to match frontend expected snake_case fields
+ */
+const formatProduct = (p) => {
+  const formatted = {
+    ...p,
+    // Ensure all numeric fields are proper numbers/floats
+    price: parseFloat(p.price),
+    original_price: p.originalPrice ? parseFloat(p.originalPrice) : null,
+    rating: parseFloat(p.rating),
+    review_count: p.reviewCount,
+    is_prime: p.isPrime,
+    is_featured: p.isFeatured,
+    is_active: p.isActive,
+    created_at: p.createdAt,
+    updated_at: p.updatedAt,
+    
+    // Compatibility fields for images
+    category_name: p.category?.name,
+    category_slug: p.category?.slug,
+    category_id: p.categoryId,
+    
+    // Handle primary image
+    image_url: p.images && p.images[0] ? p.images[0].imageUrl : null,
+    primary_image: p.images && p.images[0] ? p.images[0].imageUrl : null,
+  };
+
+  // Remove camelCase fields to keep payload clean
+  delete formatted.originalPrice;
+  delete formatted.reviewCount;
+  delete formatted.isPrime;
+  delete formatted.isFeatured;
+  delete formatted.isActive;
+  delete formatted.createdAt;
+  delete formatted.updatedAt;
+  delete formatted.category;
+  delete formatted.images;
+
+  return formatted;
+};
 
 // GET /api/products - Get all products with filtering, search, pagination
 router.get('/', async (req, res) => {
   try {
     const {
-      search = '',
+      search   = '',
       category = '',
       minPrice = 0,
       maxPrice = 999999,
-      sortBy = 'created_at',
-      sortOrder = 'DESC',
-      page = 1,
+      sortBy   = 'createdAt',
+      sortOrder = 'desc',
+      page  = 1,
       limit = 20,
       featured = ''
     } = req.query;
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
-    const params = [];
 
-    let query = `
-      SELECT 
-        p.*,
-        c.name as category_name,
-        c.slug as category_slug,
-        pi.image_url as primary_image
-      FROM products p
-      LEFT JOIN categories c ON p.category_id = c.id
-      LEFT JOIN product_images pi ON pi.product_id = p.id AND pi.is_primary = TRUE
-      WHERE p.is_active = TRUE
-    `;
+    // Build where clause
+    const where = { isActive: true };
 
     if (search) {
-      query += ` AND (p.name LIKE ? OR p.description LIKE ? OR p.brand LIKE ?)`;
-      params.push(`%${search}%`, `%${search}%`, `%${search}%`);
+      where.OR = [
+        { name:        { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+        { brand:       { contains: search, mode: 'insensitive' } }
+      ];
     }
 
     if (category) {
-      query += ` AND c.slug = ?`;
-      params.push(category);
+      where.category = { slug: category };
     }
 
     if (featured === 'true') {
-      query += ` AND p.is_featured = TRUE`;
+      where.isFeatured = true;
     }
 
-    query += ` AND p.price BETWEEN ? AND ?`;
-    params.push(parseFloat(minPrice), parseFloat(maxPrice));
+    where.price = {
+      gte: parseFloat(minPrice),
+      lte: parseFloat(maxPrice)
+    };
 
-    const allowedSort = ['price', 'rating', 'created_at', 'name', 'review_count'];
-    const allowedOrder = ['ASC', 'DESC'];
-    const safeSort = allowedSort.includes(sortBy) ? sortBy : 'created_at';
-    const safeOrder = allowedOrder.includes(sortOrder.toUpperCase()) ? sortOrder.toUpperCase() : 'DESC';
+    // Map frontend sort names to Prisma field names
+    const sortMap = {
+      price:        'price',
+      rating:       'rating',
+      created_at:   'createdAt',
+      createdAt:    'createdAt',
+      name:         'name',
+      review_count: 'reviewCount',
+      reviewCount:  'reviewCount'
+    };
+    const safeSort  = sortMap[sortBy] || 'createdAt';
+    const safeOrder = ['asc', 'desc'].includes(sortOrder.toLowerCase()) ? sortOrder.toLowerCase() : 'desc';
 
-    // Count query
-    const countQuery = query.replace(
-      `p.*,
-        c.name as category_name,
-        c.slug as category_slug,
-        pi.image_url as primary_image`,
-      'COUNT(DISTINCT p.id) as total'
-    );
-    const [countRows] = await db.query(countQuery, params);
-    const total = countRows[0].total;
-
-    query += ` ORDER BY p.${safeSort} ${safeOrder} LIMIT ? OFFSET ?`;
-    params.push(parseInt(limit), offset);
-
-    const [products] = await db.query(query, params);
+    const [products, total] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: {
+          category: {
+            select: { name: true, slug: true }
+          },
+          images: {
+            where: { isPrimary: true },
+            take: 1,
+            select: { imageUrl: true }
+          }
+        },
+        orderBy: { [safeSort]: safeOrder },
+        skip: offset,
+        take: parseInt(limit)
+      }),
+      prisma.product.count({ where })
+    ]);
 
     res.json({
-      products,
+      products: products.map(formatProduct),
       pagination: {
         total,
-        page: parseInt(page),
-        limit: parseInt(limit),
+        page:       parseInt(page),
+        limit:      parseInt(limit),
         totalPages: Math.ceil(total / parseInt(limit))
       }
     });
@@ -85,80 +132,83 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/products/featured - Get featured products
+// GET /api/products/featured
 router.get('/featured', async (req, res) => {
   try {
-    const [products] = await db.query(`
-      SELECT 
-        p.*,
-        c.name as category_name,
-        c.slug as category_slug,
-        pi.image_url as primary_image
-      FROM products p
-      LEFT JOIN categories c ON p.category_id = c.id
-      LEFT JOIN product_images pi ON pi.product_id = p.id AND pi.is_primary = TRUE
-      WHERE p.is_active = TRUE AND p.is_featured = TRUE
-      ORDER BY p.rating DESC
-      LIMIT 12
-    `);
-    res.json({ products });
+    const products = await prisma.product.findMany({
+      where: { isActive: true, isFeatured: true },
+      include: {
+        category: {
+          select: { name: true, slug: true }
+        },
+        images: {
+          where: { isPrimary: true },
+          take: 1,
+          select: { imageUrl: true }
+        }
+      },
+      orderBy: { rating: 'desc' },
+      take: 12
+    });
+
+    res.json({ products: products.map(formatProduct) });
   } catch (error) {
     console.error('Get featured products error:', error);
     res.status(500).json({ error: 'Failed to fetch featured products' });
   }
 });
 
-// GET /api/products/:id - Get single product with images
+// GET /api/products/:id
 router.get('/:id', async (req, res) => {
   try {
-    const productId = req.params.id;
+    const productId = parseInt(req.params.id);
 
-    // Get product details
-    const [products] = await db.query(`
-      SELECT 
-        p.*,
-        c.name as category_name,
-        c.slug as category_slug,
-        c.id as category_id
-      FROM products p
-      LEFT JOIN categories c ON p.category_id = c.id
-      WHERE p.id = ? AND p.is_active = TRUE
-    `, [productId]);
+    const product = await prisma.product.findFirst({
+      where: { id: productId, isActive: true },
+      include: {
+        category: {
+          select: { id: true, name: true, slug: true }
+        },
+        images: {
+          orderBy: { sortOrder: 'asc' }
+        }
+      }
+    });
 
-    if (!products.length) {
+    if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const product = products[0];
+    const formattedProduct = formatProduct(product);
+    
+    // Also send all images for the gallery
+    const images = product.images.map(img => ({
+      ...img,
+      image_url: img.imageUrl // keep frontend compatibility
+    }));
 
-    // Get product images
-    const [images] = await db.query(
-      'SELECT * FROM product_images WHERE product_id = ? ORDER BY sort_order ASC',
-      [productId]
-    );
+    const related = await prisma.product.findMany({
+      where: {
+        categoryId: product.categoryId,
+        id: { not: productId },
+        isActive: true
+      },
+      include: {
+        images: {
+          where: { isPrimary: true },
+          take: 1,
+          select: { imageUrl: true }
+        }
+      },
+      orderBy: { rating: 'desc' },
+      take: 6
+    });
 
-    // Get related products
-    const [related] = await db.query(`
-      SELECT 
-        p.*,
-        pi.image_url as primary_image
-      FROM products p
-      LEFT JOIN product_images pi ON pi.product_id = p.id AND pi.is_primary = TRUE
-      WHERE p.category_id = ? AND p.id != ? AND p.is_active = TRUE
-      ORDER BY p.rating DESC
-      LIMIT 6
-    `, [product.category_id, productId]);
-
-    // Parse JSON specifications
-    if (product.specifications && typeof product.specifications === 'string') {
-      try {
-        product.specifications = JSON.parse(product.specifications);
-      } catch (e) {
-        product.specifications = {};
-      }
-    }
-
-    res.json({ product, images, related });
+    res.json({ 
+      product: formattedProduct, 
+      images, 
+      related: related.map(formatProduct) 
+    });
   } catch (error) {
     console.error('Get product error:', error);
     res.status(500).json({ error: 'Failed to fetch product' });

@@ -1,117 +1,88 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, Shield, Truck } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 const Footer = () => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <footer className="bg-[#232f3e] text-white mt-auto">
-      {/* Back to top */}
-      <div className="bg-[#37475a] text-center py-4 cursor-pointer text-[13px] font-semibold hover:bg-[#485769] transition-colors duration-150" onClick={scrollToTop} id="footer-back-to-top">
-        Back to top
+    <footer className="w-full bg-[#232f3e] text-white">
+      {/* Back to Top */}
+      <div 
+        onClick={scrollToTop}
+        className="bg-[#37475a] hover:bg-[#485769] text-center py-3 text-[13px] cursor-pointer transition-colors"
+      >
+        Back to Top
       </div>
 
-      {/* Links */}
-      <div className="max-w-[1000px] mx-auto py-10 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <h4 className="font-bold text-[16px] mb-3.5">Get to Know Us</h4>
-          <ul className="flex flex-col gap-2.5">
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">About Amazon</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Careers</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Press Releases</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Amazon Cares</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Gift a Smile</a></li>
+      {/* Main Footer Links */}
+      <div className="max-w-[1000px] mx-auto py-10 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+          <h3 className="font-bold text-[16px] mb-3">Get to Know Us</h3>
+          <ul className="list-none p-0 text-[14px] flex flex-col gap-2">
+            <li><Link to="#" className="text-white no-underline hover:underline">About Us</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Careers</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Press Releases</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Amazon Science</Link></li>
           </ul>
         </div>
-        <div className="flex flex-col">
-          <h4 className="font-bold text-[16px] mb-3.5">Connect with Us</h4>
-          <ul className="flex flex-col gap-2.5">
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Facebook</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Twitter</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Instagram</a></li>
+        <div>
+          <h3 className="font-bold text-[16px] mb-3">Connect with Us</h3>
+          <ul className="list-none p-0 text-[14px] flex flex-col gap-2">
+            <li><Link to="#" className="text-white no-underline hover:underline">Facebook</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Twitter</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Instagram</Link></li>
           </ul>
         </div>
-        <div className="flex flex-col">
-          <h4 className="font-bold text-[16px] mb-3.5">Make Money with Us</h4>
-          <ul className="flex flex-col gap-2.5">
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Sell on Amazon</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Sell under Amazon Accelerator</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Amazon Associates</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Advertise Your Products</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Amazon Pay on Merchants</a></li>
+        <div>
+          <h3 className="font-bold text-[16px] mb-3">Make Money with Us</h3>
+          <ul className="list-none p-0 text-[14px] flex flex-col gap-2">
+            <li><Link to="#" className="text-white no-underline hover:underline">Sell on Amazon</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Sell under Amazon Accelerator</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Protect and Build Your Brand</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Amazon Global Selling</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Become an Affiliate</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Fulfilment by Amazon</Link></li>
           </ul>
         </div>
-        <div className="flex flex-col">
-          <h4 className="font-bold text-[16px] mb-3.5">Let Us Help You</h4>
-          <ul className="flex flex-col gap-2.5">
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">COVID-19 and Amazon</a></li>
-            <li><Link to="/orders" className="text-[#ccc] text-[13px] hover:underline">Your Orders</Link></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Shipping Rates & Policies</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Amazon Prime</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Returns & Replacements</a></li>
-            <li><a href="#" className="text-[#ccc] text-[13px] hover:underline">Help</a></li>
+        <div>
+          <h3 className="font-bold text-[16px] mb-3">Let Us Help You</h3>
+          <ul className="list-none p-0 text-[14px] flex flex-col gap-2">
+            <li><Link to="#" className="text-white no-underline hover:underline">COVID-19 and Amazon</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Your Account</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Returns Centre</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">100% Purchase Protection</Link></li>
+            <li><Link to="#" className="text-white no-underline hover:underline">Help</Link></li>
           </ul>
         </div>
       </div>
 
-      <hr className="border-t border-[#3a4553]" />
-
-      {/* Bottom */}
-      <div className="bg-[#131921] py-8 px-4 flex flex-col items-center text-center">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-10 mb-8 border-t border-b border-[#3a4553] w-full py-6">
-          <Link to="/" className="flex items-center justify-center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-7 pt-1 filter invert hue-rotate-180" />
-          </Link>
-          <div className="flex items-center justify-center gap-2">
-            <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
-              <Globe size={16} />
-              <span>English</span>
-            </div>
-            <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
-              <span>₹ INR - Indian Rupee</span>
-            </div>
-            <div className="flex items-center gap-2 text-[13px] text-[#ccc] border border-[#848688] rounded-sm px-4 py-2 cursor-pointer hover:border-white">
-              <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" className="h-3 w-4 mt-0.5 object-cover" />
-              <span>India</span>
-            </div>
+      {/* Bottom Footer Area */}
+      <div className="border-t border-[#3a4553] py-8 flex flex-col items-center gap-6">
+        <div className="flex items-center gap-10">
+          <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[25px] filter invert hue-rotate-180" /></Link>
+          <div className="flex border border-gray-500 rounded-[3px] px-3 py-1.5 text-[13px] items-center gap-2 cursor-pointer hover:border-gray-200">
+             <Globe size={14} /> English
           </div>
         </div>
-
-        <div className="flex flex-wrap justify-center gap-4 text-[11px] text-[#ccc]">
-          <a href="#" className="text-[#ccc] hover:underline">Australia</a>
-          <a href="#" className="text-[#ccc] hover:underline">Brazil</a>
-          <a href="#" className="text-[#ccc] hover:underline">Canada</a>
-          <a href="#" className="text-[#ccc] hover:underline">China</a>
-          <a href="#" className="text-[#ccc] hover:underline">France</a>
-          <a href="#" className="text-[#ccc] hover:underline">Germany</a>
-          <a href="#" className="text-[#ccc] hover:underline">Italy</a>
-          <a href="#" className="text-[#ccc] hover:underline">Japan</a>
-          <a href="#" className="text-[#ccc] hover:underline">Mexico</a>
-          <a href="#" className="text-[#ccc] hover:underline">Netherlands</a>
-          <a href="#" className="text-[#ccc] hover:underline">Singapore</a>
-          <a href="#" className="text-[#ccc] hover:underline">Spain</a>
-          <a href="#" className="text-[#ccc] hover:underline">Turkey</a>
-          <a href="#" className="text-[#ccc] hover:underline">United Arab Emirates</a>
-          <a href="#" className="text-[#ccc] hover:underline">United Kingdom</a>
-          <a href="#" className="text-[#ccc] hover:underline">United States</a>
+        
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[12px] max-w-[1000px] text-center px-4">
+           {['Australia', 'Brazil', 'Canada', 'China', 'France', 'Germany', 'Italy', 'Japan', 'Mexico', 'Netherlands', 'Poland', 'Singapore', 'Spain', 'Turkey', 'United Arab Emirates', 'United Kingdom', 'United States'].map(country => (
+             <Link key={country} to="#" className="text-white no-underline hover:underline whitespace-nowrap">{country}</Link>
+           ))}
         </div>
+      </div>
 
-        <div className="flex flex-wrap justify-center gap-4 text-[11px] text-[#ccc] mt-6">
-          <a href="#" className="text-[#ccc] hover:underline">Conditions of Use & Sale</a>
-          <a href="#" className="text-[#ccc] hover:underline">Privacy Notice</a>
-          <a href="#" className="text-[#ccc] hover:underline">Interest-Based Ads</a>
-        </div>
-
-        <p className="text-[11px] text-[#ccc] mt-2">
-          © 1996-2024, Amazon.com, Inc. or its affiliates | Amazon Clone by Aryan Mittal
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-4 text-[11px] text-[#ccc] mt-3">
-          <a href="#" className="text-[#ccc] hover:underline">Conditions of Use & Sale</a>
-          <a href="#" className="text-[#ccc] hover:underline">Privacy Notice</a>
-          <a href="#" className="text-[#ccc] hover:underline">Interest-Based Ads</a>
-        </div>
+      {/* Legal Bar */}
+      <div className="bg-[#131a22] py-8 text-[12px] flex flex-col items-center gap-2">
+         <div className="flex gap-4">
+            <Link to="#" className="text-white no-underline hover:underline">Conditions of Use & Sale</Link>
+            <Link to="#" className="text-white no-underline hover:underline">Privacy Notice</Link>
+            <Link to="#" className="text-white no-underline hover:underline">Interest-Based Ads</Link>
+         </div>
+         <p className="text-gray-400">© 1996-2024, Amazon.com, Inc. or its affiliates</p>
       </div>
     </footer>
   );

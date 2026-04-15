@@ -1,46 +1,61 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const prisma = require('../config/db');
 const { authenticateToken } = require('../middleware/auth');
 
-// All cart routes use the default user (user_id = 1) or authenticated user
 router.use(authenticateToken);
 
-// GET /api/cart - Get user's cart
+// GET /api/cart
 router.get('/', async (req, res) => {
   try {
     const userId = req.user.id;
-    const [cartItems] = await db.query(`
-      SELECT 
-        c.id as cart_id,
-        c.quantity,
-        c.added_at,
-        p.id as product_id,
-        p.name,
-        p.slug,
-        p.price,
-        p.original_price,
-        p.stock,
-        p.is_prime,
-        p.brand,
-        pi.image_url as image
-      FROM cart c
-      JOIN products p ON c.product_id = p.id
-      LEFT JOIN product_images pi ON pi.product_id = p.id AND pi.is_primary = TRUE
-      WHERE c.user_id = ? AND p.is_active = TRUE
-      ORDER BY c.added_at DESC
-    `, [userId]);
 
-    // Calculate totals
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    const cartItems = await prisma.cart.findMany({
+      where: {
+        userId,
+        product: { isActive: true }
+      },
+      include: {
+        product: {
+          select: {
+            id: true, name: true, slug: true, price: true,
+            originalPrice: true, stock: true, isPrime: true, brand: true,
+            images: {
+              where: { isPrimary: true },
+              take: 1,
+              select: { imageUrl: true }
+            }
+          }
+        }
+      },
+      orderBy: { addedAt: 'desc' }
+    });
+
+    // Flatten for frontend
+    const items = cartItems.map(c => ({
+      cart_id:        c.id,
+      quantity:       c.quantity,
+      added_at:       c.addedAt,
+      product_id:     c.product.id,
+      name:           c.product.name,
+      slug:           c.product.slug,
+      price:          parseFloat(c.product.price),
+      original_price: c.product.originalPrice ? parseFloat(c.product.originalPrice) : null,
+      stock:          c.product.stock,
+      is_prime:       c.product.isPrime,
+      brand:          c.product.brand,
+      image:          c.product.images[0]?.imageUrl || null
+    }));
+
+    const subtotal   = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
 
     res.json({
-      items: cartItems,
+      items,
       summary: {
-        subtotal: parseFloat(subtotal.toFixed(2)),
-        shipping: subtotal > 499 ? 0 : 40,
-        total: parseFloat((subtotal + (subtotal > 499 ? 0 : 40)).toFixed(2)),
+        subtotal:   parseFloat(subtotal.toFixed(2)),
+        shipping:   subtotal > 499 ? 0 : 40,
+        total:      parseFloat((subtotal + (subtotal > 499 ? 0 : 40)).toFixed(2)),
         totalItems
       }
     });
@@ -50,7 +65,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/cart - Add item to cart
+// POST /api/cart – add item
 router.post('/', async (req, res) => {
   try {
     const userId = req.user.id;
@@ -60,57 +75,63 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Product ID is required' });
     }
 
-    // Check product exists and has stock
-    const [products] = await db.query(
-      'SELECT id, stock, name FROM products WHERE id = ? AND is_active = TRUE',
-      [product_id]
-    );
+    const product = await prisma.product.findFirst({
+      where: { id: product_id, isActive: true },
+      select: { id: true, stock: true, name: true }
+    });
 
-    if (!products.length) {
+    if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    if (products[0].stock < quantity) {
+    if (product.stock < quantity) {
       return res.status(400).json({ error: 'Insufficient stock' });
     }
 
-    // Insert or update cart
-    await db.query(`
-      INSERT INTO cart (user_id, product_id, quantity)
-      VALUES (?, ?, ?)
-      ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)
-    `, [userId, product_id, quantity]);
+    // Upsert: create or increment
+    await prisma.cart.upsert({
+      where: {
+        userId_productId: { userId, productId: product_id }
+      },
+      create: {
+        userId,
+        productId: product_id,
+        quantity
+      },
+      update: {
+        quantity: { increment: quantity }
+      }
+    });
 
-    res.json({ message: 'Product added to cart successfully', product_name: products[0].name });
+    res.json({ message: 'Product added to cart successfully', product_name: product.name });
   } catch (error) {
     console.error('Add to cart error:', error);
     res.status(500).json({ error: 'Failed to add to cart' });
   }
 });
 
-// PUT /api/cart/:cartId - Update cart item quantity
+// PUT /api/cart/:cartId – update quantity
 router.put('/:cartId', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { cartId } = req.params;
+    const userId   = req.user.id;
+    const cartId   = parseInt(req.params.cartId);
     const { quantity } = req.body;
 
-    if (!quantity || quantity < 1) {
-      return res.status(400).json({ error: 'Quantity must be at least 1' });
-    }
+    if (!quantity || quantity < 1)  return res.status(400).json({ error: 'Quantity must be at least 1' });
+    if (quantity > 10)              return res.status(400).json({ error: 'Maximum quantity is 10' });
 
-    if (quantity > 10) {
-      return res.status(400).json({ error: 'Maximum quantity is 10' });
-    }
+    const existing = await prisma.cart.findFirst({
+      where: { id: cartId, userId }
+    });
 
-    const [result] = await db.query(
-      'UPDATE cart SET quantity = ? WHERE id = ? AND user_id = ?',
-      [quantity, cartId, userId]
-    );
-
-    if (result.affectedRows === 0) {
+    if (!existing) {
       return res.status(404).json({ error: 'Cart item not found' });
     }
+
+    await prisma.cart.update({
+      where: { id: cartId },
+      data: { quantity }
+    });
 
     res.json({ message: 'Cart updated successfully' });
   } catch (error) {
@@ -119,21 +140,21 @@ router.put('/:cartId', async (req, res) => {
   }
 });
 
-// DELETE /api/cart/:cartId - Remove item from cart
+// DELETE /api/cart/:cartId – remove item
 router.delete('/:cartId', async (req, res) => {
   try {
     const userId = req.user.id;
-    const { cartId } = req.params;
+    const cartId = parseInt(req.params.cartId);
 
-    const [result] = await db.query(
-      'DELETE FROM cart WHERE id = ? AND user_id = ?',
-      [cartId, userId]
-    );
+    const existing = await prisma.cart.findFirst({
+      where: { id: cartId, userId }
+    });
 
-    if (result.affectedRows === 0) {
+    if (!existing) {
       return res.status(404).json({ error: 'Cart item not found' });
     }
 
+    await prisma.cart.delete({ where: { id: cartId } });
     res.json({ message: 'Item removed from cart' });
   } catch (error) {
     console.error('Delete cart item error:', error);
@@ -141,11 +162,11 @@ router.delete('/:cartId', async (req, res) => {
   }
 });
 
-// DELETE /api/cart - Clear entire cart
+// DELETE /api/cart – clear entire cart
 router.delete('/', async (req, res) => {
   try {
     const userId = req.user.id;
-    await db.query('DELETE FROM cart WHERE user_id = ?', [userId]);
+    await prisma.cart.deleteMany({ where: { userId } });
     res.json({ message: 'Cart cleared successfully' });
   } catch (error) {
     console.error('Clear cart error:', error);
@@ -153,15 +174,15 @@ router.delete('/', async (req, res) => {
   }
 });
 
-// GET /api/cart/count - Get cart item count
+// GET /api/cart/count
 router.get('/count', async (req, res) => {
   try {
     const userId = req.user.id;
-    const [rows] = await db.query(
-      'SELECT SUM(quantity) as count FROM cart WHERE user_id = ?',
-      [userId]
-    );
-    res.json({ count: rows[0].count || 0 });
+    const result = await prisma.cart.aggregate({
+      where: { userId },
+      _sum: { quantity: true }
+    });
+    res.json({ count: result._sum.quantity || 0 });
   } catch (error) {
     res.status(500).json({ error: 'Failed to get cart count' });
   }

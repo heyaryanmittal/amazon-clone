@@ -1,93 +1,101 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { register } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import toast from 'react-hot-toast';
+import { Info, ChevronRight } from 'lucide-react';
 
 const RegisterPage = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', phone: '' });
-  const [loading, setLoading] = useState(false);
-  const { loginUser } = useAuth();
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', mobile: '' });
+  const { register } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    document.title = 'Create Account - Amazon.in';
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      toast.error('Passwords do not match');
-      return;
-    }
-    if (form.password.length < 6) {
-      toast.error('Password must be at least 6 characters');
-      return;
-    }
-    setLoading(true);
     try {
-      const { data } = await register({ name: form.name, email: form.email, password: form.password, phone: form.phone });
-      loginUser(data.user, data.token);
-      toast.success('Account created successfully! 🎉');
+      await register(formData.name, formData.email, formData.password);
       navigate('/');
     } catch (err) {
-      toast.error(err.response?.data?.error || 'Registration failed');
-    } finally {
-      setLoading(false);
+      alert('Registration failed. Try a different email.');
     }
   };
 
   return (
-    <div className="flex flex-col items-center min-h-[calc(100vh-140px)] py-4">
-      <div className="mb-4 pb-2 z-[2]">
-        <Link to="/" style={{ fontSize: 32, fontWeight: 800, color: '#131921', textDecoration: 'none' }}>
-          amazon<span style={{ color: '#FF9900' }}>.in</span>
-        </Link>
-      </div>
-
-      <div className="w-[350px] p-[26px] bg-white border border-[#DDD] rounded-[3px] mb-6 flex flex-col z-[2]" id="register-form">
-        <h1 className="text-[28px] font-normal mb-4">Create account</h1>
-
-        <form onSubmit={handleSubmit}>
-          {[
-            { key: 'name', label: 'Your name', type: 'text', placeholder: 'First and last name', id: 'reg-name' },
-            { key: 'email', label: 'Email', type: 'email', placeholder: 'Enter email', id: 'reg-email' },
-            { key: 'phone', label: 'Mobile number (optional)', type: 'tel', placeholder: '+91 XXXXX XXXXX', id: 'reg-phone' },
-            { key: 'password', label: 'Password', type: 'password', placeholder: 'At least 6 characters', id: 'reg-password' },
-            { key: 'confirmPassword', label: 'Re-enter password', type: 'password', placeholder: 'Re-enter password', id: 'reg-confirm-password' },
-          ].map(field => (
-            <div key={field.key} className="mb-[12px]">
-              <label className="block text-[13px] font-bold mb-1 pl-0.5">{field.label}</label>
-              <input
-                type={field.type}
-                className="w-full h-[31px] px-[7px] py-[3px] text-[13px] bg-white border border-[#a6a6a6] rounded-[3px] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_1px_0_rgba(0,0,0,0.07)_inset] outline-none transition-all duration-200 focus:border-[#e77600] focus:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)]"
-                value={form[field.key]}
-                onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))}
-                placeholder={field.placeholder}
-                id={field.id}
-                required={field.key !== 'phone'}
-              />
+    <div className="bg-white min-h-screen flex flex-col items-center pt-8">
+      <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[35px] mb-6" /></Link>
+      
+      <div className="w-[350px] border border-[#ddd] p-6 rounded-[4px] shadow-sm mb-6">
+        <h1 className="text-[28px] font-normal mb-4">Create Account</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <label className="text-[13px] font-bold">Your name</label>
+            <input 
+              type="text" placeholder="First and last name" required 
+              className="border border-[#bbb] rounded-[3px] py-1 px-2 outline-none focus:border-[#e77600] focus:shadow-[0_0_3px_#e77600]"
+              value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-[13px] font-bold">Mobile number</label>
+            <div className="flex gap-2">
+               <div className="bg-[#f0f2f2] border border-[#bbb] rounded-[3px] px-2 py-1 text-[13px]">IN +91</div>
+               <input 
+                type="text" placeholder="Mobile number" required 
+                className="flex-1 border border-[#bbb] rounded-[3px] py-1 px-2 outline-none focus:border-[#e77600]"
+                value={formData.mobile} onChange={(e) => setFormData({...formData, mobile: e.target.value})}
+               />
             </div>
-          ))}
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-[13px] font-bold">Email (optional)</label>
+            <input 
+              type="email" required 
+              className="border border-[#bbb] rounded-[3px] py-1 px-2 outline-none focus:border-[#e77600]"
+              value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-[13px] font-bold">Password</label>
+            <input 
+              type="password" placeholder="At least 6 characters" required 
+              className="border border-[#bbb] rounded-[3px] py-1 px-2 outline-none focus:border-[#e77600]"
+              value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}
+            />
+            <div className="flex items-start gap-1 text-[12px] text-[#565959] mt-1">
+               <Info size={14} className="text-[#0066c0] mt-0.5" />
+               <span>Passwords must be at least 6 characters.</span>
+            </div>
+          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-[#f0c14b] text-[#111] border border-[#a88734] border-t-[#c89411] border-b-[#846a29] rounded-[3px] py-1 px-3 text-[13px] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] mt-2 mb-2 hover:bg-[#f4d078] cursor-pointer"
-            disabled={loading}
-            id="register-submit-btn"
+          <div className="text-[13px] mt-4 leading-snug">
+            To verify your number, we will send you a text message with a temporary code. Message and data rates may apply.
+          </div>
+
+          <button 
+            type="submit" 
+            className="amazon-button-yellow w-full py-1.5 rounded-[3px] text-[13px] border border-[#a88734] font-normal mt-2 hover:bg-[#f7ca00]"
+            style={{ background: 'linear-gradient(to bottom, #f7dfa1, #f0c14b)' }}
           >
-            {loading ? 'Creating account...' : 'Create your Amazon account'}
+            Verify mobile number
           </button>
         </form>
 
-        <p className="text-[12px] leading-[1.5] mt-[18px] text-[#111]">
-          By creating an account, you agree to Amazon's <a href="#" className="text-[#0066c0] hover:text-[#c45500] hover:underline">Conditions of Use</a> and{' '}
-          <a href="#" className="text-[#0066c0] hover:text-[#c45500] hover:underline">Privacy Notice</a>.
-        </p>
-
-        <div className="mt-[22px] pt-[14px] border-t border-[#e7e7e7] text-[#767676] text-[13px] text-center">
-          Already have an account? <Link to="/login" className="text-[#0066c0] hover:text-[#c45500] hover:underline">Sign in</Link>
+        <div className="mt-8 pt-6 border-t border-[#eee] text-[13px]">
+           <p className="font-bold">Buying for work?</p>
+           <Link to="#" className="text-[#0066c0] hover:underline">Create a free business account</Link>
         </div>
+
+        <div className="mt-6 pt-4 border-t border-[#eee] text-[13px]">
+           <span>Already have an account? </span>
+           <Link to="/login" className="text-[#0066c0] hover:underline flex items-center gap-1">Sign in <ChevronRight size={12}/></Link>
+        </div>
+      </div>
+
+      <div className="mt-8 border-t border-[#eee] w-full pt-6 flex flex-col items-center gap-4 bg-gradient-to-b from-[#fafafa] to-white pb-10">
+         <div className="flex gap-10 text-[11px] text-[#0066c0]">
+            <Link to="#" className="hover:underline">Conditions of Use</Link>
+            <Link to="#" className="hover:underline">Privacy Notice</Link>
+            <Link to="#" className="hover:underline">Help</Link>
+         </div>
+         <p className="text-[11px] text-[#555]">© 1996-2024, Amazon.com, Inc. or its affiliates</p>
       </div>
     </div>
   );

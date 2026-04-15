@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const prisma = require('./config/db');
 
 const app = express();
 
@@ -46,7 +47,16 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📦 Amazon Clone API ready`);
-});
+
+prisma.$connect()
+  .then(() => {
+    console.log('✅ Connected to Supabase (PostgreSQL via Prisma)');
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`📦 Amazon Clone API ready`);
+    });
+  })
+  .catch((err) => {
+    console.error('❌ Failed to connect to database:', err.message);
+    process.exit(1);
+  });

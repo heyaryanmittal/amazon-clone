@@ -1,28 +1,52 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const prisma = require('../config/db');
 const { authenticateToken } = require('../middleware/auth');
 
 router.use(authenticateToken);
 
-// GET /api/wishlist - Get user's wishlist
+// GET /api/wishlist
 router.get('/', async (req, res) => {
   try {
     const userId = req.user.id;
-    const [items] = await db.query(`
-      SELECT 
-        w.id as wishlist_id,
-        w.added_at,
-        p.*,
-        pi.image_url as primary_image,
-        c.name as category_name
-      FROM wishlist w
-      JOIN products p ON w.product_id = p.id
-      LEFT JOIN product_images pi ON pi.product_id = p.id AND pi.is_primary = TRUE
-      LEFT JOIN categories c ON p.category_id = c.id
-      WHERE w.user_id = ? AND p.is_active = TRUE
-      ORDER BY w.added_at DESC
-    `, [userId]);
+
+    const wishlistItems = await prisma.wishlist.findMany({
+      where: {
+        userId,
+        product: { isActive: true }
+      },
+      include: {
+        product: {
+          include: {
+            category: { select: { name: true } },
+            images: {
+              where: { isPrimary: true },
+              take: 1,
+              select: { imageUrl: true }
+            }
+          }
+        }
+      },
+      orderBy: { addedAt: 'desc' }
+    });
+
+    // Flatten for frontend compatibility
+    const items = wishlistItems.map(w => ({
+      wishlist_id:    w.id,
+      added_at:       w.addedAt,
+      id:             w.product.id,
+      name:           w.product.name,
+      slug:           w.product.slug,
+      price:          parseFloat(w.product.price),
+      original_price: w.product.originalPrice ? parseFloat(w.product.originalPrice) : null,
+      rating:         parseFloat(w.product.rating),
+      review_count:   w.product.reviewCount,
+      is_prime:       w.product.isPrime,
+      brand:          w.product.brand,
+      image_url:      w.product.images[0]?.imageUrl || null,
+      primary_image:  w.product.images[0]?.imageUrl || null,
+      category_name:  w.product.category?.name || null
+    }));
 
     res.json({ items });
   } catch (error) {
@@ -31,7 +55,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/wishlist - Add to wishlist
+// POST /api/wishlist – add (idempotent)
 router.post('/', async (req, res) => {
   try {
     const userId = req.user.id;
@@ -41,10 +65,14 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Product ID is required' });
     }
 
-    await db.query(
-      'INSERT IGNORE INTO wishlist (user_id, product_id) VALUES (?, ?)',
-      [userId, product_id]
-    );
+    // Upsert: create if not exists, do nothing if already there
+    await prisma.wishlist.upsert({
+      where: {
+        userId_productId: { userId, productId: product_id }
+      },
+      create: { userId, productId: product_id },
+      update: {} // no-op
+    });
 
     res.json({ message: 'Added to wishlist' });
   } catch (error) {
@@ -53,16 +81,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-// DELETE /api/wishlist/:productId - Remove from wishlist
+// DELETE /api/wishlist/:productId
 router.delete('/:productId', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { productId } = req.params;
+    const userId    = req.user.id;
+    const productId = parseInt(req.params.productId);
 
-    await db.query(
-      'DELETE FROM wishlist WHERE user_id = ? AND product_id = ?',
-      [userId, productId]
-    );
+    await prisma.wishlist.deleteMany({
+      where: { userId, productId }
+    });
 
     res.json({ message: 'Removed from wishlist' });
   } catch (error) {
@@ -74,12 +101,16 @@ router.delete('/:productId', async (req, res) => {
 // GET /api/wishlist/check/:productId
 router.get('/check/:productId', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const [rows] = await db.query(
-      'SELECT id FROM wishlist WHERE user_id = ? AND product_id = ?',
-      [userId, req.params.productId]
-    );
-    res.json({ inWishlist: rows.length > 0 });
+    const userId    = req.user.id;
+    const productId = parseInt(req.params.productId);
+
+    const item = await prisma.wishlist.findUnique({
+      where: {
+        userId_productId: { userId, productId }
+      }
+    });
+
+    res.json({ inWishlist: !!item });
   } catch (error) {
     res.status(500).json({ error: 'Failed to check wishlist' });
   }

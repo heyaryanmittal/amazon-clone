@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Search, MapPin, ChevronDown, ChevronUp, Menu, X, User } from 'lucide-react';
+import { Search, MapPin, ChevronDown, ChevronUp, ChevronRight, Menu, X, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import LocationModal from './LocationModal';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('all-categories');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSeeAllCategoriesOpen, setIsSeeAllCategoriesOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
@@ -15,19 +16,19 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { summary } = useCart();
   const { user, logout } = useAuth();
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [currentPincode, setCurrentPincode] = useState('110001');
 
   const categories = [
-    'All Categories', 'Alexa Skills', 'Amazon Devices', 'Amazon Fashion', 'Amazon Fresh', 'Appliances', 'Apps & Games', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Electronics', 'Furniture', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Jewellery', 'Luggage & Bags', 'Movies & TV Shows', 'Music', 'Office Products', 'Pet Supplies', 'Prime Video', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Tools & Home Improvement', 'Toys & Games', 'Video Games', 'Watches'
+    'All Categories', 'Alexa Skills', 'Amazon Devices', 'Amazon Fashion', 'Amazon Fresh', 'Amazon Fresh Meat', 'Amazon Pharmacy', 'Appliances', 'Apps & Games', 'Audible Audiobooks', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Deals', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Gift Cards', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Kindle Store', 'Luggage & Bags', 'Luxury Beauty', 'Movies & TV Shows', 'MP3 Music', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Prime Video', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Subscribe & Save', 'Tools & Home Improvement', 'Toys & Games', 'Under ₹500', 'Video Games', 'Watches'
   ];
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
+    if (searchQuery.trim() || selectedCategory !== 'all') {
       const params = new URLSearchParams();
-      params.set('search', searchQuery.trim());
-      if (selectedCategory !== 'All Categories') {
-        params.set('category', selectedCategory.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-'));
-      }
+      if (searchQuery.trim()) params.set('search', searchQuery.trim());
+      if (selectedCategory !== 'all') params.set('category', selectedCategory);
       navigate(`/products?${params.toString()}`);
     }
   };
@@ -44,8 +45,11 @@ const Navbar = () => {
               <span className="text-[14px] text-white ml-0.5 mt-[-14px]">.in</span>
             </Link>
 
-            <div className="flex flex-col px-2 py-1.5 border border-transparent rounded-[2px] cursor-pointer hover:border-white hidden md:flex min-w-max mr-1 ml-1 h-[50px] justify-center">
-              <span className="text-[12px] text-[#cccccc] font-normal leading-3 pl-[18px]">Delivering to Gharroli 110091</span>
+            <div 
+              onClick={() => setIsLocationModalOpen(true)}
+              className="flex flex-col px-2 py-1.5 border border-transparent rounded-[2px] cursor-pointer hover:border-white hidden md:flex min-w-max mr-1 ml-1 h-[50px] justify-center"
+            >
+              <span className="text-[12px] text-[#cccccc] font-normal leading-3 pl-[18px]">Delivering to New Delhi {currentPincode}</span>
               <span className="text-[14px] font-bold text-white flex items-center leading-4 mt-[3px]">
                 <MapPin size={16} className="mr-0.5" strokeWidth={2.5} />
                 <span style={{ transform: 'translateY(-1px)' }}>Update location</span>
@@ -74,11 +78,19 @@ const Navbar = () => {
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 {categories.map(cat => (
-                  <option key={cat} value={cat} className="text-black">{cat === 'All Categories' ? 'All' : cat}</option>
+                  <option 
+                    key={cat} 
+                    value={cat.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}
+                    className="text-black bg-white"
+                  >
+                    {cat}
+                  </option>
                 ))}
               </select>
               <div className="flex items-center justify-between w-full px-2 pointer-events-none">
-                <span className="truncate mr-1 leading-none">{selectedCategory === 'All Categories' ? 'All' : selectedCategory}</span>
+                <span className="truncate mr-1 leading-none">
+                  {categories.find(c => c.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-') === selectedCategory) || 'All'}
+                </span>
                 <ChevronDown size={14} className="text-[#5f5f5f] shrink-0 fill-current" strokeWidth={1} style={{ stroke: 'currentColor' }} />
               </div>
             </div>
@@ -154,10 +166,60 @@ const Navbar = () => {
               onMouseEnter={() => setIsAccountMenuOpen(true)}
               onMouseLeave={() => setIsAccountMenuOpen(false)}
             >
-              <span className="text-[12px] text-white font-normal leading-3 mb-[3px]">Hello, sign in</span>
+              <span className="text-[12px] text-white font-normal leading-3 mb-[3px]">Hello, {user ? user.name.split(' ')[0] : 'sign in'}</span>
               <span className="text-[14px] font-bold flex items-center leading-3">
                 Account & Lists <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" className="ml-1 text-[#a7acb2]" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z" /></svg>
               </span>
+
+              {/* Account Hover Menu */}
+              {isAccountMenuOpen && (
+                <div className="absolute top-[48px] right-[-70px] w-[500px] bg-white text-[#111] border border-[#ddd] rounded-[3px] shadow-[0_4px_16px_rgba(0,0,0,0.2)] z-50 cursor-default p-0" onClick={(e) => e.stopPropagation()}>
+                  {/* Arrow Notch */}
+                  <div className="absolute top-[-7px] right-[100px] w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-white"></div>
+
+                  <div className="relative z-10 w-full flex flex-col pt-0">
+                    <div className="flex flex-col items-center justify-center border-b border-[#eee] py-4 bg-[#fcfcfc] rounded-t-[3px]">
+                      <Link 
+                        to="/login" 
+                        className="w-[200px] text-center rounded-[3px] py-2 text-[13px] text-black font-medium no-underline border border-[#a88734] shadow-sm transform hover:scale-[1.01] active:scale-[0.98] transition-all"
+                        style={{ background: 'linear-gradient(to bottom, #f7dfa1, #f0c14b)' }}
+                      >
+                        Sign in
+                      </Link>
+                      <div className="text-[11px] mt-2">
+                        New customer? <Link to="/register" className="text-[#004b91] hover:text-[#c45500] hover:underline">Start here.</Link>
+                      </div>
+                    </div>
+                    
+                    <div className="flex w-full pt-1 pb-4">
+                      {/* Left Column: Your Lists */}
+                      <div className="flex-1 border-r border-[#eee] px-6">
+                        <h3 className="font-bold text-[16px] mb-2 text-black text-left mt-2">Your Lists</h3>
+                        <ul className="list-none p-0 m-0 space-y-1.5 text-left">
+                          {['Create a Wish List', 'Wish from Any Website', 'Baby Wishlist', 'Discover Your Style', 'Explore Showroom'].map(item => (
+                            <li key={item}><Link to="#" className="text-[13px] text-[#444] hover:text-[#c45500] hover:underline block no-underline">{item}</Link></li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Right Column: Your Account */}
+                      <div className="flex-1 pl-6 pr-4">
+                        <h3 className="font-bold text-[16px] mb-2 text-black text-left mt-2">Your Account</h3>
+                        <ul className="list-none p-0 m-0 space-y-1.5 text-left">
+                          {['Your Account', 'Your Orders', 'Your Wish List', 'Keep shopping for', 'Your Recommendations', 'Your Prime Membership', 'Your Prime Video', 'Your Subscribe & Save Items', 'Memberships & Subscriptions', 'Your Seller Account', 'Manage Your Content and Devices', 'Register for a free Business Account'].map(item => (
+                            <li key={item}><Link to={item === 'Your Orders' ? '/orders' : (item === 'Your Wish List' ? '/wishlist' : '#')} className="text-[13px] text-[#444] hover:text-[#c45500] hover:underline block no-underline">{item}</Link></li>
+                          ))}
+                          {user && (
+                            <li className="mt-2 pt-2 border-t border-[#eee]">
+                              <button onClick={() => logout()} className="text-[13px] text-[#444] hover:text-[#c45500] hover:underline block w-full text-left bg-transparent border-none p-0 cursor-pointer font-normal">Sign Out</button>
+                            </li>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Orders */}
@@ -310,14 +372,14 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      <LocationModal 
+        isOpen={isLocationModalOpen} 
+        onClose={() => setIsLocationModalOpen(false)} 
+        onApplyPincode={(pin) => setCurrentPincode(pin)}
+      />
     </>
   );
 };
 
-const ChevronRight = ({ size, className }) => (
-  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6"></polyline>
-  </svg>
-);
 
 export default Navbar;

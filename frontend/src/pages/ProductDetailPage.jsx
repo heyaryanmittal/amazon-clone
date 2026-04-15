@@ -1,342 +1,206 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Heart, Share2, Shield, Truck, RotateCcw, Star, ChevronRight } from 'lucide-react';
-import { getProduct, addToWishlist, removeFromWishlist, checkWishlist } from '../services/api';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Star, MapPin, ChevronRight, ShieldCheck, Truck, RefreshCcw, Tag } from 'lucide-react';
+import { getProduct } from '../services/api';
 import { useCart } from '../context/CartContext';
-import { StarRating, formatPrice, getDiscount } from '../components/ProductCard';
-import ProductCard from '../components/ProductCard';
-import toast from 'react-hot-toast';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
-
   const [product, setProduct] = useState(null);
-  const [images, setImages] = useState([]);
-  const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [inWishlist, setInWishlist] = useState(false);
-  const [addingCart, setAddingCart] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState(0);
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const loadProduct = async () => {
-      setLoading(true);
-      try {
-        const { data } = await getProduct(id);
-        setProduct(data.product);
-        setImages(data.images || []);
-        setRelated(data.related || []);
-        document.title = `${data.product.name} - Amazon.in`;
-
-        // Check wishlist
-        try {
-          const { data: wData } = await checkWishlist(id);
-          setInWishlist(wData.inWishlist);
-        } catch {}
-      } catch (err) {
-        console.error('Failed to load product');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadProduct();
-    window.scrollTo(0, 0);
+    setLoading(true);
+    getProduct(id).then(({ data }) => {
+      setProduct(data.product);
+    }).catch(console.error).finally(() => setLoading(false));
   }, [id]);
 
-  const handleAddToCart = async () => {
-    setAddingCart(true);
-    await addToCart(product.id, quantity);
-    setAddingCart(false);
+  const handleAddToCart = () => {
+    addToCart(product.id, quantity);
+    navigate('/cart');
   };
 
-  const handleBuyNow = async () => {
-    const success = await addToCart(product.id, quantity);
-    if (success) navigate('/checkout');
-  };
-
-  const handleWishlist = async () => {
-    try {
-      if (inWishlist) {
-        await removeFromWishlist(product.id);
-        setInWishlist(false);
-        toast.success('Removed from wishlist');
-      } else {
-        await addToWishlist(product.id);
-        setInWishlist(true);
-        toast.success('Added to wishlist! ❤️');
-      }
-    } catch {
-      toast.error('Failed to update wishlist');
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="loading-spinner" style={{ minHeight: 400 }}>
-          <div className="spinner"></div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="container">
-        <div className="section">
-          <div className="empty-state">
-            <span className="empty-state-icon">😕</span>
-            <h2>Product not found</h2>
-            <p>The product you're looking for doesn't exist.</p>
-            <Link to="/products" className="btn-primary">Browse Products</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const discount = getDiscount(product.price, product.original_price);
-  const allImages = images.length > 0 ? images.map(i => i.image_url) : [
-    `https://via.placeholder.com/600x600/f7f7f7/aaaaaa?text=${encodeURIComponent(product.brand || 'Product')}`
-  ];
-  const isOutOfStock = product.stock === 0;
+  if (loading) return <div className="animate-pulse bg-white min-h-screen"></div>;
+  if (!product) return <div className="p-10 text-center">Product not found.</div>;
 
   return (
-    <div className="container">
-      {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <Link to="/">Home</Link>
-        <span className="breadcrumb-separator">›</span>
-        <Link to={`/products?category=${product.category_slug}`}>
-          {product.category_name}
-        </Link>
-        <span className="breadcrumb-separator">›</span>
-        <span style={{ color: '#565959' }}>{product.name.substring(0, 60)}{product.name.length > 60 ? '...' : ''}</span>
+    <div className="bg-white min-h-screen pb-10">
+      <div className="max-w-[1500px] mx-auto px-4 py-2 border-b border-[#ddd] bg-[#f8f8f8] mb-2">
+         <Link to="/products" className="text-[12px] text-[#565959] hover:text-[#c45500] flex items-center gap-1 no-underline">
+           <span>‹</span> Back to results
+         </Link>
+      </div>
+      
+      {/* Breadcrumbs */}
+      <div className="max-w-[1500px] mx-auto px-4 py-2 text-[12px] text-[#565959] flex items-center gap-1">
+         <Link to="/" className="hover:underline">Home</Link> <ChevronRight size={10} />
+         <Link to="#" className="hover:underline">Home & Kitchen</Link> <ChevronRight size={10} />
+         <Link to="#" className="hover:underline">Kitchen & Dining</Link> <ChevronRight size={10} />
+         <Link to="#" className="hover:underline">Drinkware</Link> <ChevronRight size={10} />
+         <Link to="#" className="text-[#565959] no-underline">Mugs</Link>
       </div>
 
-      <div className="bg-white p-4 mb-4" id="product-detail">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_300px] gap-8 py-4">
-
-          {/* Images Section */}
-          <div className="flex gap-4 md:sticky md:top-[80px] self-start flex-col-reverse md:flex-row">
-            <div className="flex md:flex-col gap-2">
-              {allImages.map((img, i) => (
-                <div
-                  key={i}
-                  className={`w-10 h-10 border border-[#a6a6a6] rounded-sm p-1 cursor-pointer hover:shadow-[0_0_3px_2px_rgba(228,121,17,0.5)] hover:border-[#e77600] ${selectedImage === i ? 'border-[#e77600] shadow-[0_0_3px_2px_rgba(228,121,17,0.5)]' : ''}`}
-                  onClick={() => setSelectedImage(i)}
-                >
-                  <img
-                    src={img}
-                    alt={`${product.name} view ${i + 1}`}
-                    className="w-full h-full object-contain"
-                    onError={(e) => { e.target.src = `https://via.placeholder.com/60x60/f7f7f7/aaaaaa?text=${i + 1}`; }}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex-1 aspect-square md:aspect-auto md:h-[500px] bg-[#f7f7f7] border border-[#f7f7f7] rounded-sm flex justify-center items-center overflow-hidden">
-              <img
-                src={allImages[selectedImage]}
-                alt={product.name}
-                className="max-w-[90%] max-h-[90%] object-contain"
-                onError={(e) => {
-                  e.target.src = `https://via.placeholder.com/600x600/f7f7f7/aaaaaa?text=${encodeURIComponent(product.brand || 'Product')}`;
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Product Info */}
-          <div className="flex flex-col">
-            <p className="text-[14px]">
-              Brand: <Link to={`/products?search=${product.brand}`} className="text-[#007185] hover:text-[#C45500] hover:underline">{product.brand}</Link>
-            </p>
-            <h1 className="text-[24px] font-normal leading-[1.3] text-[#0F1111] m-0 mb-1.5">{product.name}</h1>
-
-            <div className="flex items-center gap-4 text-[14px] border-b border-[#ececec] pb-2 mb-3">
-              <StarRating rating={parseFloat(product.rating) || 4.0} size={20} />
-              <a href="#reviews" className="text-[#007185] hover:text-[#C45500] hover:underline">
-                {parseFloat(product.rating).toFixed(1)} out of 5
-              </a>
-              <span style={{ color: '#565959' }}>|</span>
-              <a href="#reviews" className="text-[#007185] hover:text-[#C45500] hover:underline">
-                {(product.review_count || 0).toLocaleString('en-IN')} ratings
-              </a>
-            </div>
-
-            {product.is_prime && (
-              <div className="inline-flex items-center gap-[3px] text-[14px] font-semibold text-[#00A8E0] mb-2">
-                <span className="italic font-extrabold text-[#00A8E0] text-[16px]">prime</span>
-                <span className="text-[#111] font-normal ml-1">Free delivery on eligible orders</span>
+      <div className="max-w-[1500px] mx-auto px-4 py-3 flex flex-col md:flex-row gap-5">
+        
+        {/* Left: Image Gallery (Horizontal strip layout) */}
+        <div className="md:w-[42%] flex flex-col items-center">
+           <div className="flex gap-4 w-full h-[550px]">
+              <div className="flex flex-col gap-2 w-[50px] shrink-0">
+                 {[...Array(6)].map((_, i) => (
+                    <div key={i} className={`w-[45px] h-[45px] border rounded-[2px] p-1 cursor-pointer transition-all ${i===0?'border-[#e77600] shadow-[0_0_3px_#e77600]':'border-[#ddd] hover:border-[#e77600]'}`}>
+                       <img src={product.image_url} className="w-full h-full object-contain" />
+                    </div>
+                 ))}
               </div>
-            )}
-
-            {/* Price */}
-            <div className="flex flex-col gap-1 border-b border-[#ececec] pb-4 mb-4">
-              <div className="text-[#565959] text-[14px]">Price:</div>
-              <div className="text-[28px] text-[#b12704] font-normal flex items-start leading-[1]">
-                <span className="text-[14px] align-super mr-0.5 mt-1">₹</span>
-                {parseInt(product.price).toLocaleString('en-IN')}
+              <div className="flex-1 border border-transparent flex items-center justify-center overflow-hidden">
+                 <img src={product.image_url} alt={product.name} className="max-w-[95%] max-h-[90%] object-contain hover:scale-105 transition-transform duration-300" />
               </div>
-              {product.original_price > product.price && (
-                <div className="text-[#565959] text-[12px]">
-                  M.R.P.: <strike>₹{parseInt(product.original_price).toLocaleString('en-IN')}</strike>
-                </div>
-              )}
-              {discount > 0 && (
-                <div className="flex items-center gap-2">
-                  <span className="text-[#CC0C39] text-[18px] font-normal">({discount}% off)</span>
-                  <span style={{ color: '#CC0C39', fontSize: 14 }}>
-                    Limited time deal
-                  </span>
-                </div>
-              )}
-            </div>
+           </div>
+           <p className="text-[12px] text-[#565959] mt-3">Roll over image to zoom in</p>
+        </div>
 
-            {/* Description */}
-            <div className="border-b border-[#ececec] pb-4 mb-4 text-[14px] leading-[1.5] text-[#0F1111]">
-              <p>{product.description}</p>
-            </div>
-
-            {/* Specifications */}
-            {product.specifications && Object.keys(product.specifications).length > 0 && (
-              <div className="mb-4" id="product-specs">
-                <h3 className="text-[16px] font-bold text-[#0F1111] mb-2">Technical Details</h3>
-                <table className="w-full border-collapse">
-                  <tbody>
-                    {Object.entries(product.specifications).map(([key, value]) => (
-                      <tr key={key}>
-                        <td className="py-1.5 px-2 text-[14px] align-top bg-[#f3f3f3] text-[#0F1111] font-bold w-[40%] border border-[#e7e7e7]">{key}</td>
-                        <td className="py-1.5 px-2 text-[14px] align-top text-[#333] border border-[#e7e7e7]">{value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+        {/* Center: Detailed Info */}
+        <div className="md:w-[40%] flex flex-col gap-1">
+           <h1 className="text-[24px] font-medium leading-tight text-[#0f1111]">{product.name}</h1>
+           <Link to="#" className="text-[#007185] text-[14px] hover:text-[#c45500] hover:underline">Visit the Sooky Creative Store</Link>
+           
+           <div className="flex items-center gap-2 border-b border-[#eee] pb-2 mt-1">
+              <span className="text-[14px] font-bold">4.8</span>
+              <div className="flex text-[#ffa41c]">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} fill={i < 4 ? "currentColor" : "none"} />
+                ))}
               </div>
-            )}
-          </div>
+              <span className="text-[#007185] text-[14px] hover:text-[#c45500] hover:underline">128 ratings | 45 answered questions</span>
+           </div>
 
-          {/* Buy Box */}
-          <div className="border border-[#d5d9d9] rounded-lg p-4 bg-white flex flex-col md:sticky md:top-[80px] self-start" id="buy-box">
-            <div className="text-[24px] font-normal text-[#111] mb-2">
-              <span className="text-[14px] align-super mr-0.5 mt-1">₹</span>
-              {parseInt(product.price).toLocaleString('en-IN')}
-            </div>
+           <div className="bg-[#232f3e] text-white text-[12px] px-2 py-1 w-fit mt-2 rounded-r-lg">
+             <span className="font-bold">Amazon's </span><span className="text-[#febd69]">Choice</span> <span className="text-gray-300">for "starry sky mug"</span>
+           </div>
 
-            {product.is_prime && (
-              <div className="text-[#00A8E0] font-bold flex items-center gap-1 mb-2 text-[14px]">
-                <span className="italic font-extrabold text-[#00A8E0] text-[16px]">prime</span>
-                <span className="text-[#111] font-normal ml-1">FREE Delivery</span>
+           <div className="py-3 border-b border-[#eee]">
+              <div className="flex items-baseline gap-1 text-[#cc0c39]">
+                 <span className="text-[28px] font-light">-45%</span>
+                 <span className="text-[14px] align-top font-light">₹</span>
+                 <span className="text-[28px] font-medium">{(product.price).toLocaleString()}</span>
               </div>
-            )}
+              <div className="text-[14px] text-[#565959]">
+                 M.R.P.: <span className="line-through">₹{(product.original_price || product.price * 1.8).toLocaleString()}</span>
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                 <div className="bg-[#cc0c39] text-white text-[12px] font-bold px-2 py-0.5 rounded-[2px]">Limited time deal</div>
+              </div>
+           </div>
 
-            <div className="text-[14px] leading-[1.4] text-[#111] mb-3" style={{ marginBottom: 12 }}>
-              {product.is_prime ? (
-                <span>FREE delivery <strong>tomorrow</strong> if ordered in next 6 hours</span>
-              ) : (
-                <span>Delivery: <strong>3-5 business days</strong></span>
-              )}
-            </div>
+           {/* Offers Section */}
+           <div className="py-4 border-b border-[#eee]">
+              <div className="flex items-center gap-2 mb-3">
+                 <Tag size={18} />
+                 <span className="font-bold text-[14px]">Offers</span>
+              </div>
+              <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+                 {[
+                   { title: 'Bank Offer', text: 'Upto ₹1,500.00 discount on select Credit Cards' },
+                   { title: 'No Cost EMI', text: 'Upto ₹47.46 EMI interest savings on Amazon Pay ICICI...' },
+                   { title: 'Partner Offers', text: 'Get GST invoice and save up to 28% on business purchases' }
+                 ].map((offer, i) => (
+                    <div key={i} className="min-w-[150px] border border-[#ddd] p-3 rounded-[8px] shadow-sm hover:bg-gray-50 cursor-pointer">
+                       <h4 className="text-[14px] font-bold mb-1">{offer.title}</h4>
+                       <p className="text-[12px] line-clamp-2">{offer.text}</p>
+                       <Link to="#" className="text-[12px] text-[#007185] mt-2 block font-medium">15 offers <ChevronRight size={10} className="inline"/></Link>
+                    </div>
+                 ))}
+              </div>
+           </div>
 
-            <div className={`text-[18px] mb-3 ${isOutOfStock ? 'text-[#CC0C39]' : 'text-[#007600]'}`}>
-              {isOutOfStock ? '❌ Out of Stock' : `✅ In Stock (${product.stock} left)`}
-            </div>
+           {/* Style Selector */}
+           <div className="py-4">
+              <h4 className="text-[14px] font-bold mb-2">Color: <span className="font-normal">Galaxy Blue</span></h4>
+              <div className="flex gap-3">
+                 {[0, 1, 2].map(i => (
+                    <div key={i} onClick={() => setSelectedStyle(i)} className={`w-14 h-14 border-2 p-1 rounded-sm cursor-pointer transition-all ${selectedStyle===i?'border-[#e77600] shadow-[0_0_2px_#e77600]':'border-[#ddd] hover:border-[#888]'}`}>
+                       <img src={product.image_url} className="w-full h-full object-contain" />
+                    </div>
+                 ))}
+              </div>
+           </div>
 
-            {!isOutOfStock && (
-              <>
-                <div className="flex items-center gap-2 mb-4 bg-[#F0F2F2] border border-[#d5d9d9] rounded px-2 w-max shadow-[0_2px_5px_rgba(15,17,17,0.15)]">
-                  <span className="text-[13px]">Quantity:</span>
-                  <button
-                    className="bg-transparent border-none cursor-pointer w-6 h-6 flex justify-center items-center text-[16px] hover:bg-[#e3e6e6]"
-                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                    id="qty-decrease"
-                  >−</button>
-                  <span className="w-6 text-center font-bold bg-white text-[13px] py-1 shadow-[0_1px_2px_rgba(0,0,0,0.15)_inset]">{quantity}</span>
-                  <button
-                    className="bg-transparent border-none cursor-pointer w-6 h-6 flex justify-center items-center text-[16px] hover:bg-[#e3e6e6]"
-                    onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}
-                    id="qty-increase"
-                  >+</button>
-                </div>
+           {/* Technical Specs Table */}
+           <div className="py-4 border-t border-[#eee]">
+              <div className="grid grid-cols-2 gap-y-2 text-[14px]">
+                 <span className="font-bold">Material</span> <span>Ceramic</span>
+                 <span className="font-bold">Brand</span> <span>Spooky Creative</span>
+                 <span className="font-bold">Capacity</span> <span>450 Milliliters</span>
+                 <span className="font-bold">Style</span> <span>Contemporary</span>
+                 <span className="font-bold">Theme</span> <span>Starry Sky</span>
+              </div>
+           </div>
 
-                <div className="flex flex-col gap-2 mb-3">
-                  <button
-                    className="w-full bg-[#f0c14b] text-[#111] border border-[#a88734] border-t-[#c89411] border-b-[#846a29] rounded-[3px] py-1 px-3 text-[13px] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] hover:bg-[#f4d078] cursor-pointer"
-                    onClick={handleAddToCart}
-                    disabled={addingCart}
-                    id="add-to-cart-btn"
-                  >
-                    {addingCart ? 'Adding...' : 'Add to Cart'}
-                  </button>
-                  <button
-                    className="w-full bg-[#FFA41C] text-[#111] border border-[#c87900] border-t-[#e28800] border-b-[#a66400] rounded-[3px] py-1 px-3 text-[13px] shadow-[0_1px_0_rgba(255,255,255,0.4)_inset] hover:bg-[#ffb03a] cursor-pointer"
-                    onClick={handleBuyNow}
-                    id="buy-now-btn"
-                  >
+           <div className="text-[14px] pt-4">
+              <h3 className="font-bold mb-2">About this item</h3>
+              <ul className="list-disc pl-5 space-y-1 text-[#0f1111] leading-relaxed">
+                 <li>High Quality Material: Made of 100% lead-free and non-toxic ceramic. The mug is sturdy, durable and can withstand high temperatures.</li>
+                 <li>Exquisite Design: Features a creative and elegant starry sky pattern. Perfect for your home, office or as a gift for loved ones.</li>
+                 <li>Inclusive Accessories: Comes with a matching ceramic lid to keep your drink warm and a premium stainless steel spoon for stirring.</li>
+                 <li>Large Capacity: 450ml size is ideal for coffee, tea, hot cocoa, or any other beverage of your choice.</li>
+                 <li>Easy to Clean: Smooth surface makes it incredibly easy to wash. Hand wash recommended to preserve the metallic gold patterns.</li>
+              </ul>
+           </div>
+        </div>
+
+        {/* Right: Buy Box */}
+        <div className="md:w-[18%]">
+           <div className="border border-[#ddd] rounded-[8px] p-4 flex flex-col gap-3 sticky top-24">
+              <div>
+                 <div className="flex items-baseline gap-1">
+                    <span className="text-[14px] align-top">₹</span>
+                    <span className="text-[28px] font-medium">{(product.price).toLocaleString()}</span>
+                 </div>
+                 <div className="text-[14px] mt-1">
+                   <span className="text-[#007600] font-medium">FREE delivery</span> <span className="font-bold">Tomorrow, 16 April.</span>
+                 </div>
+                 <div className="text-[14px] mt-1 text-[#007185] hover:text-[#c45500] cursor-pointer font-medium leading-tight">Lowest price in 30 days</div>
+              </div>
+
+              <div className="text-[#007600] text-[18px] font-medium mt-1">In stock</div>
+
+              <div className="flex flex-col gap-2 mt-2">
+                 <select 
+                  className="w-full bg-[#f0f2f2] border border-[#d5d9d9] rounded-[7px] py-1 shadow-sm text-[13px] outline-none hover:bg-[#e7e9eb] cursor-pointer"
+                  value={quantity}
+                  onChange={(e) => setQuantity(parseInt(e.target.value))}
+                 >
+                    {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>Qty: {n}</option>)}
+                 </select>
+
+                 <button onClick={handleAddToCart} className="amazon-button-yellow w-full py-2 rounded-[20px] text-[13px] border border-[#a88734] font-medium shadow-sm hover:bg-[#f7ca00]">
+                    Add to Cart
+                 </button>
+                 <button onClick={() => navigate('/checkout')} className="bg-[#ffa41c] hover:bg-[#fa8900] w-full py-2 rounded-[20px] text-[13px] border border-[#c89411] font-medium shadow-sm">
                     Buy Now
-                  </button>
-                </div>
-              </>
-            )}
-
-            <div style={{ borderTop: '1px solid #DDD', paddingTop: 12, marginTop: 4 }}>
-              <button
-                onClick={handleWishlist}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: inWishlist ? '#CC0C39' : '#007185',
-                  cursor: 'pointer',
-                  fontSize: 14,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '4px 0',
-                }}
-                id="wishlist-toggle-btn"
-              >
-                <Heart size={16} fill={inWishlist ? '#CC0C39' : 'none'} />
-                {inWishlist ? 'Remove from Wishlist' : 'Add to Wish List'}
-              </button>
-            </div>
-
-            <div className="flex items-center gap-2 text-[#007185] text-[14px] mt-3 hover:text-[#C45500] hover:underline cursor-pointer">
-              <Shield size={14} /> Secure transaction
-            </div>
-
-            <div style={{ marginTop: 12, fontSize: 13, color: '#565959' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span>Ships from</span> <strong>Amazon.in</strong>
+                 </button>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span>Sold by</span> <strong>{product.brand || 'Amazon.in'}</strong>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Returns</span> <span style={{ color: '#007185' }}>Eligible for Return</span>
-              </div>
-            </div>
-          </div>
 
+              <div className="text-[12px] mt-2 flex flex-col gap-1">
+                 <div className="flex items-center gap-2"><Truck size={16} className="text-[#565959]"/> <span className="text-[#007185] hover:underline cursor-pointer">Amazon Delivered</span></div>
+                 <div className="flex items-center gap-2"><RefreshCcw size={16} className="text-[#565959]"/> <span className="text-[#007185] hover:underline cursor-pointer">7 days Replacement</span></div>
+              </div>
+
+              <div className="border-t border-[#eee] mt-2 pt-2">
+                 <button className="text-[13px] text-[#007185] hover:underline hover:text-[#c45500] w-full text-left">Add to Wish List</button>
+              </div>
+           </div>
         </div>
+
       </div>
-
-      {/* Related Products */}
-      {related.length > 0 && (
-        <div className="bg-white mb-2 p-6 rounded-[3px]" id="related-products">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[22px] font-bold text-[#131921]">Customers also viewed</h2>
-          </div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
-            {related.map(p => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </div>
-      )}
+      <Footer />
     </div>
   );
 };

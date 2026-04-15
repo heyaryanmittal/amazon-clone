@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const prisma = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -17,27 +17,31 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'Password must be at least 6 characters' });
     }
 
-    const [existing] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
-    if (existing.length) {
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
       return res.status(409).json({ error: 'Email already registered' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const [result] = await db.query(
-      'INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)',
-      [name, email, hashedPassword, phone || null]
-    );
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        phone: phone || null
+      }
+    });
 
     const token = jwt.sign(
-      { id: result.insertId, name, email },
+      { id: user.id, name: user.name, email: user.email },
       process.env.JWT_SECRET || 'amazon_clone_secret',
       { expiresIn: '7d' }
     );
 
     res.status(201).json({
       message: 'Account created successfully',
-      user: { id: result.insertId, name, email },
+      user: { id: user.id, name: user.name, email: user.email },
       token
     });
   } catch (error) {
@@ -55,14 +59,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    const [users] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
-    if (!users.length) {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const user = users[0];
     const validPassword = await bcrypt.compare(password, user.password);
-
     if (!validPassword) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
@@ -84,7 +86,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// GET /api/auth/me - Get current user profile
+// GET /api/auth/me
 router.get('/me', async (req, res) => {
   try {
     const authHeader = req.headers['authorization'];
@@ -97,16 +99,16 @@ router.get('/me', async (req, res) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'amazon_clone_secret');
-    const [users] = await db.query(
-      'SELECT id, name, email, phone, created_at FROM users WHERE id = ?',
-      [decoded.id]
-    );
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, name: true, email: true, phone: true, createdAt: true }
+    });
 
-    if (!users.length) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    res.json({ user: users[0] });
+    res.json({ user });
   } catch (error) {
     res.json({ user: { id: 1, name: 'Aryan Mittal', email: 'aryan@amazonclone.com' } });
   }
