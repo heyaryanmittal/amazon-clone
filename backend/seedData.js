@@ -119,7 +119,7 @@ async function seed() {
     },
     { name: 'Philips Air Fryer HD9200/90 (4.1L)', slug: 'philips-air-fryer-hd9200-90-4-1l', description: 'Enjoy fried foods with up to 90% less fat.', specifications: {"Capacity":"4.1L","Wattage":"1400W","Technology":"Rapid Air"}, categoryId: catMap['home-kitchen'], brand: 'Philips', price: 8495, originalPrice: 12995, stock: 90, rating: 4.4, reviewCount: 28754, isPrime: true, isFeatured: false,
       images: [
-        { imageUrl: 'https://images.unsplash.com/photo-1617481554497-2d94d51e80c9?w=800', isPrimary: true, sortOrder: 1 }
+        { imageUrl: 'https://images.unsplash.com/photo-1626075113948-356947bc3b94?w=800', isPrimary: true, sortOrder: 1 }
       ]
     },
     // TOYS & GAMES
@@ -176,6 +176,37 @@ async function seed() {
     },
     { name: 'USB-C Wired In-Ear Headphones with Mic and Hi-Fi Sound', slug: 'usb-c-wired-in-ear-earphones', description: 'Ergonomic design with magnetic earbuds and digital audio chip.', specifications: {"Type":"Wired","Connector":"USB-C","Mic":"Yes"}, categoryId: catMap['electronics'], brand: 'Generic', price: 499, originalPrice: 999, stock: 500, rating: 4.0, reviewCount: 12000, isPrime: false, isFeatured: true,
       images: [{ imageUrl: '/images/headphones/headphone_10.jpg', isPrimary: true, sortOrder: 1 }]
+    },
+    // FURNITURE (UNSPLASH IMAGES)
+    { name: 'Modern Velvet 3-Seater Sofa - Emerald Green', slug: 'modern-velvet-3-seater-sofa-emerald', description: 'Luxurious velvet upholstery with gold-finished legs. Perfect for modern living rooms.', specifications: {"Material":"Velvet","Seating":"3 Seater","Style":"Modern"}, categoryId: catMap['home-kitchen'], brand: 'HomeStyle', price: 24999, originalPrice: 45000, stock: 12, rating: 4.8, reviewCount: 320, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Ergonomic High-Back Office Chair with Lumbar Support', slug: 'ergonomic-office-chair-high-back', description: 'Adjustable height, headrest, and armrests. Breathable mesh back for long working hours.', specifications: {"Type":"Office Chair","Material":"Mesh & Steel","Armrests":"Adjustable"}, categoryId: catMap['home-kitchen'], brand: 'WorkWell', price: 8999, originalPrice: 15000, stock: 25, rating: 4.6, reviewCount: 850, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Solid Oak Wood Dining Table - 6 Seater', slug: 'solid-oak-wood-dining-table-6-seater', description: 'Premium oak wood Construction with a natural finish. Large enough for the whole family.', specifications: {"Material":"Oak Wood","Seating":"6 Seater","Dimensions":"180x90cm"}, categoryId: catMap['home-kitchen'], brand: 'TimberArt', price: 34999, originalPrice: 60000, stock: 8, rating: 4.7, reviewCount: 150, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Queen Size Platform Bed with Integrated Storage', slug: 'queen-size-platform-bed-storage', description: 'Sleek design with 4 large under-bed drawers. Grey fabric headboard included.', specifications: {"Size":"Queen","Storage":"4 Drawers","Material":"Engineered Wood"}, categoryId: catMap['home-kitchen'], brand: 'SleepWell', price: 18500, originalPrice: 32000, stock: 15, rating: 4.5, reviewCount: 420, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Industrial Style Bookshelf with Metal Frame', slug: 'industrial-style-bookshelf-metal-frame', description: '5-tier open shelf design. Combines rustic wood look with sturdy metal.', specifications: {"Type":"Bookshelf","Tiers":"5","Style":"Industrial"}, categoryId: catMap['home-kitchen'], brand: 'UrbanDecor', price: 5499, originalPrice: 9000, stock: 40, rating: 4.4, reviewCount: 680, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1594620302200-9a762244a156?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Round Marble Top Coffee Table with Gold Base', slug: 'round-marble-coffee-table-gold', description: 'Elegant faux marble top with a cross-base design in gold finish.', specifications: {"Shape":"Round","Material":"Marble & Metal","Diameter":"80cm"}, categoryId: catMap['home-kitchen'], brand: 'LuxeHome', price: 7299, originalPrice: 12000, stock: 20, rating: 4.9, reviewCount: 120, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Minimalist Scandinavian TV Unit - Light Oak', slug: 'scandinavian-tv-unit-light-oak', description: 'Clean lines and functional storage with two sliding doors and cable management.', specifications: {"Type":"TV Stand","Material":"Oak Veneer","Style":"Scandinavian"}, categoryId: catMap['home-kitchen'], brand: 'NordicPlus', price: 12999, originalPrice: 20000, stock: 18, rating: 4.6, reviewCount: 290, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Wingback Accent Chair - Mustard Yellow', slug: 'wingback-accent-chair-mustard', description: 'Classic wingback design with high-density foam padding for ultimate comfort.', specifications: {"Type":"Accent Chair","Color":"Mustard Yellow","Material":"Linen"}, categoryId: catMap['home-kitchen'], brand: 'ChicLiving', price: 9500, originalPrice: 16000, stock: 22, rating: 4.7, reviewCount: 510, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Standing Mirror with Full Length - Walnut Frame', slug: 'standing-mirror-full-length-walnut', description: 'Large full-length mirror with a solid walnut wood easel stand.', specifications: {"Type":"Mirror","Frame":"Walnut Wood","Size":"160x50cm"}, categoryId: catMap['home-kitchen'], brand: 'Reflect', price: 4299, originalPrice: 7500, stock: 35, rating: 4.4, reviewCount: 180, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800', isPrimary: true, sortOrder: 1 }]
+    },
+    { name: 'Nest of Tables (Set of 3) - Dark Sheesham', slug: 'nest-of-tables-sheesham', description: 'Compact set of 3 nesting tables made from durable Sheesham wood.', specifications: {"Material":"Sheesham Wood","Set Of":"3","Type":"Nesting Tables"}, categoryId: catMap['home-kitchen'], brand: 'IndoHandicrafts', price: 3899, originalPrice: 6500, stock: 50, rating: 4.3, reviewCount: 220, isPrime: true, isFeatured: true,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800', isPrimary: true, sortOrder: 1 }]
     }
   ];
 
@@ -186,7 +217,15 @@ async function seed() {
         ...productData,
         images: { create: images }
       },
-      update: {}
+      update: {
+        ...productData,
+        // Since we want to Refresh images, we could delete and recreate or just set the primary image
+        // For a seed script, it's often easier to just delete old images and create new ones if needed
+        images: {
+          deleteMany: {},
+          create: images
+        }
+      }
     });
   }
 

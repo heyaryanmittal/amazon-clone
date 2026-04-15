@@ -176,7 +176,9 @@ const HorizontalScroller = ({ title, linkText, items }) => {
               {(item.price) && (
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
-                    <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">Up to {item.discount || '40%'} off</span>
+                    <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">
+                      Up to {item.original_price ? Math.round(((parseFloat(item.original_price) - parseFloat(item.price)) / parseFloat(item.original_price)) * 100) : (item.discount || '40')}% off
+                    </span>
                     <span className="text-[#cc0c39] text-[12px] font-bold">Limited time deal</span>
                   </div>
                   <div className="flex items-baseline gap-1">
@@ -287,6 +289,8 @@ const AmazonLiveSection = () => (
 
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [headphones, setHeadphones] = useState([]);
+  const [furniture, setFurniture] = useState([]);
 
   useEffect(() => {
     document.title = 'Amazon.in: Online Shopping India - Buy mobiles, laptops, cameras, books, watches, apparel, shoes and e-Gift Cards.';
@@ -300,12 +304,9 @@ const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const [headphones, setHeadphones] = useState([]);
-
   useEffect(() => {
     // Fetch headphones from backend
-    getProducts({ category: 'electronics', limit: 10 }).then(({ data }) => {
-      // Filter for products that have headphone/earbud/speaker in name or specific slugs we just seeded
+    getProducts({ category: 'electronics', limit: 30 }).then(({ data }) => {
       const headphoneSlugs = [
         'mackie-thump212-powered-loudspeaker',
         'sony-wi-c100-wireless-earphones',
@@ -318,17 +319,29 @@ const HomePage = () => {
         'openrun-pro-bone-conduction',
         'usb-c-wired-in-ear-earphones'
       ];
-      const filtered = data.products.filter(p => headphoneSlugs.includes(p.slug));
-      
-      // If none found (maybe seed failed or slow), fallback to some logic or just show what we got
-      if (filtered.length > 0) {
-        setHeadphones(filtered);
-      } else {
-        setHeadphones(data.products.slice(0, 10)); // Just show some electronics
-      }
-    }).catch(err => {
-      console.error('Failed to fetch headphones:', err);
-    });
+      const filtered = headphoneSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
+      if (filtered.length > 0) setHeadphones(filtered);
+      else setHeadphones(data.products.slice(0, 10));
+    }).catch(err => console.error('Failed to fetch headphones:', err));
+
+    // Fetch furniture from backend
+    getProducts({ category: 'home-kitchen', limit: 30 }).then(({ data }) => {
+      const furnitureSlugs = [
+        'modern-velvet-3-seater-sofa-emerald',
+        'ergonomic-office-chair-high-back',
+        'solid-oak-wood-dining-table-6-seater',
+        'queen-size-platform-bed-storage',
+        'industrial-style-bookshelf-metal-frame',
+        'round-marble-coffee-table-gold',
+        'scandinavian-tv-unit-light-oak',
+        'wingback-accent-chair-mustard',
+        'standing-mirror-full-length-walnut',
+        'nest-of-tables-sheesham'
+      ];
+      const filtered = furnitureSlugs.map(slug => data.products.find(p => p.slug === slug)).filter(Boolean);
+      if (filtered.length > 0) setFurniture(filtered);
+      else setFurniture(data.products.slice(0, 10));
+    }).catch(err => console.error('Failed to fetch furniture:', err));
   }, []);
 
   // DUMMY ARRAYS FOR SCROLLERS
@@ -403,7 +416,7 @@ const HomePage = () => {
         <HorizontalScroller title="Up to 40% off | Headphones and earbuds" linkText="See all offers" items={headphones.length > 0 ? headphones : getScrollerItems('headphones')} />
 
         {/* ROW 3: Scroller -> Up to 60% off | Deals on everyday furniture */}
-        <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={getScrollerItems('furniture')} />
+        <HorizontalScroller title="Up to 60% off | Deals on everyday furniture" linkText="See all deals" items={furniture.length > 0 ? furniture : getScrollerItems('furniture')} />
 
         {/* ROW 4: 4 Custom Cards */}
         <CardGridRow cards={ROW_4_CARDS} />
