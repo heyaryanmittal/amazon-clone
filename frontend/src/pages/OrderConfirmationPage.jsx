@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CheckCircle, Package } from 'lucide-react';
 import { getOrder } from '../services/api';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const OrderConfirmationPage = () => {
   const { orderId } = useParams();
@@ -27,11 +25,9 @@ const OrderConfirmationPage = () => {
   if (loading) {
     return (
       <div className="bg-[#eaeded] min-h-screen">
-        <Navbar />
         <div className="flex justify-center items-center h-[50vh]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c45500]"></div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -39,13 +35,11 @@ const OrderConfirmationPage = () => {
   if (!orderData) {
     return (
       <div className="bg-[#eaeded] min-h-screen">
-        <Navbar />
         <div className="max-w-[800px] mx-auto p-4 py-10 text-center">
            <h1 className="text-[28px] font-bold mb-4">Order Not Found</h1>
            <p className="mb-6">We couldn't locate details for order <span className="font-bold">{orderId}</span>.</p>
            <Link to="/" className="amazon-button-yellow px-6 py-2 rounded-[8px] no-underline text-black font-medium border border-[#a88734]">Return to Home</Link>
         </div>
-        <Footer />
       </div>
     );
   }

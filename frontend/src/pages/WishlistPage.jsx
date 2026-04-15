@@ -4,7 +4,6 @@ import { getWishlist, removeFromWishlist } from '../services/api';
 import { useCart } from '../context/CartContext';
 import { Star } from 'lucide-react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const WishlistPage = () => {
   const [items, setItems] = useState([]);
@@ -102,9 +101,7 @@ const WishlistPage = () => {
               ))}
            </div>
         </div>
-
       </div>
-      <Footer />
     </div>
   );
 };

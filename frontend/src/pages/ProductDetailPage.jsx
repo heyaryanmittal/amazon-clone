@@ -4,7 +4,6 @@ import { Star, MapPin, ChevronRight, ShieldCheck, Truck, RefreshCcw, Tag } from 
 import { getProduct } from '../services/api';
 import { useCart } from '../context/CartContext';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -201,9 +200,7 @@ const ProductDetailPage = () => {
               </div>
            </div>
         </div>
-
       </div>
-      <Footer />
     </div>
   );
 };

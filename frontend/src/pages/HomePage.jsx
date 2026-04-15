@@ -13,8 +13,8 @@ const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Appliances for your home | Up to 55% off', link: 'See more',
     items: [
-      { img: '/images/landing/air_conditioner.jpg', label: 'Air conditioners' },
-      { img: '/images/landing/refrigerator.jpg', label: 'Refrigerators' },
+      { img: 'https://images.unsplash.com/photo-1570222020676-d0dfbd6060ff?w=300', label: 'Air conditioners' },
+      { img: 'https://images.unsplash.com/photo-1571175432247-ca63895e7992?w=300', label: 'Refrigerators' },
       { img: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=300', label: 'Microwaves' },
       { img: 'https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=300', label: 'Washing machines' }
     ]
@@ -40,10 +40,10 @@ const ROW_1_CARDS = [
   {
     type: 'quad', title: 'Starting ₹49 | Deals on home essentials', link: 'Explore all',
     items: [
-      { img: '/images/landing/cleaning supplies.jpg', label: 'Cleaning supplies' },
-      { img: '/images/landing/bathroom accessories.jpg', label: 'Bathroom accessories' },
+      { img: 'https://images.unsplash.com/photo-1528740561666-dc2479da08ad?w=300', label: 'Cleaning supplies' },
+      { img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300', label: 'Bathroom accessories' },
       { img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=300', label: 'Home tools' },
-      { img: '/images/landing/wallpapers.jpg', label: 'Wallpapers' }
+      { img: 'https://images.unsplash.com/photo-1514811501132-28a644405531?w=300', label: 'Wallpapers' }
     ]
   }
 ];
@@ -52,40 +52,40 @@ const ROW_4_CARDS = [
   {
     type: 'quad', title: "Customers' Most-Loved Fashion for you", link: 'Explore more',
     items: [
-      { img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&q=80', label: '' },
-      { img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80', label: '' },
-      { img: 'https://images.unsplash.com/photo-1434389678278-be4d41a6b8e3?w=200&q=80', label: '' },
-      { img: 'https://images.unsplash.com/photo-1489987707023-af82705283fc?w=200&q=80', label: '' }
+      { img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=60&w=300', label: 'Women Fashion' },
+      { img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=60&w=300', label: 'Men Fashion' },
+      { img: 'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?auto=format&fit=crop&q=60&w=300', label: 'Kids Fashion' },
+      { img: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=60&w=300', label: 'Accessories' }
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Cool comfort at every corner', link: 'See all offers', price: '3,492', ogPrice: '8,000',
-    mainImg: 'https://images.unsplash.com/photo-1558231464-9a48d0df621c?w=400&q=80',
+    mainImg: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=60&w=500',
     thumbs: [
-      'https://images.unsplash.com/photo-1558231464-9a48d0df621c?w=100&q=80',
-      'https://images.unsplash.com/photo-1585822765379-7a3eb11b1574?w=100&q=80',
-      'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=100&q=80',
-      'https://images.unsplash.com/photo-1498843053639-170ff2122f35?w=100&q=80'
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=60&w=400',
+      'https://images.unsplash.com/photo-1615873968403-89e068629275?auto=format&fit=crop&q=60&w=400',
+      'https://images.unsplash.com/photo-1616489953149-60199047f631?auto=format&fit=crop&q=60&w=400',
+      'https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=60&w=400'
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 50% off | Deals on home decor', link: 'Shop now', price: '2,499', ogPrice: '6,000',
     mainImg: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',
     thumbs: [
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=100&q=80',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=100&q=80',
-      'https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=100&q=80',
-      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=100&q=80'
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400&q=80',
+      'https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=400&q=80',
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=400&q=80'
     ]
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Best offers on kitchen products from brands...', link: 'See all offers', price: '1,299', ogPrice: '3,500',
     mainImg: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80',
     thumbs: [
-      'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=100&q=80',
-      'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=100&q=80',
-      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&q=80',
-      'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=100&q=80'
+      'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80',
+      'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&q=80',
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',
+      'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=400&q=80'
     ]
   }
 ];
@@ -94,46 +94,81 @@ const ROW_7_CARDS = [
   {
     type: 'single-thumbs', title: 'Starting ₹299 | Trending kitchen essentials', link: 'Shop now', price: '4,499', ogPrice: '12,000',
     mainImg: 'https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=400&q=80',
-    thumbs: Array(4).fill('https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=100&q=80')
+    thumbs: [
+      'https://images.unsplash.com/photo-1586208958839-06c17cacdf08?w=400&q=80',
+      'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=400&q=80',
+      'https://images.unsplash.com/photo-1556910602-3884ee9ad327?w=400&q=80',
+      'https://images.unsplash.com/photo-1563177404-9b2dca91fa6c?w=400&q=80'
+    ]
   },
   {
     type: 'quad', title: 'Best Sellers in Beauty', link: 'See more',
     items: [
-      { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', label: '' },
-      { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', label: '' },
-      { img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=200&q=80', label: '' },
-      { img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80', label: '' }
+      { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80', label: 'Lipsticks' },
+      { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80', label: 'Face Wash' },
+      { img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=200&q=80', label: 'Skincare' },
+      { img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80', label: 'Serums' }
     ]
   },
   {
     type: 'single-thumbs', title: 'Min. 25% off | Trending & small decor', link: 'See all offers', price: '899', ogPrice: '2,500',
     mainImg: 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
-    thumbs: Array(4).fill('https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=100&q=80')
+    thumbs: [
+      'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80',
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=400&q=80',
+      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&q=80',
+      'https://images.unsplash.com/photo-1594913366159-1832cdcbe0c1?w=400&q=80'
+    ]
   },
   {
     type: 'single-thumbs', title: 'Min. 50% off | Top deals from Small Businesses', link: 'See all deals', price: '450', ogPrice: '1,200',
     mainImg: 'https://images.unsplash.com/photo-1490212000085-f2603837e226?w=400&q=80',
-    thumbs: Array(4).fill('https://images.unsplash.com/photo-1490212000085-f2603837e226?w=100&q=80')
+    thumbs: [
+      'https://images.unsplash.com/photo-1490212000085-f2603837e226?w=400&q=80',
+      'https://images.unsplash.com/photo-1459749411177-042180ec75c0?w=400&q=80',
+      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80',
+      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80'
+    ]
   }
 ];
 
 const ROW_10_CARDS = [
   {
     type: 'quad', title: 'Best Sellers in Computers & Accessories', link: 'See more',
-    items: Array(4).fill({ img: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&q=80', label: '' })
+    items: [
+      { img: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=200&q=80', label: 'Laptops' },
+      { img: 'https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?w=200&q=80', label: 'Monitors' },
+      { img: 'https://images.unsplash.com/photo-1587829741301-dc798b83aca2?w=200&q=80', label: 'Keyboards' },
+      { img: 'https://images.unsplash.com/photo-1527866959252-deab85ef7d1b?w=200&q=80', label: 'Mice' }
+    ]
   },
   {
     type: 'quad', title: 'Best Sellers in Clothing & Accessories', link: 'See more',
-    items: Array(4).fill({ img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=200&q=80', label: '' })
+    items: [
+      { img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=200&q=80', label: 'Womenswear' },
+      { img: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=200&q=80', label: 'Menswear' },
+      { img: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=200&q=80', label: 'Footwear' },
+      { img: 'https://images.unsplash.com/photo-1509192997682-4c9df670875e?w=200&q=80', label: 'Watches' }
+    ]
   },
   {
     type: 'quad', title: 'Best Sellers in Home & Kitchen', link: 'See more',
-    items: Array(4).fill({ img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200&q=80', label: '' })
+    items: [
+      { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200&q=80', label: 'Pressure Cookers' },
+      { img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200&q=80', label: 'Storage' },
+      { img: 'https://images.unsplash.com/photo-1522338271444-12403063f3da?w=200&q=80', label: 'Tools' },
+      { img: 'https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=200&q=80', label: 'Cleaning' }
+    ]
   },
   {
     type: 'single-thumbs', title: 'Up to 60% off | Inverter Batteries from brands near you', link: 'Explore more', price: '12,999', ogPrice: '25,000',
     mainImg: 'https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=400&q=80',
-    thumbs: Array(4).fill('https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=100&q=80')
+    thumbs: [
+      'https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=400&q=80',
+      'https://images.unsplash.com/photo-1620714223084-8fcacc6df38d?w=400&q=80',
+      'https://images.unsplash.com/photo-1617469767053-d3b508a0d182?w=400&q=80',
+      'https://images.unsplash.com/photo-1565152394553-7393d25642d9?w=400&q=80'
+    ]
   }
 ];
 
@@ -207,55 +242,79 @@ const HorizontalScroller = ({ title, linkText, items }) => {
 };
 
 
+const GridCard = ({ card }) => {
+  const [selectedIdx, setSelectedIdx] = useState(0);
+
+  return (
+    <div className="bg-white p-5 flex flex-col min-h-[420px] max-h-[420px] shadow-sm z-30 relative group overflow-hidden">
+      <h2 className="text-[21px] font-extrabold text-[#0f1111] mb-2.5 leading-[1.2] min-h-[50px]">{card.title}</h2>
+      
+      {card.type === 'quad' && (
+        <div className="grid grid-cols-2 gap-x-4 gap-y-4 flex-1 mb-4">
+          {card.items.map((item, i) => (
+            <div key={i} className="flex flex-col cursor-pointer">
+              <Link to="/products">
+                <img 
+                  src={item.img} 
+                  alt={item.label} 
+                  className="w-full h-[110px] object-cover mb-1 bg-[#f3f4f6]" 
+                  onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=200'; }} 
+                />
+              </Link>
+              {item.label && <Link to="/products" className="text-[12px] text-[#0f1111] no-underline line-clamp-1 hover:underline">{item.label}</Link>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {card.type === 'single-thumbs' && (
+        <div className="flex-1 mb-4 flex flex-col justify-between">
+          <Link to="/products" className="flex-1 flex flex-col bg-white mb-2 overflow-hidden relative no-underline">
+             <img 
+               src={card.thumbs ? card.thumbs[selectedIdx] : card.mainImg} 
+               alt={card.title} 
+               className="max-h-[180px] w-full object-contain mb-2 transition-opacity duration-200" 
+               onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400'; }} 
+             />
+             {card.price ? (
+               <div className="flex flex-col gap-0.5">
+                 <div className="flex items-center gap-1.5">
+                   <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">₹{card.price}</span>
+                   <span className="text-[#cc0c39] text-[12px] font-bold">Deal of the Day</span>
+                 </div>
+                 <div className="text-[12px] text-[#565959] mt-0.5">
+                   M.R.P: <span className="line-through text-[#565959]">₹{card.ogPrice}</span>
+                 </div>
+               </div>
+             ) : (
+               <div className="text-[14px] text-[#0f1111] line-clamp-2">Premium quality selection curated just for you.</div>
+             )}
+          </Link>
+          <div className="grid grid-cols-4 gap-2 h-[60px] mt-2">
+            {card.thumbs?.map((thumb, i) => (
+               <div 
+                  key={i} 
+                  onMouseEnter={() => setSelectedIdx(i)}
+                  className={`p-0.5 border rounded-[2px] cursor-pointer transition-all ${i===selectedIdx ? 'border-[#007185] shadow-[0_0_2px_#007185]' : 'border-[#ddd] hover:border-[#888]'}`}
+               >
+                 <img src={thumb} className="w-full h-full object-cover rounded-[1px]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/50'; }} />
+               </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <Link to="/products" className="text-[13px] text-[#007185] no-underline hover:text-[#c45500] hover:underline mt-auto">
+        {card.link || 'See more'}
+      </Link>
+    </div>
+  );
+};
+
 const CardGridRow = ({ cards, isFirstRow }) => (
   <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 px-4 max-w-[1500px] mx-auto z-30 relative ${isFirstRow ? 'mt-[-150px] md:mt-[-250px] lg:mt-[-380px]' : ''}`}>
     {cards.map((card, idx) => (
-      <div key={idx} className="bg-white p-5 flex flex-col min-h-[420px] max-h-[420px] shadow-sm z-30 relative group overflow-hidden">
-        <h2 className="text-[21px] font-extrabold text-[#0f1111] mb-2.5 leading-[1.2] min-h-[50px]">{card.title}</h2>
-        
-        {card.type === 'quad' && (
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4 flex-1 mb-4">
-            {card.items.map((item, i) => (
-              <div key={i} className="flex flex-col cursor-pointer">
-                <Link to="/products"><img src={item.img} alt={item.label} className="w-full h-[110px] object-cover mb-1 bg-[#f3f4f6]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/150'; }} /></Link>
-                {item.label && <Link to="/products" className="text-[12px] text-[#0f1111] no-underline line-clamp-1 hover:underline">{item.label}</Link>}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {card.type === 'single-thumbs' && (
-          <div className="flex-1 mb-4 flex flex-col justify-between">
-            <Link to="/products" className="flex-1 flex flex-col bg-white mb-2 overflow-hidden relative no-underline">
-               <img src={card.mainImg} alt={card.title} className="max-h-[180px] w-full object-contain mb-2" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/300'; }} />
-               {card.price ? (
-                 <div className="flex flex-col gap-0.5">
-                   <div className="flex items-center gap-1.5">
-                     <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">₹{card.price}</span>
-                     <span className="text-[#cc0c39] text-[12px] font-bold">Deal of the Day</span>
-                   </div>
-                   <div className="text-[12px] text-[#565959] mt-0.5">
-                     M.R.P: <span className="line-through text-[#565959]">₹{card.ogPrice}</span>
-                   </div>
-                 </div>
-               ) : (
-                 <div className="text-[14px] text-[#0f1111] line-clamp-2">Premium quality selection curated just for you.</div>
-               )}
-            </Link>
-            <div className="grid grid-cols-4 gap-2 h-[60px] mt-2">
-              {card.thumbs.map((thumb, i) => (
-                 <div key={i} className={`p-0.5 border rounded-[2px] cursor-pointer ${i===0 ? 'border-[#007185] shadow-[0_0_2px_#007185]' : 'border-[#ddd] hover:border-[#888]'}`}>
-                   <img src={thumb} className="w-full h-full object-cover rounded-[1px]" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/50'; }} />
-                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <Link to="/products" className="text-[13px] text-[#007185] no-underline hover:text-[#c45500] hover:underline mt-auto">
-          {card.link || 'See more'}
-        </Link>
-      </div>
+      <GridCard key={idx} card={card} />
     ))}
   </div>
 );
@@ -274,11 +333,16 @@ const AmazonLiveSection = () => (
           <div className="absolute inset-0 flex items-center justify-center"><div className="w-16 h-16 rounded-full border-4 border-white/50 flex items-center justify-center backdrop-blur-sm cursor-pointer hover:scale-105 transition-transform"><div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[15px] border-l-white border-b-[10px] border-b-transparent ml-2"></div></div></div>
        </div>
        <div className="flex-1 flex overflow-x-auto gap-4 scrollbar-hide">
-          {[1,2,3,4].map(i => (
+          {[
+            { img: 'https://images.unsplash.com/photo-150574042192b-fa4a70826993?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
+            { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
+            { img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
+            { img: 'https://images.unsplash.com/photo-1583394838336-acd97773df81?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
+          ].map((item, i) => (
              <div key={i} className="min-w-[160px] flex flex-col border border-[#ddd] p-3 rounded cursor-pointer hover:shadow-sm">
-                <img src={`https://placehold.co/150x150?text=Live+Product+${i}`} className="w-full h-[140px] border border-[#eee] object-contain mb-3" />
-                <div className="text-[13px] line-clamp-2 text-[#0f1111] leading-[1.3] mb-1">Exclusive product featured in Amazon Live stream...</div>
-                <div className="text-[14px] text-[#B12704] font-medium">₹1,249.00</div>
+                <img src={item.img} className="w-full h-[140px] border border-[#eee] object-contain mb-3" onError={(e)=>{ e.target.onerror = null; e.target.src='https://placehold.co/150'; }} />
+                <div className="text-[13px] line-clamp-2 text-[#0f1111] leading-[1.3] mb-1">{item.name}</div>
+                <div className="text-[14px] text-[#B12704] font-medium">₹{item.price}</div>
              </div>
           ))}
        </div>
@@ -362,11 +426,21 @@ const HomePage = () => {
         { img: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400', name: 'Non-Stick Ceramic Cookware Set', price: '3,499', ogPrice: '7,000' },
         { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400', name: 'Hard Anodized Pressure Cooker', price: '2,299', ogPrice: '4,500' },
         { img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400', name: 'Stainless Steel Knife Block Set', price: '1,199', ogPrice: '2,999' }
+      ],
+      brands: [
+        { img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400', name: 'Matte Liquid Lipstick Set', price: '999', ogPrice: '2,500' },
+        { img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400', name: 'Refresh Face Wash - Organic', price: '450', ogPrice: '800' },
+        { img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=400', name: 'Hyaluronic Acid Skin Serum', price: '1,200', ogPrice: '2,200' }
+      ],
+      upgrade: [
+        { img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Solid Wood Wall Shelf Decor', price: '4,500', ogPrice: '8,000' },
+        { img: 'https://images.unsplash.com/photo-1513511933972-f8d569feba8c?w=400', name: 'Abstract Canvas Wall Art', price: '1,800', ogPrice: '3,500' },
+        { img: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=400', name: 'Minimalist Study Desk Lamp', price: '899', ogPrice: '1,500' }
       ]
     };
     
-    const pool = placeholders[keyword] || [{ img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400', name: 'Sample Product', price: '999', ogPrice: '1,999' }];
-    return Array.from({ length: 12 }, (_, i) => pool[i % pool.length]);
+    const pool = placeholders[keyword] || [{ img: 'https://images.unsplash.com/photo-1620714223084-8fcacc6df38d?w=400', name: 'Curated Selection', price: '999', ogPrice: '1,999' }];
+    return Array.from({ length: 12 }, (_, i) => ({ ...pool[i % pool.length], id: `${keyword}-${i}` }));
   };
 
   return (

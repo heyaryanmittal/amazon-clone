@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getOrders } from '../services/api';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const OrderHistoryPage = () => {
   const [orders, setOrders] = useState([]);

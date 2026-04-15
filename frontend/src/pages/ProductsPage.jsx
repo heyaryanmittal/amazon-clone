@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Star, ChevronDown, ChevronUp } from 'lucide-react';
 import { getProducts, getCategories } from '../services/api';
-import Footer from '../components/Footer';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -127,9 +126,7 @@ const ProductsPage = () => {
               </div>
             ))}
           </div>
-        </main>
-      </div>
-      <Footer />
+        </main>      </div>
     </div>
   );
 };
