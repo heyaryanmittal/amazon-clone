@@ -212,14 +212,14 @@ const HorizontalScroller = ({ title, linkText, items }) => {
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
                     <span className="bg-[#cc0c39] text-white text-[12px] px-1.5 py-0.5 rounded-[2px] font-bold">
-                      Up to {item.original_price ? Math.round(((parseFloat(item.original_price) - parseFloat(item.price)) / parseFloat(item.original_price)) * 100) : (item.discount || '40')}% off
+                      Up to {(item.original_price || item.ogPrice) ? Math.round(((parseFloat(String(item.original_price || item.ogPrice).replace(/,/g, '')) - parseFloat(String(item.price).replace(/,/g, ''))) / parseFloat(String(item.original_price || item.ogPrice).replace(/,/g, ''))) * 100) : (item.discount || '40')}% off
                     </span>
                     <span className="text-[#cc0c39] text-[12px] font-bold">Limited time deal</span>
                   </div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-[17px] text-[#0f1111] font-medium">₹{(parseFloat(item.price)).toLocaleString('en-IN')}</span>
+                    <span className="text-[17px] text-[#0f1111] font-medium">₹{(parseFloat(String(item.price).replace(/,/g, ''))).toLocaleString('en-IN')}</span>
                     {(item.original_price || item.ogPrice) && (
-                      <span className="text-[12px] text-[#565959]">M.R.P: <span className="line-through">₹{(parseFloat(item.original_price || item.ogPrice)).toLocaleString('en-IN')}</span></span>
+                      <span className="text-[12px] text-[#565959]">M.R.P: <span className="line-through">₹{(parseFloat(String(item.original_price || item.ogPrice).replace(/,/g, ''))).toLocaleString('en-IN')}</span></span>
                     )}
                   </div>
                 </div>
