@@ -11,23 +11,29 @@ const app = express();
 app.use(compression());
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl)
+    // Allow requests with no origin (like mobile apps, curl, or server-side calls)
     if (!origin) return callback(null, true);
     
-    const allowedOrigins = [
+    // Check if origin matches allowed list or is a Vercel deployment
+    const isAllowed = [
       process.env.CLIENT_URL,
       'http://localhost:5173',
       'http://localhost:3000',
-      'https://amazon-clone-ac.vercel.app'
-    ].filter(Boolean);
+      'https://amazon-clone-ac.vercel.app',
+      'https://amazon-clone-heyaryanmittal.vercel.app'
+    ].some(allowed => allowed === origin) || origin.endsWith('.vercel.app');
 
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+    if (isAllowed) {
       callback(null, true);
     } else {
+      console.warn(`CORS blocked for origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  optionsSuccessStatus: 200
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
