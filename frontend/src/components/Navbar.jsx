@@ -18,7 +18,7 @@ const Navbar = () => {
   const { summary = { totalItems: 0, subtotal: 0 } } = useCart();
   const { user, logout } = useAuth();
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-  const [currentPincode, setCurrentPincode] = useState('110001');
+  const [currentLocation, setCurrentLocation] = useState('New Delhi 110001');
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchInputRef = useRef(null);
@@ -108,7 +108,7 @@ const Navbar = () => {
               onClick={() => setIsLocationModalOpen(true)}
               className="flex flex-col px-2 py-1.5 border border-transparent rounded-[2px] cursor-pointer hover:border-white hidden md:flex min-w-max mr-1 ml-1 h-[50px] justify-center"
             >
-              <span className="text-[12px] text-[#cccccc] font-normal leading-3 pl-[18px]">Delivering to New Delhi {currentPincode}</span>
+              <span className="text-[12px] text-[#cccccc] font-normal leading-3 pl-[18px]">Delivering to {currentLocation}</span>
               <span className="text-[14px] font-bold text-white flex items-center leading-4 mt-[3px]">
                 <MapPin size={16} className="mr-0.5" strokeWidth={2.5} />
                 <span style={{ transform: 'translateY(-1px)' }}>Update location</span>
@@ -353,7 +353,7 @@ const Navbar = () => {
             </Link>
             <Link to="/seller" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Sell</Link>
             <Link to="/products?sort=bestselling" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Bestsellers</Link>
-            <Link to="/products?category=mobiles" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Mobiles</Link>
+            <Link to="/products?category=electronics" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Mobiles</Link>
             <Link to="/products?featured=true" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Today's Deals</Link>
             <Link to="/support" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">Customer Service</Link>
             <Link to="/products?sort=newest" className="px-2 py-1.5 text-white border border-transparent rounded-[2px] no-underline whitespace-nowrap hover:border-white">New Releases</Link>
@@ -418,7 +418,7 @@ const Navbar = () => {
               <hr className="border-[#d5d9d9] my-1 mx-8" />
 
               <div className="font-bold text-[18px] px-8 py-3 mt-1">Shop by Category</div>
-              <Link to="/products?category=mobiles" className="block px-8 py-3 text-[14px] text-[#111] no-underline hover:bg-[#eaeded] flex items-center justify-between">Mobiles, Computers <ChevronRight size={16} className="text-[#888]" /></Link>
+              <Link to="/products?category=electronics" className="block px-8 py-3 text-[14px] text-[#111] no-underline hover:bg-[#eaeded] flex items-center justify-between">Mobiles, Computers <ChevronRight size={16} className="text-[#888]" /></Link>
               <Link to="/products?category=electronics" className="block px-8 py-3 text-[14px] text-[#111] no-underline hover:bg-[#eaeded] flex items-center justify-between">TV, Appliances, Electronics <ChevronRight size={16} className="text-[#888]" /></Link>
               <Link to="/products?category=mens-fashion" className="block px-8 py-3 text-[14px] text-[#111] no-underline hover:bg-[#eaeded] flex items-center justify-between">Men's Fashion <ChevronRight size={16} className="text-[#888]" /></Link>
               <Link to="/products?category=womens-fashion" className="block px-8 py-3 text-[14px] text-[#111] no-underline hover:bg-[#eaeded] flex items-center justify-between">Women's Fashion <ChevronRight size={16} className="text-[#888]" /></Link>
@@ -468,7 +468,7 @@ const Navbar = () => {
       <LocationModal 
         isOpen={isLocationModalOpen} 
         onClose={() => setIsLocationModalOpen(false)} 
-        onApplyPincode={(pin) => setCurrentPincode(pin)}
+        onApplyPincode={(loc) => setCurrentLocation(loc)}
       />
     </>
   );

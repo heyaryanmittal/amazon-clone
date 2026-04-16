@@ -49,7 +49,7 @@ const OrderHistoryPage = () => {
                    <div className="flex gap-12">
                       <div className="flex flex-col uppercase">
                          <span>Order Placed</span>
-                         <span className="text-[#0f1111] font-medium">{new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                         <span className="text-[#0f1111] font-medium">{new Date(order.placed_at || order.placedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                       </div>
                       <div className="flex flex-col uppercase">
                          <span>Total</span>

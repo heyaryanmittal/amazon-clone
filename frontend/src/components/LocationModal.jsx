@@ -47,7 +47,7 @@ const LocationModal = ({ isOpen, onClose, onApplyPincode }) => {
           <div className="flex gap-2">
             <input 
               type="text" 
-              maxLength={6}
+              placeholder="Enter pincode or city"
               value={pincode}
               onChange={(e) => setPincode(e.target.value)}
               className="flex-1 border border-[#bbb] rounded-[4px] py-1 px-3 text-[14px] outline-none focus:border-[#e77600] focus:shadow-[0_0_3px_#e77600]"
