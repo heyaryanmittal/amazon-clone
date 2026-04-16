@@ -60,21 +60,29 @@ app.use((req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal server error' });
+  console.error('Unhandled Error:', err);
+  res.status(500).json({ 
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined 
+  });
 });
 
 const PORT = process.env.PORT || 5000;
 
+// Start server first so Render sees the port as open
+const server = app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📦 Environment: ${process.env.NODE_ENV || 'development'}`);
+});
+
+// Attempt database connection
+console.log('⏳ Connecting to database...');
 prisma.$connect()
   .then(() => {
     console.log('✅ Connected to Supabase (PostgreSQL via Prisma)');
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log(`📦 Amazon Clone API ready`);
-    });
   })
   .catch((err) => {
-    console.error('❌ Failed to connect to database:', err.message);
-    process.exit(1);
+    console.error('❌ Database connection error:', err.message);
+    console.error('Check your DATABASE_URL and DIRECT_URL environment variables.');
+    // Don't exit the process, allow health check to remain active for debugging
   });
