@@ -334,10 +334,10 @@ const AmazonLiveSection = () => (
        </div>
        <div className="flex-1 flex overflow-x-auto gap-4 scrollbar-hide">
           {[
-             { id: 246, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
-             { id: 245, img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
-             { id: 244, img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
-             { id: 247, img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
+             { id: 'live-0', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300', name: 'Premium Studio Headphones - Wireless', price: '12,999' },
+             { id: 'live-1', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300', name: 'Smart Watch Series 7 - Black', price: '2,499' },
+             { id: 'live-2', img: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', name: 'Polarized Sunglasses - Classic Style', price: '899' },
+             { id: 'live-3', img: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', name: 'E-Sports Gaming Mouse - RGB', price: '1,599' }
           ].map((item, i) => (
              <Link key={i} to={`/products/${item.id}`} className="min-w-[160px] flex flex-col border border-[#ddd] p-3 rounded cursor-pointer hover:shadow-sm no-underline group/live">
                 <img src={item.img} className="w-full h-[140px] border border-[#eee] object-contain mb-3 group-hover/live:scale-105 transition-transform" onError={(e)=>{ e.target.onerror = null; e.target.src='https://images.unsplash.com/photo-1574634534894-89d7576c8259?w=150&q=80'; }} />
@@ -369,64 +369,64 @@ const HomePage = () => {
   // Curated scroller data — every image matches its product name
   const scrollerData = {
     headphones: [
-      { id: 194, img: '/images/headphones/headphone_1.jpg', name: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones', price: '29,990', ogPrice: '34,990' },
-      { id: 195, id_ref: 'hp-1', img: '/images/headphones/headphone_2.jpg', name: 'Bose QuietComfort 45 Bluetooth Headphones', price: '24,500', ogPrice: '29,900' },
-      { id: 196, img: '/images/headphones/headphone_3.jpg', name: 'Sennheiser HD 660S Professional Headphones', price: '42,000', ogPrice: '49,990' },
-      { id: 197, img: '/images/headphones/headphone_4.jpg', name: 'Apple AirPods Max - Sky Blue', price: '54,900', ogPrice: '59,900' },
-      { id: 198, img: '/images/headphones/headphone_5.jpg', name: 'Jabra Elite 85h Smart Noise Cancelling Headphones', price: '18,999', ogPrice: '24,999' },
-      { id: 199, img: '/images/headphones/headphone_6.jpg', name: 'Audio-Technica ATH-M50x Professional Monitor Headphones', price: '11,500', ogPrice: '14,500' },
-      { id: 202, img: '/images/headphones/headphone_7.jpg', name: 'Beats Solo3 Wireless On-Ear Headphones', price: '14,500', ogPrice: '19,900' },
-      { id: 201, img: '/images/headphones/headphone_8.jpg', name: 'Marshall Major IV On-Ear Bluetooth Headphones', price: '11,999', ogPrice: '14,999' },
-      { id: 200, img: '/images/headphones/headphone_9.jpg', name: 'JBL Tune 710BT Wireless Over-Ear Headphones', price: '5,499', ogPrice: '7,999' },
-      { id: 203, img: '/images/headphones/headphone_10.jpg', name: 'USB-C Wired In-Ear Headphones with Mic', price: '499', ogPrice: '999' }
+      { id: 'headphones-0', img: '/images/headphones/headphone_1.jpg', name: 'Sony WH-1000XM5 Wireless Noise Cancelling Headphones', price: '29,990', ogPrice: '34,990' },
+      { id: 'headphones-1', img: '/images/headphones/headphone_2.jpg', name: 'Bose QuietComfort 45 Bluetooth Headphones', price: '24,500', ogPrice: '29,900' },
+      { id: 'headphones-2', img: '/images/headphones/headphone_3.jpg', name: 'Sennheiser HD 660S Professional Headphones', price: '42,000', ogPrice: '49,990' },
+      { id: 'headphones-3', img: '/images/headphones/headphone_4.jpg', name: 'Apple AirPods Max - Sky Blue', price: '54,900', ogPrice: '59,900' },
+      { id: 'headphones-4', img: '/images/headphones/headphone_5.jpg', name: 'Jabra Elite 85h Smart Noise Cancelling Headphones', price: '18,999', ogPrice: '24,999' },
+      { id: 'headphones-5', img: '/images/headphones/headphone_6.jpg', name: 'Audio-Technica ATH-M50x Professional Monitor Headphones', price: '11,500', ogPrice: '14,500' },
+      { id: 'headphones-6', img: '/images/headphones/headphone_7.jpg', name: 'Beats Solo3 Wireless On-Ear Headphones', price: '14,500', ogPrice: '19,900' },
+      { id: 'headphones-7', img: '/images/headphones/headphone_8.jpg', name: 'Marshall Major IV On-Ear Bluetooth Headphones', price: '11,999', ogPrice: '14,999' },
+      { id: 'headphones-8', img: '/images/headphones/headphone_9.jpg', name: 'JBL Tune 710BT Wireless Over-Ear Headphones', price: '5,499', ogPrice: '7,999' },
+      { id: 'headphones-9', img: '/images/headphones/headphone_10.jpg', name: 'USB-C Wired In-Ear Headphones with Mic', price: '499', ogPrice: '999' }
     ],
     furniture: [
-      { id: 209, img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa - Forest Green', price: '22,499', ogPrice: '45,000' },
-      { id: 213, img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400', name: 'Minimalist Wooden Study Desk with Shelf', price: '12,999', ogPrice: '22,000' },
-      { id: 210, img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Oak Wood Dining Table - 6 Seater', price: '34,999', ogPrice: '60,000' },
-      { id: 207, img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400', name: 'Queen Size Platform Bed with Storage', price: '18,500', ogPrice: '32,000' },
-      { id: 206, img: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400', name: 'Wall-Mounted Floating Bookshelf Set of 3', price: '2,499', ogPrice: '4,500' },
-      { id: 208, img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400', name: 'Mid-Century Modern Accent Chair', price: '9,999', ogPrice: '18,000' },
-      { id: 211, img: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=400', name: 'Linen Upholstered Ottoman with Storage', price: '5,499', ogPrice: '9,999' },
-      { id: 212, img: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400', name: 'Solid Teak Coffee Table with Drawer', price: '8,999', ogPrice: '16,000' },
-      { id: 205, img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400', name: 'Industrial Metal Wardrobe with Shelves', price: '15,999', ogPrice: '28,000' },
-      { id: 204, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400', name: 'Bamboo Side Table with Magazine Rack', price: '3,299', ogPrice: '5,999' }
+      { id: 'furniture-0', img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400', name: 'Modern Velvet 3-Seater Sofa - Forest Green', price: '22,499', ogPrice: '45,000' },
+      { id: 'furniture-1', img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400', name: 'Minimalist Wooden Study Desk with Shelf', price: '12,999', ogPrice: '22,000' },
+      { id: 'furniture-2', img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=400', name: 'Oak Wood Dining Table - 6 Seater', price: '34,999', ogPrice: '60,000' },
+      { id: 'furniture-3', img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400', name: 'Queen Size Platform Bed with Storage', price: '18,500', ogPrice: '32,000' },
+      { id: 'furniture-4', img: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400', name: 'Wall-Mounted Floating Bookshelf Set of 3', price: '2,499', ogPrice: '4,500' },
+      { id: 'furniture-5', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400', name: 'Mid-Century Modern Accent Chair', price: '9,999', ogPrice: '18,000' },
+      { id: 'furniture-6', img: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=400', name: 'Linen Upholstered Ottoman with Storage', price: '5,499', ogPrice: '9,999' },
+      { id: 'furniture-7', img: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400', name: 'Solid Teak Coffee Table with Drawer', price: '8,999', ogPrice: '16,000' },
+      { id: 'furniture-8', img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400', name: 'Industrial Metal Wardrobe with Shelves', price: '15,999', ogPrice: '28,000' },
+      { id: 'furniture-9', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400', name: 'Bamboo Side Table with Magazine Rack', price: '3,299', ogPrice: '5,999' }
     ],
     art: [
-      { id: 223, img: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400', name: 'Abstract Canvas Wall Art - Hand Painted', price: '4,999', ogPrice: '7,500' },
-      { id: 221, img: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400', name: 'Artist Acrylic Paint Set (24 Colours)', price: '1,299', ogPrice: '2,000' },
-      { id: 217, img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=400', name: 'Organic Lavender Hand-poured Soy Candle', price: '699', ogPrice: '1,200' },
-      { id: 215, img: 'https://images.unsplash.com/photo-1610701502262-da56703fd640?w=400', name: 'Hand-thrown Ceramic Vase (Terracotta)', price: '1,450', ogPrice: '2,200' },
-      { id: 214, img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400', name: 'Premium Full-Grain Leather Bound Journal', price: '1,250', ogPrice: '1,999' },
-      { id: 220, img: 'https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=400', name: 'Hand-painted Mandala Decorative Plate', price: '550', ogPrice: '999' },
-      { id: 219, img: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=400', name: 'Bamboo Woven Storage Basket Set of 2', price: '1,100', ogPrice: '1,800' },
-      { id: 222, img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400', name: 'Watercolour Brush Pen Set (48 Colours)', price: '899', ogPrice: '1,500' },
-      { id: 218, img: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400', name: 'Art Easel Stand - Adjustable Tripod', price: '2,100', ogPrice: '3,500' },
-      { id: 216, img: 'https://images.unsplash.com/photo-1582201942988-13e60e3f3673?w=400', name: 'Handmade Natural Goat Milk Soap Set', price: '399', ogPrice: '750' }
+      { id: 'art-0', img: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400', name: 'Abstract Canvas Wall Art - Hand Painted', price: '4,999', ogPrice: '7,500' },
+      { id: 'art-1', img: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400', name: 'Artist Acrylic Paint Set (24 Colours)', price: '1,299', ogPrice: '2,000' },
+      { id: 'art-2', img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=400', name: 'Organic Lavender Hand-poured Soy Candle', price: '699', ogPrice: '1,200' },
+      { id: 'art-3', img: 'https://images.unsplash.com/photo-1610701502262-da56703fd640?w=400', name: 'Hand-thrown Ceramic Vase (Terracotta)', price: '1,450', ogPrice: '2,200' },
+      { id: 'art-4', img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400', name: 'Premium Full-Grain Leather Bound Journal', price: '1,250', ogPrice: '1,999' },
+      { id: 'art-5', img: 'https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=400', name: 'Hand-painted Mandala Decorative Plate', price: '550', ogPrice: '999' },
+      { id: 'art-6', img: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=400', name: 'Bamboo Woven Storage Basket Set of 2', price: '1,100', ogPrice: '1,800' },
+      { id: 'art-7', img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400', name: 'Watercolour Brush Pen Set (48 Colours)', price: '899', ogPrice: '1,500' },
+      { id: 'art-8', img: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400', name: 'Art Easel Stand - Adjustable Tripod', price: '2,100', ogPrice: '3,500' },
+      { id: 'art-9', img: 'https://images.unsplash.com/photo-1582201942988-13e60e3f3673?w=400', name: 'Handmade Natural Goat Milk Soap Set', price: '399', ogPrice: '750' }
     ],
     cookware: [
-      { id: 224, img: 'https://images.unsplash.com/photo-1556912998-c57cc6b71821?w=400', name: 'Non-Stick Induction Base Frying Pan (24cm)', price: '850', ogPrice: '1,500' },
-      { id: 233, img: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400', name: 'Premium Acacia Wood Cutting Board', price: '1,299', ogPrice: '2,499' },
-      { id: 231, img: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400', name: 'Enameled Cast Iron Dutch Oven (4.5 Quart)', price: '4,500', ogPrice: '7,999' },
-      { id: 227, img: 'https://images.unsplash.com/photo-1593618998160-e34014e67546?w=400', name: 'Stainless Steel Chef Knife Set (5-Piece)', price: '2,999', ogPrice: '5,499' },
-      { id: 225, img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', name: 'Ceramic Coffee Mug Set of 6', price: '899', ogPrice: '1,500' },
-      { id: 230, img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400', name: 'Glass Teapot with Rustproof Infuser', price: '1,150', ogPrice: '1,800' },
-      { id: 228, img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400', name: 'Textured Stoneware Serving Bowls (Set of 4)', price: '1,450', ogPrice: '2,200' },
-      { id: 232, img: 'https://images.unsplash.com/photo-1583394838223-aef6146ee53f?w=400', name: 'Crystal Wine Glasses (Set of 6)', price: '2,199', ogPrice: '3,500' },
-      { id: 229, img: 'https://images.unsplash.com/photo-1585664811087-47f65abbad64?w=400', name: 'Rectangular Ceramic Baking Dish', price: '1,699', ogPrice: '2,500' },
-      { id: 226, img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400', name: 'Silicone Kitchen Utensils Set (12 Pieces)', price: '1,899', ogPrice: '3,000' }
+      { id: 'cookware-0', img: 'https://images.unsplash.com/photo-1556912998-c57cc6b71821?w=400', name: 'Non-Stick Induction Base Frying Pan (24cm)', price: '850', ogPrice: '1,500' },
+      { id: 'cookware-1', img: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400', name: 'Premium Acacia Wood Cutting Board', price: '1,299', ogPrice: '2,499' },
+      { id: 'cookware-2', img: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400', name: 'Enameled Cast Iron Dutch Oven (4.5 Quart)', price: '4,500', ogPrice: '7,999' },
+      { id: 'cookware-3', img: 'https://images.unsplash.com/photo-1593618998160-e34014e67546?w=400', name: 'Stainless Steel Chef Knife Set (5-Piece)', price: '2,999', ogPrice: '5,499' },
+      { id: 'cookware-4', img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400', name: 'Ceramic Coffee Mug Set of 6', price: '899', ogPrice: '1,500' },
+      { id: 'cookware-5', img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400', name: 'Glass Teapot with Rustproof Infuser', price: '1,150', ogPrice: '1,800' },
+      { id: 'cookware-6', img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400', name: 'Textured Stoneware Serving Bowls (Set of 4)', price: '1,450', ogPrice: '2,200' },
+      { id: 'cookware-7', img: 'https://images.unsplash.com/photo-1583394838223-aef6146ee53f?w=400', name: 'Crystal Wine Glasses (Set of 6)', price: '2,199', ogPrice: '3,500' },
+      { id: 'cookware-8', img: 'https://images.unsplash.com/photo-1585664811087-47f65abbad64?w=400', name: 'Rectangular Ceramic Baking Dish', price: '1,699', ogPrice: '2,500' },
+      { id: 'cookware-9', img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400', name: 'Silicone Kitchen Utensils Set (12 Pieces)', price: '1,899', ogPrice: '3,000' }
     ],
     brands: [
-      { id: 237, img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400', name: 'Matte Liquid Lipstick Set (6 Shades)', price: '999', ogPrice: '2,500' },
-      { id: 242, img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400', name: 'Refresh Face Wash - Organic Aloe Vera', price: '450', ogPrice: '800' },
-      { id: 236, img: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400', name: 'Hyaluronic Acid Skin Serum (30ml)', price: '1,200', ogPrice: '2,200' },
-      { id: 241, img: 'https://images.unsplash.com/photo-1601054763260-1510443e06f9?w=400', name: 'Vitamin C Brightening Moisturizer', price: '799', ogPrice: '1,500' },
-      { id: 243, img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=400', name: 'Rose Gold Makeup Brush Set (12 Pcs)', price: '1,499', ogPrice: '2,999' },
-      { id: 240, img: 'https://images.unsplash.com/photo-1602928340334-a78b5ce54ccd?w=400', name: 'Lavender Essential Oil - Pure (15ml)', price: '349', ogPrice: '699' },
-      { id: 238, img: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400', name: 'Men\'s Grooming Kit - Beard Care Set', price: '899', ogPrice: '1,800' },
-      { id: 239, img: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400', name: 'Coconut & Shea Butter Body Lotion', price: '599', ogPrice: '1,100' },
-      { id: 235, img: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400', name: 'Hair Repair Keratin Treatment Mask', price: '650', ogPrice: '1,200' },
-      { id: 234, img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400', name: 'Compact Powder Foundation - Matte Finish', price: '549', ogPrice: '999' }
+      { id: 'brands-0', img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400', name: 'Matte Liquid Lipstick Set (6 Shades)', price: '999', ogPrice: '2,500' },
+      { id: 'brands-1', img: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400', name: 'Refresh Face Wash - Organic Aloe Vera', price: '450', ogPrice: '800' },
+      { id: 'brands-2', img: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400', name: 'Hyaluronic Acid Skin Serum (30ml)', price: '1,200', ogPrice: '2,200' },
+      { id: 'brands-3', img: 'https://images.unsplash.com/photo-1601054763260-1510443e06f9?w=400', name: 'Vitamin C Brightening Moisturizer', price: '799', ogPrice: '1,500' },
+      { id: 'brands-4', img: 'https://images.unsplash.com/photo-1571781564287-321153a5cce4?w=400', name: 'Rose Gold Makeup Brush Set (12 Pcs)', price: '1,499', ogPrice: '2,999' },
+      { id: 'brands-5', img: 'https://images.unsplash.com/photo-1602928340334-a78b5ce54ccd?w=400', name: 'Lavender Essential Oil - Pure (15ml)', price: '349', ogPrice: '699' },
+      { id: 'brands-6', img: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400', name: 'Men\'s Grooming Kit - Beard Care Set', price: '899', ogPrice: '1,800' },
+      { id: 'brands-7', img: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400', name: 'Coconut & Shea Butter Body Lotion', price: '599', ogPrice: '1,100' },
+      { id: 'brands-8', img: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400', name: 'Hair Repair Keratin Treatment Mask', price: '650', ogPrice: '1,200' },
+      { id: 'brands-9', img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400', name: 'Compact Powder Foundation - Matte Finish', price: '549', ogPrice: '999' }
     ]
   };
 

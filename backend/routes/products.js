@@ -220,7 +220,7 @@ router.get('/:idOrSlug', async (req, res) => {
     const related = await prisma.product.findMany({
       where: {
         categoryId: product.categoryId,
-        id: { not: productId },
+        id: { not: product.id },
         isActive: true
       },
       include: {
