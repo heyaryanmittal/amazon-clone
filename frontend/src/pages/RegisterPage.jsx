@@ -19,7 +19,12 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen flex flex-col items-center pt-8">
+    <div className="bg-white min-h-screen flex flex-col items-center">
+      {/* Portfolio Disclaimer Banner */}
+      <div className="w-full bg-[#FFFFE0] text-[#856404] text-[11px] py-1 px-4 text-center border-b border-[#ffeeba] font-sans">
+        <strong>⚠️ Portfolio Project:</strong> This is a demo clone for educational purposes. <strong>Do not enter your real Amazon credentials.</strong>
+      </div>
+      <div className="flex flex-col items-center pt-8">
       <Link to="/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[35px] mb-6" /></Link>
       
       <div className="w-[350px] border border-[#ddd] p-6 rounded-[4px] shadow-sm mb-6">
@@ -96,6 +101,7 @@ const RegisterPage = () => {
             <Link to="#" className="hover:underline">Help</Link>
          </div>
          <p className="text-[11px] text-[#555]">© 1996-2024, Amazon.com, Inc. or its affiliates</p>
+      </div>
       </div>
     </div>
   );
