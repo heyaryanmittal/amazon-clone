@@ -102,10 +102,10 @@ const Navbar = () => {
         {/* Main Navbar Top */}
         <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-3 py-[6px] w-full min-h-[60px]">
           {/* Logo & Delivery Area */}
-          <div className="flex items-center w-full sm:w-auto justify-between mb-2 sm:mb-0">
-            <Link to="/" className="flex items-center px-2 py-2 border border-transparent rounded-[2px] no-underline transition-colors duration-150 hover:border-white mr-1 mt-1">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[30px] filter invert hue-rotate-180" style={{ transform: 'translateY(-2px)' }} />
-              <span className="text-[14px] text-white ml-0.5 mt-[-14px]">.in</span>
+          <div className="flex items-center w-full sm:w-auto justify-between mb-1 sm:mb-0">
+            <Link to="/" className="flex items-center px-1 sm:px-2 py-1 sm:py-2 border border-transparent rounded-[2px] no-underline transition-colors duration-150 hover:border-white mr-1 mt-1 shrink-0">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-[24px] sm:h-[30px] filter invert hue-rotate-180" style={{ transform: 'translateY(-2px)' }} />
+              <span className="text-[12px] sm:text-[14px] text-white ml-0.5 mt-[-10px] sm:mt-[-14px]">.in</span>
             </Link>
 
             <div 
@@ -120,15 +120,18 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Account & Cart */}
-            <div className="flex sm:hidden items-center gap-2">
-              <span className="text-[14px]">Sign in <span>›</span></span>
-              <User size={24} />
-              <div className="relative">
-                <svg viewBox="0 0 38 40" className="w-10 h-10" fill="white">
+            <div className="flex sm:hidden items-center gap-3 pr-1">
+              <Link to="/login" className="text-[13px] text-white no-underline flex items-center gap-1">
+                <span className="font-medium whitespace-nowrap">Sign in</span>
+                <ChevronRight size={14} className="mt-0.5" />
+              </Link>
+              <User size={20} className="text-white" />
+              <Link to="/cart" className="relative flex items-center">
+                <svg viewBox="0 0 38 40" className="w-8 h-8" fill="white">
                   <path d="M12 28a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm20 0a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm1.18-18L30 22H11l-1.5-12h23.68zm2.66-2H9L7.5 0H0v2h6.5l3.5 28H34v-2H11.5l-1-8h22.68l3-12h-3.34z" />
                 </svg>
-                <span className="absolute top-[6px] left-[18px] text-[#F08804] font-bold text-[15px]">{summary.totalItems || 0}</span>
-              </div>
+                <span className="absolute top-[4px] left-[15px] text-[#F08804] font-bold text-[14px]">{summary.totalItems || 0}</span>
+              </Link>
             </div>
           </div>
 
