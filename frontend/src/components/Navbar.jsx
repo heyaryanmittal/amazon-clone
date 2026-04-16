@@ -94,6 +94,10 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Portfolio Disclaimer Banner */}
+      <div className="bg-[#FFFFE0] text-[#856404] text-[11px] py-1 px-4 text-center border-b border-[#ffeeba] font-sans">
+        <strong>⚠️ Portfolio Project:</strong> This is a demo clone for educational purposes. No real transactions are processed. Please do not enter real sensitive data.
+      </div>
       <nav className="sticky top-0 z-[1000] bg-[#131921] text-white flex flex-col" id="main-navbar">
         {/* Main Navbar Top */}
         <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 px-3 py-[6px] w-full min-h-[60px]">
