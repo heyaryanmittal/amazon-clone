@@ -62,7 +62,24 @@ const ProductDetailPage = () => {
     }
   };
 
-  if (loading) return <div className="animate-pulse bg-white min-h-screen"></div>;
+  if (loading) return (
+    <div className="bg-white min-h-screen animate-pulse">
+      <div className="max-w-[1500px] mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+        <div className="md:w-[42%] h-[550px] bg-gray-100 rounded"></div>
+        <div className="md:w-[40%] space-y-4">
+          <div className="h-8 bg-gray-100 rounded w-3/4"></div>
+          <div className="h-4 bg-gray-100 rounded w-1/4"></div>
+          <div className="h-10 bg-gray-100 rounded w-1/2"></div>
+          <div className="h-40 bg-gray-100 rounded w-full"></div>
+        </div>
+        <div className="md:w-[18%] h-[300px] border border-gray-100 rounded p-4">
+          <div className="h-6 bg-gray-100 rounded w-1/2 mb-4"></div>
+          <div className="h-10 bg-gray-100 rounded-full w-full mb-2"></div>
+          <div className="h-10 bg-gray-100 rounded-full w-full"></div>
+        </div>
+      </div>
+    </div>
+  );
   if (!product) return <div className="p-10 text-center">Product not found.</div>;
 
   return (

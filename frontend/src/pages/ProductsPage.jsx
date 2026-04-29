@@ -458,8 +458,16 @@ const ProductsPage = () => {
               ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-6 gap-x-4"
               : "flex flex-col gap-4"
             }>
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className={`animate-pulse bg-gray-100 rounded ${viewMode === 'grid' ? 'h-[380px]' : 'h-[200px]'}`}></div>
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className={`animate-pulse bg-white border border-gray-100 p-3 rounded-[3px] flex flex-col ${viewMode === 'grid' ? 'h-[400px]' : 'h-[200px] flex-row gap-5'}`}>
+                  <div className={`${viewMode === 'grid' ? 'h-[200px] w-full mb-3' : 'h-full w-[200px]'} bg-gray-100 rounded`}></div>
+                  <div className="flex-1 space-y-3">
+                    <div className="h-4 bg-gray-100 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-100 rounded w-1/2"></div>
+                    <div className="h-8 bg-gray-100 rounded w-1/4 mt-auto"></div>
+                    <div className="h-9 bg-gray-100 rounded-full w-full"></div>
+                  </div>
+                </div>
               ))}
             </div>
           ) : products.length === 0 ? (

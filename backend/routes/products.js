@@ -1,6 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const prisma = require('../config/db');
+const nodeCache = require('node-cache');
+const cache = new nodeCache({ stdTTL: 300, checkperiod: 60 }); // 5 minute default cache
+
+/**
+ * Cache helper
+ */
+const getCacheKey = (req) => {
+  const url = req.originalUrl || req.url;
+  return url;
+};
 
 /**
  * Helper to transform Prisma product objects to match frontend expected snake_case fields
@@ -58,6 +68,12 @@ router.get('/', async (req, res) => {
       limit = 20,
       featured = ''
     } = req.query;
+
+    const cacheKey = getCacheKey(req);
+    const cachedData = cache.get(cacheKey);
+    if (cachedData) {
+      return res.json(cachedData);
+    }
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
 
@@ -138,8 +154,7 @@ router.get('/', async (req, res) => {
       prisma.product.count({ where })
     ]);
 
-    res.set('Cache-Control', 'public, max-age=60'); // Cache for 60 seconds
-    res.json({
+    const responseData = {
       products: products.map(formatProduct),
       pagination: {
         total,
@@ -147,7 +162,11 @@ router.get('/', async (req, res) => {
         limit:      parseInt(limit),
         totalPages: Math.ceil(total / parseInt(limit))
       }
-    });
+    };
+
+    cache.set(cacheKey, responseData);
+    res.set('Cache-Control', 'public, max-age=60');
+    res.json(responseData);
   } catch (error) {
     console.error('Get products error:', error);
     res.status(500).json({ error: 'Failed to fetch products' });
@@ -157,12 +176,14 @@ router.get('/', async (req, res) => {
 // GET /api/products/featured
 router.get('/featured', async (req, res) => {
   try {
+    const cacheKey = getCacheKey(req);
+    const cachedData = cache.get(cacheKey);
+    if (cachedData) return res.json(cachedData);
+
     const products = await prisma.product.findMany({
       where: { isActive: true, isFeatured: true },
       include: {
-        category: {
-          select: { name: true, slug: true }
-        },
+        category: { select: { name: true, slug: true } },
         images: {
           where: { isPrimary: true },
           take: 1,
@@ -173,8 +194,10 @@ router.get('/featured', async (req, res) => {
       take: 12
     });
 
-    res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
-    res.json({ products: products.map(formatProduct) });
+    const responseData = { products: products.map(formatProduct) };
+    cache.set(cacheKey, responseData);
+    res.set('Cache-Control', 'public, max-age=300');
+    res.json(responseData);
   } catch (error) {
     console.error('Get featured products error:', error);
     res.status(500).json({ error: 'Failed to fetch featured products' });
@@ -209,6 +232,25 @@ router.get('/:idOrSlug', async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
+    const [related] = await Promise.all([
+      prisma.product.findMany({
+        where: {
+          categoryId: product.categoryId,
+          id: { not: product.id },
+          isActive: true
+        },
+        include: {
+          images: {
+            where: { isPrimary: true },
+            take: 1,
+            select: { imageUrl: true }
+          }
+        },
+        orderBy: { rating: 'desc' },
+        take: 6
+      })
+    ]);
+
     const formattedProduct = formatProduct(product);
     
     // Also send all images for the gallery
@@ -216,23 +258,6 @@ router.get('/:idOrSlug', async (req, res) => {
       ...img,
       image_url: img.imageUrl // keep frontend compatibility
     }));
-
-    const related = await prisma.product.findMany({
-      where: {
-        categoryId: product.categoryId,
-        id: { not: product.id },
-        isActive: true
-      },
-      include: {
-        images: {
-          where: { isPrimary: true },
-          take: 1,
-          select: { imageUrl: true }
-        }
-      },
-      orderBy: { rating: 'desc' },
-      take: 6
-    });
 
     res.json({ 
       product: formattedProduct, 
