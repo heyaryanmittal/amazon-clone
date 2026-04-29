@@ -93,6 +93,7 @@ model Product {
   @@index([isActive])
   @@index([isFeatured])
   @@index([createdAt])
+  @@index([categoryId, isActive])
   @@map("products")
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Star, MapPin, ChevronRight, ShieldCheck, Truck, RefreshCcw, Tag } from 'lucide-react';
-import { getProduct, addToWishlist, removeFromWishlist, checkWishlist } from '../services/api';
+import { getProduct, addToWishlist, removeFromWishlist, checkWishlist, optimizeImage } from '../services/api';
 import { useCart } from '../context/CartContext';
 import Navbar from '../components/Navbar';
 import toast from 'react-hot-toast';
@@ -109,13 +109,13 @@ const ProductDetailPage = () => {
                         onMouseEnter={() => setSelectedImage(i)} 
                         className={`w-[45px] h-[45px] border rounded-[2px] p-1 cursor-pointer transition-all ${i === selectedImage ? 'border-[#e77600] shadow-[0_0_3px_#e77600]' : 'border-[#ddd] hover:border-[#e77600]'}`}
                      >
-                        <img src={img.image_url || img.imageUrl || product.image_url} className="w-full h-full object-contain" alt={`Thumbnail ${i}`} />
+                        <img src={optimizeImage(img.image_url || img.imageUrl || product.image_url, 100)} className="w-full h-full object-contain" alt={`Thumbnail ${i}`} />
                      </div>
                   ))}
               </div>
               <div className="flex-1 border border-transparent flex items-center justify-center overflow-hidden bg-white">
                   <img 
-                    src={images[selectedImage]?.image_url || images[selectedImage]?.imageUrl || product.image_url} 
+                    src={optimizeImage(images[selectedImage]?.image_url || images[selectedImage]?.imageUrl || product.image_url, 800)} 
                     alt={product.name} 
                     className="max-w-[95%] max-h-[90%] object-contain hover:scale-105 transition-transform duration-300" 
                   />

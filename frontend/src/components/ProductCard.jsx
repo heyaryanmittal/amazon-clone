@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star, StarHalf, Heart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { addToWishlist, removeFromWishlist } from '../services/api';
+import { addToWishlist, removeFromWishlist, optimizeImage } from '../services/api';
 import toast from 'react-hot-toast';
 
 export const StarRating = ({ rating, size = 14 }) => {
@@ -43,7 +43,8 @@ const ProductCard = ({ product, showBuyNow = false }) => {
   const navigate = useNavigate();
 
   const discount = getDiscount(product.price, product.original_price);
-  const image = product.primary_image || product.image_url || product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80';
+  const rawImage = product.primary_image || product.image_url || product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80';
+  const image = optimizeImage(rawImage, 400);
 
   const handleAddToCart = async (e) => {
     e.preventDefault();

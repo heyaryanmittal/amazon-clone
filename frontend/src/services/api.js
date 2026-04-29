@@ -10,6 +10,16 @@ const api = axios.create({
   },
 });
 
+// Image Optimization Utility for Unsplash
+export const optimizeImage = (url, width = 600) => {
+  if (!url || typeof url !== 'string') return url;
+  if (url.includes('unsplash.com')) {
+    const baseUrl = url.split('?')[0];
+    return `${baseUrl}?w=${width}&q=80&auto=format&fit=crop`;
+  }
+  return url;
+};
+
 // Request interceptor - attach auth token
 api.interceptors.request.use(
   (config) => {
