@@ -40,7 +40,7 @@ A high-performance, full-stack Amazon clone built with a modern tech stack cente
 
 ### Backend
 - **Runtime**: Node.js (Express.js)
-- **Database**: PostgreSQL (Supabase / Railway)
+- **Database**: PostgreSQL (Supabase)
 - **ORM**: Prisma
 - **Auth**: JSON Web Tokens (JWT)
 - **Utilities**: Multer (File uploads), Nodemailer, UUID, Compression
